@@ -18,7 +18,7 @@ class Course(TimeStampedModel, StatusModel):
         verbose_name = "курс"
         verbose_name_plural = "курсы"
 
-    course_overview = models.ForeignKey('openedx.core.djangoapps.content.course_overviews.models.CourseOverview', db_index=True, related_name='umnoc_courses',
+    course_overview = models.ForeignKey('course_overviews.CourseOverview', db_index=True, related_name='umnoc_courses',
                                         on_delete=models.CASCADE)
 
     STATUS = Choices('draft', 'published')
