@@ -9,16 +9,40 @@ from model_utils.models import TimeStampedModel, SoftDeletableModel
 
 class Organization(TimeStampedModel, SoftDeletableModel):
     """
-    TODO: replace with a brief description of the model.
-
-    TODO: Add either a negative or a positive PII annotation to the end of this docstring.  For more
-    information, see OEP-30:
-    https://open-edx-proposals.readthedocs.io/en/latest/oep-0030-arch-pii-markup-and-auditing.html
+    Организация. Правообладатель курса.
     """
+    STATUS = Choices('draft', 'published')
 
     uuid = UUIDField(version=4, editable=False, unique=True)
 
-    STATUS = Choices('draft', 'published')
+    title = models.CharField('Название', blank=False, null=False, unique=True, max_length=1024)
+    short_name = models.CharField('Аббревиатура', blank=False, null=False, unique=True, max_length=64)
+    slug = models.CharField('Человеко-понятный уникальный идентификатор', blank=False, null=False, max_length=64, unique=True)
+    description = models.TextField('Описание', blank=True, null=True)
+    logo = models.ImageField(
+        upload_to='org_logos',
+        help_text='Please add only .PNG files for logo images. This logo will be used on Organization logo.',
+        null=True, blank=True
+    )
+    image_background = models.ImageField(
+        upload_to='org_background',
+        help_text='Please add only .PNG files for background images. This image will be used on Organization background image.',
+        null=True, blank=True
+    )
+    active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.title
+
+    def get_courses(self):
+        return self.organizationcourse_set.all()
+
+    class Meta:
+        """ Meta class for this Django model """
+        verbose_name = 'Организация'
+        verbose_name_plural = 'Организации'
+
+
     status = StatusField()
     published_at = MonitorField(monitor='status', when=['published'])
 
@@ -53,27 +77,40 @@ class Direction(TimeStampedModel):
 
 class Project(TimeStampedModel, SoftDeletableModel):
     """
-    TODO: replace with a brief description of the model.
-
-    TODO: Add either a negative or a positive PII annotation to the end of this docstring.  For more
-    information, see OEP-30:
-    https://open-edx-proposals.readthedocs.io/en/latest/oep-0030-arch-pii-markup-and-auditing.html
+    Образовательный проект. Позволяет расширить набор программ
     """
 
     uuid = UUIDField(primary_key=True, version=4, editable=False)
 
+    title = models.CharField('Название', blank=False, null=False, max_length=1024, default="")
+    short_name = models.CharField('Аббревиатура', blank=False, null=False, max_length=64, default="", unique=True)
+    slug = models.CharField('Человеко-понятный уникальный идентификатор', blank=False, null=False, max_length=64,
+                            default="", unique=True)
+    owner = models.ForeignKey('Organization', related_name="projects", blank=True, null=True,
+                              on_delete=models.SET_NULL)
+    description = models.TextField('Описание', blank=True, null=True)
+    logo = models.ImageField(
+        upload_to='project_logos',
+        help_text='Please add only .PNG files for logo images. This logo will be used on Project logo.',
+        null=True, blank=True, max_length=255
+    )
+    image_background = models.ImageField(
+        upload_to='project_background',
+        help_text='Please add only .PNG files for background images. This image will be used on Project background image.',
+        null=True, blank=True
+    )
+    active = models.BooleanField(default=True)
+
     STATUS = Choices('draft', 'published')
     status = StatusField()
     published_at = MonitorField(monitor='status', when=['published'])
-
-    # TODO: add field definitions
 
     def __str__(self):
         """
         Get a string representation of this model instance.
         """
         # TODO: return a string appropriate for the data fields
-        return '<Project, ID: {}>'.format(self.id)
+        return f'<UMNOC Project, uuid: {self.uuid}, title: {self.title}>'
 
 
 class Program(TimeStampedModel, SoftDeletableModel):

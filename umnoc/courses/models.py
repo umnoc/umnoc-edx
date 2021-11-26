@@ -33,7 +33,7 @@ class Course(TimeStampedModel, StatusModel):
         Get a string representation of this model instance.
         """
         # TODO: return a string appropriate for the data fields
-        return f'<Course, ID: {self.course_overview}>'
+        return f'<UMNOC course, ID: {self.course_overview}, title: {self.course_overview.display_name}>'
 
 
 class ProgramCourse(TimeStampedModel):
@@ -51,8 +51,8 @@ class ProgramCourse(TimeStampedModel):
             ('course', 'program'),
         )
 
-    course = models.ForeignKey(Course, blank=False, null=False, on_delete=models.CASCADE)
-    program = models.ForeignKey(Program, blank=False, null=False, on_delete=models.CASCADE)
+    course = models.ForeignKey('Course', blank=False, null=False, on_delete=models.CASCADE)
+    program = models.ForeignKey('Program', blank=False, null=False, on_delete=models.CASCADE)
     active = models.BooleanField(default=True)
 
     def __str__(self):
@@ -65,11 +65,7 @@ class ProgramCourse(TimeStampedModel):
 
 class OrganizationCourse(TimeStampedModel):
     """
-    TODO: replace with a brief description of the model.
-
-    TODO: Add either a negative or a positive PII annotation to the end of this docstring.  For more
-    information, see OEP-30:
-    https://open-edx-proposals.readthedocs.io/en/latest/oep-0030-arch-pii-markup-and-auditing.html
+    Курс организации
     """
 
     class Meta:
@@ -78,13 +74,9 @@ class OrganizationCourse(TimeStampedModel):
             ('course', 'organization'),
         )
 
-    course = models.ForeignKey(Course, blank=False, null=False, on_delete=models.CASCADE)
-    organization = models.ForeignKey(Program, blank=False, null=False, on_delete=models.CASCADE)
+    course = models.ForeignKey('Course', blank=False, null=False, on_delete=models.CASCADE)
+    organization = models.ForeignKey('Program', blank=False, null=False, on_delete=models.CASCADE)
     active = models.BooleanField(default=True)
 
     def __str__(self):
-        """
-        Get a string representation of this model instance.
-        """
-        # TODO: return a string appropriate for the data fields
         return f'<OrganizationCourse, ID: {self.id}, Course: {self.course.id}, Organization: {self.organization.id}>'

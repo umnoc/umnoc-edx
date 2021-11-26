@@ -14,6 +14,23 @@ class UMNOCAdminSite(admin.AdminSite):
 umnoc_admin_site = UMNOCAdminSite(name='umnoc_admin')
 
 
+# inlines
+class OrganizationCourseInline(admin.TabularInline):
+    model = OrganizationCourse
+    extra = 1
+
+
+# modeladmins
+
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(Organization)
+class OrganizationAdmin(admin.ModelAdmin):
+    list_display = ('title', 'short_name', 'logo', 'active',)
+    list_filter = ('active',)
+    ordering = ('title', 'short_name',)
+    search_fields = ('title', 'short_name', 'slug')
+    inlines = [OrganizationCourseInline]
