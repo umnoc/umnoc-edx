@@ -1,6 +1,7 @@
 from datetime import date
 from typing import List
 
+from ninja import ModelSchema
 from ninja import NinjaAPI
 from ninja import Schema
 
@@ -9,22 +10,14 @@ from .core.models import Program, Project
 api = NinjaAPI()
 
 
-class ProgramOut(Schema):
-    uuid: str
-    title: str
-    short_name: str
-    slug: str
-    description: str
-    logo: str
-    number_of_hours: int
-    edu_start_date: date = None
-    edu_end_date: date = None
-
+class ProgramSchema(ModelSchema):
     class Config:
-        arbitrary_types_allowed = True
+        model = Program
+        model_fields = ['uuid', 'title', 'short_name', 'slug', 'description', 'number_of_hours', 'logo',
+                        'edu_start_date', 'edu_end_date']
 
 
 @api.get("/programs")
-def programs(request, response=List[ProgramOut]):
+def programs(request, response=List[ProgramSchema]):
     qs = Program.objects.filter(active=True, status='published')
     return qs
