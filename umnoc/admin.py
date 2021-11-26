@@ -7,6 +7,7 @@ from .core.models import (
     OrganizationCourse,
     Direction,
     Project,
+    Program,
     TextBlock
 )
 from .courses.models import (Course)
