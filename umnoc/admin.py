@@ -39,7 +39,7 @@ class ProgramCourseInline(admin.TabularInline):
 
 @admin.register(Course, site=umnoc_admin_site)
 class CourseAdmin(admin.ModelAdmin):
-    autocomplete_fields = ['course_overview']
+    autocomplete_fields = ['course_overview__display_name']
     search_fields = ['course_overview__display_name']
 
 
