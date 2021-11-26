@@ -117,9 +117,10 @@ class Program(TimeStampedModel, SoftDeletableModel):
     uuid = UUIDField(primary_key=True, version=4, editable=False)
 
     ENROLLMENT_STATUSES = Choices("Недоступна", "Доступна", "По расписанию")
+    STATUS = Choices('draft', 'published')
+
     enrollment_allowed = StatusField(choices_name="ENROLLMENT_STATUSES")
 
-    published_at = MonitorField(monitor='status', when=['published'])
     title = models.CharField('Наименование', blank=False, null=False, max_length=1024, default="")
     short_name = models.CharField('Аббревиатура', blank=False, null=False, max_length=64, default="", unique=True)
     slug = models.CharField('Человеко-понятный уникальный идентификатор', blank=False, null=False, max_length=64,
@@ -135,18 +136,22 @@ class Program(TimeStampedModel, SoftDeletableModel):
         help_text='Please add only .PNG files for background images. This image will be used on Program background image.',
         null=True, blank=True
     )
-    active = models.BooleanField(default=True)
+
     owner = models.ForeignKey(Organization, related_name="programs", blank=True, null=True,
                               on_delete=models.SET_NULL)
     project = models.ForeignKey(Project, related_name="realized_programs", blank=True, null=True,
                                 on_delete=models.SET_NULL)
     direction = models.ForeignKey(Direction, blank=True, null=True, on_delete=models.SET_NULL)
-    enrollment_allowed = models.CharField("Доступность записи", choices=ENROLLMENT_STATUSES, max_length=1, default="2")
     id_unit_program = models.CharField("Программа ID", blank=True, null=True, max_length=64)
     edu_start_date = models.DateField("Дата начала программы", null=True, blank=True)
     edu_end_date = models.DateField("Дата завершения программы", null=True, blank=True)
     number_of_hours = models.PositiveSmallIntegerField("Количество часов", null=True, blank=True)
     issued_document_name = models.CharField("Выдаваемый Документ", null=True, blank=True, max_length=128)
+
+    active = models.BooleanField(default=True)
+
+    status = StatusField()
+    published_at = MonitorField(monitor='status', when=['published'])
 
     class Meta:
         verbose_name = "образовательная программа"
