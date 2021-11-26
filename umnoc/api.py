@@ -5,8 +5,9 @@ from ninja import ModelSchema
 from ninja import NinjaAPI
 from ninja import Schema
 from ninja.orm import create_schema
-from opaque_keys.edx.keys import UsageKey
+from opaque_keys.edx.keys import UsageKey, CourseKey
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
+from xmodule.tabs import CourseTab
 
 from .core.models import Program, Project, Organization
 from .courses.models import Course
@@ -38,12 +39,12 @@ BaseCourseOverviewSchema = create_schema(
         ('display_name_with_default', str, None),
         ('display_name_with_default_escaped', str, None),
         ('dashboard_start_display', date, None),
-        # ('start_date_is_still_default', str, None),
-        # ('sorting_score', str, None),
-        # ('start_type', str, None),
-        # ('start_display', str, None),
-        # ('pre_requisite_courses', str, None),
-        # ('tabs', str, None),
+        ('start_date_is_still_default', bool, True),
+        ('sorting_score', int, None),
+        ('start_type', str, 'empty'),
+        ('start_display', date, None),
+        ('pre_requisite_courses', str, None),
+        ('tabs', str, None),
         # ('image_urls', str, None),
         # ('pacing', str, None),
         # ('closest_released_language', str, None),
@@ -64,6 +65,9 @@ BaseCourseOverviewSchema = create_schema(
 
 
 class CourseOverviewSchema(BaseCourseOverviewSchema):
+    pre_requisite_courses: List[CourseKey] = []
+    tabs: List[CourseTab] = []
+
     class Config(BaseCourseOverviewSchema.Config):
         arbitrary_types_allowed = True
 
