@@ -25,7 +25,7 @@ umnoc_admin_site = UMNOCAdminSite(name='umnoc_admin')
 class OrganizationCourseInline(admin.TabularInline):
     model = OrganizationCourse
     extra = 1
-    autocomplete_fields = ['course_overview']
+    autocomplete_fields = ['course']
 
 
 # modeladmins
@@ -33,6 +33,7 @@ class OrganizationCourseInline(admin.TabularInline):
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
     autocomplete_fields = ['course_overview']
+    search_fields = ['course_overview']
 
 
 @admin.register(Organization)
