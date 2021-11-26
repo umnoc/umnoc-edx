@@ -65,30 +65,6 @@ CourseOverviewSchema = create_schema(
 
 class CourseSchema(ModelSchema):
     course_overview: CourseOverviewSchema = None
-    url_name: str
-    display_name_with_default: str
-    display_name_with_default_escaped: str
-    dashboard_start_display: str
-    start_date_is_still_default: str
-    sorting_score: str
-    start_type: str
-    start_display: str
-    pre_requisite_courses: List[str]
-    tabs: List[str]
-    image_urls: List[str]
-    pacing: str
-    closest_released_language: str
-    allow_public_wiki_access: str
-    textbooks: str
-    pdf_textbooks: str
-    html_textbooks: str
-    hide_progress_tab: str
-    edxnotes: str
-    enable_ccx: bool
-    course_visibility: str
-    teams_enabled: bool
-    show_calculator: bool
-    edxnotes_visibility: bool
 
     class Config:
         model = Course
