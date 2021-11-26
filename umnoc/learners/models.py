@@ -23,7 +23,7 @@ class ProgramEnrollment(TimeStampedModel):
     STATUS_CHOICES = ProgramEnrollmentStatuses.__MODEL_CHOICES__
 
     class Meta:
-        app_label = "learners"
+        app_label = "umnoc"
 
         # A student enrolled in a given (program, project) should always
         # have a non-null ``user`` or ``external_user_key`` field (or both).

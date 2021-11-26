@@ -59,4 +59,4 @@ docs/umnoc_edx.*.rst
 # Private requirements
 requirements/private.in
 requirements/private.txt
-.idea/
+.idea
