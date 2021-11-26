@@ -13,7 +13,7 @@ api = NinjaAPI()
 
 class CourseSchema(ModelSchema):
     class Config:
-        model: Course
+        model = Course
         model_fields = [
             'course_overview__id',
             'course_overview__display_name',
