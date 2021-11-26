@@ -12,7 +12,7 @@ from ninja.renderers import BaseRenderer
 from opaque_keys.edx.keys import UsageKey, CourseKey
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 from xmodule.tabs import CourseTab
-
+from xmodule.course_module import Textbook
 from .core.models import Program, Project, Organization
 from .courses.models import Course
 
@@ -62,10 +62,10 @@ BaseCourseOverviewSchema = create_schema(
         ('pre_requisite_courses', str, None),
         ('tabs', str, None),
         ('image_urls', dict, None),
-        # ('pacing', str, None),
-        # ('closest_released_language', str, None),
-        # ('allow_public_wiki_access', str, None),
-        # ('textbooks', str, None),
+        ('pacing', str, None),
+        ('closest_released_language', str, None),
+        ('allow_public_wiki_access', bool, None),
+        ('textbooks', List[Dict[str]], None),
         # ('pdf_textbooks', str, None),
         # ('html_textbooks', str, None),
         # ('hide_progress_tab', str, None),
