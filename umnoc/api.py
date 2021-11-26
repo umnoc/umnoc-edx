@@ -36,7 +36,7 @@ class ChapterSchema(Schema):
     url: str = None
 
 
-class PDFTextbookSchema(Schema):
+class TextbookSchema(Schema):
     chapters: List[ChapterSchema] = []
 
 
@@ -75,14 +75,12 @@ BaseCourseOverviewSchema = create_schema(
         ('pacing', str, None),
         ('closest_released_language', str, None),
         ('allow_public_wiki_access', bool, None),
-        ('textbooks', List[Dict[str, str]], None),
-        ('pdf_textbooks', List[PDFTextbookSchema], None),
-        ('html_textbooks', List[PDFTextbookSchema], None),
+        ('textbooks', List[TextbookSchema], None),
+        ('pdf_textbooks', List[TextbookSchema], None),
+        ('html_textbooks', List[TextbookSchema], None),
         ('course_visibility', str, None),
         ('teams_enabled', bool, None),
-
     ]
-
 )
 
 
