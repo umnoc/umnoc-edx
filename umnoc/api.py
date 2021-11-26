@@ -3,7 +3,8 @@ from typing import List
 
 import orjson
 from lms.djangoapps.courseware.tabs import (
-    CourseInfoTab
+    CourseInfoTab,
+    CourseTab
 )
 from ninja import NinjaAPI, ModelSchema, Schema
 from ninja.orm import create_schema
@@ -20,7 +21,7 @@ class ORJSONRenderer(BaseRenderer):
     media_type = "application/json"
 
     def default(self, obj):
-        if isinstance(obj, CourseInfoTab):
+        if isinstance(obj, CourseTab):
             return obj.title
 
     def render(self, request, data, *, response_status):
