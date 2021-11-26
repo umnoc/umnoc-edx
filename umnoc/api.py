@@ -38,7 +38,7 @@ BaseCourseOverviewSchema = create_schema(
         ('url_name', str, None),
         ('display_name_with_default', str, None),
         ('display_name_with_default_escaped', str, None),
-        ('dashboard_start_display', str, None),
+        ('dashboard_start_display', date, None),
         # ('start_date_is_still_default', str, None),
         # ('sorting_score', str, None),
         # ('start_type', str, None),
