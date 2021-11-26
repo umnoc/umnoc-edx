@@ -11,8 +11,9 @@ from ninja.orm import create_schema
 from ninja.renderers import BaseRenderer
 from opaque_keys.edx.keys import UsageKey, CourseKey
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
-from xmodule.tabs import CourseTab
 from xmodule.course_module import Textbook
+from xmodule.tabs import CourseTab
+
 from .core.models import Program, Project, Organization
 from .courses.models import Course
 
@@ -66,15 +67,11 @@ BaseCourseOverviewSchema = create_schema(
         ('closest_released_language', str, None),
         ('allow_public_wiki_access', bool, None),
         ('textbooks', List[Dict[str, str]], None),
-        # ('pdf_textbooks', str, None),
-        # ('html_textbooks', str, None),
-        # ('hide_progress_tab', str, None),
-        # ('edxnotes', str, None),
-        # ('enable_ccx', str, None),
-        # ('course_visibility', str, None),
-        # ('teams_enabled', str, None),
-        # ('show_calculator', bool, False),
-        # ('edxnotes_visibility', bool, False),
+        ('pdf_textbooks', List[Dict[str, str]], None),
+        ('html_textbooks', List[Dict[str, str]], None),
+        ('course_visibility', str, None),
+        ('teams_enabled', bool, None),
+
     ]
 
 )
