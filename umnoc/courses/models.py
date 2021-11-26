@@ -3,7 +3,11 @@ Database models for umnoc courses module.
 """
 from django.db import models
 from model_utils import Choices
-from model_utils.models import TimeStampedModel, SoftDeletableModel, StatusField
+from model_utils.models import (
+    TimeStampedModel,
+    SoftDeletableModel,
+    StatusField,
+    MonitorField)
 
 from umnoc.core.models import Program
 
