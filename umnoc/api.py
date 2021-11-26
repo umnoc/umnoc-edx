@@ -39,7 +39,7 @@ class CourseSchema(ModelSchema):
     class Config:
         model = Course
         model_fields = [
-            'course_overview'
+            'id'
         ]
 
 

@@ -24,6 +24,8 @@ class Course(TimeStampedModel, StatusModel):
 
     STATUS = Choices('draft', 'published')
 
+    status = StatusModel()
+
     # TODO: Добавить поля паспорта
     # TODO: Написать методы
 
