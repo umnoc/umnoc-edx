@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
+from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 
 from .core.models import (
     Organization,
@@ -36,6 +37,24 @@ class ProgramCourseInline(admin.TabularInline):
 
 
 # modeladmins
+
+@admin.register(CourseOverview, site=umnoc_admin_site)
+class CourseOverviewAdmin(admin.ModelAdmin):
+    """
+    Simple, read-only list/search view of Course Overviews.
+    """
+    list_display = [
+        'id',
+        'display_name',
+        'version',
+        'enrollment_start',
+        'enrollment_end',
+        'created',
+        'modified',
+    ]
+
+    search_fields = ['id', 'display_name']
+
 
 @admin.register(Course, site=umnoc_admin_site)
 class CourseAdmin(admin.ModelAdmin):
