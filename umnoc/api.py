@@ -5,9 +5,7 @@ import orjson
 from lms.djangoapps.courseware.tabs import (
     CourseInfoTab
 )
-from ninja import ModelSchema
-from ninja import NinjaAPI
-from ninja import Schema
+from ninja import NinjaAPI, ModelSchema, Schema
 from ninja.orm import create_schema
 from ninja.renderers import BaseRenderer
 from opaque_keys.edx.keys import UsageKey, CourseKey
