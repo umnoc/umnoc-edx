@@ -33,7 +33,6 @@ BaseCourseOverviewSchema = create_schema(
         'language',
     ],
     custom_fields=[
-        ('location', str, None),
         ('number', str, None),
         ('url_name', str, None),
         ('display_name_with_default', str, None),
@@ -65,8 +64,6 @@ BaseCourseOverviewSchema = create_schema(
 
 
 class CourseOverviewSchema(BaseCourseOverviewSchema):
-    location: UsageKey = None
-
     class Config(BaseCourseOverviewSchema.Config):
         arbitrary_types_allowed = True
 
