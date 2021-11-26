@@ -1,6 +1,5 @@
 from datetime import date
 from typing import List
-from uuid import UUID
 
 from ninja import NinjaAPI
 from ninja import Schema
@@ -11,7 +10,7 @@ api = NinjaAPI()
 
 
 class ProgramOut(Schema):
-    uuid: UUID
+    uuid: str
     title: str
     short_name: str
     slug: str
