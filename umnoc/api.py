@@ -52,5 +52,11 @@ class ProgramSchema(ModelSchema):
 
 @api.get("/programs", response=List[ProgramSchema])
 def programs(request):
-    qs = Program.objects.filter(active=True, status='published')
+    qs = Program.available_objects.filter(active=True, status='published')
+    return qs
+
+
+@api.get("/courses", response=List[CourseSchema])
+def courses(request):
+    qs = Course.objects.filter(status='published')
     return qs
