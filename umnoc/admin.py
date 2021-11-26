@@ -33,7 +33,7 @@ class OrganizationCourseInline(admin.TabularInline):
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
     autocomplete_fields = ['course_overview']
-    search_fields = ['course_overview']
+    # search_fields = ['course_overview']
 
 
 @admin.register(Organization)
