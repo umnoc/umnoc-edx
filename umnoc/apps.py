@@ -3,6 +3,7 @@ umnoc Django application initialization.
 """
 
 from django.apps import AppConfig
+from django.contrib.admin.apps import AdminConfig
 
 
 class UmnocEdxConfig(AppConfig):
@@ -11,3 +12,7 @@ class UmnocEdxConfig(AppConfig):
     """
 
     name = 'umnoc'
+
+
+class UMNOCAdminConfig(AdminConfig):
+    default_site = 'umnoc.admin.UMNOCAdminSite'
