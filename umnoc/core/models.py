@@ -150,7 +150,7 @@ class Program(TimeStampedModel, SoftDeletableModel):
 
     active = models.BooleanField(default=True)
 
-    status = StatusField()
+    status = StatusField(choices_name="STATUS")
     published_at = MonitorField(monitor='status', when=['published'])
 
     class Meta:
