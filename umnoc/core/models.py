@@ -16,7 +16,7 @@ class Organization(TimeStampedModel, SoftDeletableModel):
     uuid = UUIDField(version=4, editable=False, unique=True)
 
     title = models.CharField('Название', blank=False, null=False, max_length=1024)
-    short_name = models.CharField('Аббревиатура', blank=False, null=False, unique=True, max_length=64)
+    short_name = models.CharField('Аббревиатура', null=True, unique=True, max_length=64)
     slug = models.CharField('Человеко-понятный уникальный идентификатор', blank=False, null=False, max_length=64,
                             unique=True)
     description = models.TextField('Описание', blank=True, null=True)
