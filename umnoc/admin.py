@@ -11,7 +11,7 @@ class UMNOCAdminSite(admin.AdminSite):
     site_header = _('UMNOC administration')
 
 
-umnoc_admin_site = UMNOCAdminSite()
+umnoc_admin_site = UMNOCAdminSite(name="umnoc_admin")
 
 
 @admin.register(Course, site=umnoc_admin_site)
