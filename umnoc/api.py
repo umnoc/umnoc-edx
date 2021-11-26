@@ -5,6 +5,7 @@ from ninja import ModelSchema
 from ninja import NinjaAPI
 from ninja import Schema
 from ninja.orm import create_schema
+from opaque_keys.edx.keys import UsageKey
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 
 from .core.models import Program, Project, Organization
@@ -32,7 +33,7 @@ CourseOverviewSchema = create_schema(
         'language',
     ],
     custom_fields=[
-        ('location', str, None),
+        ('location', UsageKey, None),
         ('number', str, None),
         ('url_name', str, None),
         ('display_name_with_default', str, None),
