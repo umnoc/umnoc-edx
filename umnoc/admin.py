@@ -9,7 +9,6 @@ from .profiles.models import (Profile, Reflection, Question, Answer)
 
 class UMNOCAdminSite(admin.AdminSite):
     site_header = _('UMNOC administration')
-    name = 'umnoc_admin'
 
 
 umnoc_admin_site = UMNOCAdminSite(name='umnoc_admin')
