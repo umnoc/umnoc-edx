@@ -12,6 +12,7 @@ api = NinjaAPI()
 
 class OrganizationSchema(ModelSchema):
     class Config:
+        model = Organization
         model_fields = ['uuid', 'title', 'short_name', 'slug', 'description', 'logo', 'image_background', 'status']
 
 
