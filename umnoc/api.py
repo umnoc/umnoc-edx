@@ -77,7 +77,7 @@ BaseCourseOverviewSchema = create_schema(
         ('allow_public_wiki_access', bool, None),
         ('textbooks', List[Dict[str, str]], None),
         ('pdf_textbooks', List[PDFTextbookSchema], None),
-        ('html_textbooks', List[Dict[str, str]], None),
+        ('html_textbooks', List[PDFTextbookSchema], None),
         ('course_visibility', str, None),
         ('teams_enabled', bool, None),
 
