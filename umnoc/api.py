@@ -1,5 +1,5 @@
 from datetime import date
-from typing import List
+from typing import List, Dict
 
 import orjson
 from lms.djangoapps.courseware.tabs import (
@@ -61,7 +61,7 @@ BaseCourseOverviewSchema = create_schema(
         ('start_display', str, None),
         ('pre_requisite_courses', str, None),
         ('tabs', str, None),
-        # ('image_urls', str, None),
+        ('image_urls', dict, None),
         # ('pacing', str, None),
         # ('closest_released_language', str, None),
         # ('allow_public_wiki_access', str, None),
