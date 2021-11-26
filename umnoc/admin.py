@@ -31,7 +31,7 @@ class OrganizationCourseInline(admin.TabularInline):
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    pass
+    autocomplete_fields = ['course_overview']
 
 
 @admin.register(Organization)
