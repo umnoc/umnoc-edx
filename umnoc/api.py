@@ -17,7 +17,7 @@ class ProgramSchema(ModelSchema):
                         'edu_start_date', 'edu_end_date']
 
 
-@api.get("/programs")
-def programs(request, response=List[ProgramSchema]):
+@api.get("/programs", response=List[ProgramSchema])
+def programs(request):
     qs = Program.objects.filter(active=True, status='published')
     return qs
