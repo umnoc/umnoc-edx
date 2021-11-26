@@ -14,6 +14,6 @@ class UMNOCAdminSite(admin.AdminSite):
 umnoc_admin_site = UMNOCAdminSite(name='umnoc_admin')
 
 
-@admin.register(Course, site=umnoc_admin_site)
+@admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
     pass
