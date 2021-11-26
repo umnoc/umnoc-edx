@@ -2,6 +2,9 @@ from datetime import date
 from typing import List
 
 import orjson
+from lms.djangoapps.courseware.tabs import (
+    CourseInfoTab
+)
 from ninja import ModelSchema
 from ninja import NinjaAPI
 from ninja import Schema
@@ -19,8 +22,8 @@ class ORJSONRenderer(BaseRenderer):
     media_type = "application/json"
 
     def default(self, obj):
-        if isinstance(obj, decimal.Decimal):
-            return str(obj)
+        if isinstance(obj, CourseInfoTab):
+            return obj.title
 
     def render(self, request, data, *, response_status):
         return orjson.dumps(data, default=self.default)
