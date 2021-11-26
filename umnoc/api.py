@@ -17,7 +17,7 @@ class OrganizationSchema(ModelSchema):
 
 
 class ProgramSchema(ModelSchema):
-    owner: OrganizationSchema
+    owner: OrganizationSchema = None
 
     class Config:
         model = Program
