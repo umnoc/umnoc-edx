@@ -3,12 +3,12 @@ Database models for umnoc courses module.
 """
 from django.db import models
 from model_utils import Choices
-from model_utils.models import TimeStampedModel, StatusModel
+from model_utils.models import TimeStampedModel, StatusModel, SoftDeletableModel
 
 from umnoc.core.models import Program
 
 
-class Course(TimeStampedModel):
+class Course(TimeStampedModel, SoftDeletableModel):
     """
         Онлайн-курс. Модель позволяет расширить course_overview.
     """
@@ -22,7 +22,8 @@ class Course(TimeStampedModel):
                                         on_delete=models.CASCADE)
 
     STATUS = Choices('draft', 'published')
-    status = StatusModel()
+    status = StatusField(choices_name="STATUS")
+    published_at = MonitorField(monitor='status', when=['published'])
 
     # TODO: Добавить поля паспорта
     # TODO: Написать методы
