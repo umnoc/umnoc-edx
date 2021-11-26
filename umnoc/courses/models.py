@@ -4,7 +4,6 @@ Database models for umnoc courses module.
 from django.db import models
 from model_utils import Choices
 from model_utils.models import TimeStampedModel, StatusModel
-from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 
 from umnoc.core.models import Program
 
@@ -19,7 +18,7 @@ class Course(TimeStampedModel, StatusModel):
         verbose_name = "курс"
         verbose_name_plural = "курсы"
 
-    course_overview = models.ForeignKey('CourseOverview', db_index=True, related_name='umnoc_courses',
+    course_overview = models.ForeignKey('openedx.core.djangoapps.content.course_overviews.models.CourseOverview', db_index=True, related_name='umnoc_courses',
                                         on_delete=models.CASCADE)
 
     STATUS = Choices('draft', 'published')
