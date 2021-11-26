@@ -8,7 +8,7 @@ from model_utils.models import TimeStampedModel, StatusModel
 from umnoc.core.models import Program
 
 
-class Course(TimeStampedModel, StatusModel):
+class Course(TimeStampedModel):
     """
         Онлайн-курс. Модель позволяет расширить course_overview.
     """
@@ -22,7 +22,6 @@ class Course(TimeStampedModel, StatusModel):
                                         on_delete=models.CASCADE)
 
     STATUS = Choices('draft', 'published')
-
     status = StatusModel()
 
     # TODO: Добавить поля паспорта
