@@ -15,9 +15,10 @@ class Organization(TimeStampedModel, SoftDeletableModel):
 
     uuid = UUIDField(version=4, editable=False, unique=True)
 
-    title = models.CharField('Название', blank=False, null=False, unique=True, max_length=1024)
+    title = models.CharField('Название', blank=False, null=False, max_length=1024)
     short_name = models.CharField('Аббревиатура', blank=False, null=False, unique=True, max_length=64)
-    slug = models.CharField('Человеко-понятный уникальный идентификатор', blank=False, null=False, max_length=64, unique=True)
+    slug = models.CharField('Человеко-понятный уникальный идентификатор', blank=False, null=False, max_length=64,
+                            unique=True)
     description = models.TextField('Описание', blank=True, null=True)
     logo = models.ImageField(
         upload_to='org_logos',
@@ -41,7 +42,6 @@ class Organization(TimeStampedModel, SoftDeletableModel):
         """ Meta class for this Django model """
         verbose_name = 'Организация'
         verbose_name_plural = 'Организации'
-
 
     status = StatusField()
     published_at = MonitorField(monitor='status', when=['published'])
@@ -188,6 +188,52 @@ class Program(TimeStampedModel, SoftDeletableModel):
         """
         # TODO: return a string appropriate for the data fields
         return '<Program, ID: {}>'.format(self.id)
+
+
+class ProgramCourse(TimeStampedModel):
+    """
+    TODO: replace with a brief description of the model.
+
+    TODO: Add either a negative or a positive PII annotation to the end of this docstring.  For more
+    information, see OEP-30:
+    https://open-edx-proposals.readthedocs.io/en/latest/oep-0030-arch-pii-markup-and-auditing.html
+    """
+
+    class Meta:
+        app_label = "umnoc"
+        unique_together = (
+            ('course', 'program'),
+        )
+
+    course = models.ForeignKey('Course', blank=False, null=False, on_delete=models.CASCADE)
+    program = models.ForeignKey('Program', blank=False, null=False, on_delete=models.CASCADE)
+    active = models.BooleanField(default=True)
+
+    def __str__(self):
+        """
+        Get a string representation of this model instance.
+        """
+        # TODO: return a string appropriate for the data fields
+        return f'<ProgramCourse, ID: {self.id}, Course: {self.course.id}, Program: {self.program.id}>'
+
+
+class OrganizationCourse(TimeStampedModel):
+    """
+    Курс организации
+    """
+
+    class Meta:
+        app_label = "umnoc"
+        unique_together = (
+            ('course', 'organization'),
+        )
+
+    course = models.ForeignKey('Course', blank=False, null=False, on_delete=models.CASCADE)
+    organization = models.ForeignKey('Organization', blank=False, null=False, on_delete=models.CASCADE)
+    active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f'<OrganizationCourse, ID: {self.id}, Course: {self.course.id}, Organization: {self.organization.id}>'
 
 
 class TextBlock(TimeStampedModel):
