@@ -28,12 +28,27 @@ class OrganizationCourseInline(admin.TabularInline):
     autocomplete_fields = ['course']
 
 
+class ProgramCourseInline(admin.TabularInline):
+    model = ProgramCourse
+    extra = 1
+    autocomplete_fields = ['course']
+
+
 # modeladmins
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
     autocomplete_fields = ['course_overview']
     search_fields = ['course_overview__display_name']
+
+
+@admin.register(Program)
+class ProgramAdmin(admin.ModelAdmin):
+    list_display = ('title', 'slug', 'logo', 'active', 'owner')
+    list_filter = ('active', 'owner')
+    ordering = ('title',)
+    search_fields = ('title', 'short_name', 'slug')
+    inlines = [ProgramCourseInline]
 
 
 @admin.register(Organization)

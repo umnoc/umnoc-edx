@@ -31,9 +31,6 @@ class Organization(TimeStampedModel, SoftDeletableModel):
     )
     active = models.BooleanField(default=True)
 
-    def __str__(self):
-        return self.title
-
     def get_courses(self):
         return self.organizationcourse_set.all()
 
@@ -48,11 +45,7 @@ class Organization(TimeStampedModel, SoftDeletableModel):
     # TODO: add field definitions
 
     def __str__(self):
-        """
-        Get a string representation of this model instance.
-        """
-        # TODO: return a string appropriate for the data fields
-        return '<Organization, ID: {}>'.format(self.id)
+        return f'<Organization, title: {self.title}>'
 
 
 class Direction(TimeStampedModel):
@@ -155,6 +148,10 @@ class Program(TimeStampedModel, SoftDeletableModel):
     number_of_hours = models.PositiveSmallIntegerField("Количество часов", null=True, blank=True)
     issued_document_name = models.CharField("Выдаваемый Документ", null=True, blank=True, max_length=128)
 
+    class Meta:
+        verbose_name = "образовательная программа"
+        verbose_name_plural = "образовательные программы"
+
     def get_courses(self):
         return self.programcourse_set.all()
 
@@ -168,34 +165,21 @@ class Program(TimeStampedModel, SoftDeletableModel):
         else:
             return None
 
-    class Meta:
-        verbose_name = "образовательная программа"
-        verbose_name_plural = "образовательные программы"
-
-    def __str__(self):
-        return self.title
-
     def export_students(self):
         """TODO: implement method from admin"""
-        return None
-
-    # TODO: add field definitions
+        raise NotImplementedError
 
     def __str__(self):
         """
         Get a string representation of this model instance.
         """
         # TODO: return a string appropriate for the data fields
-        return '<Program, ID: {}>'.format(self.id)
+        return f'<Program, title: {self.title}>'
 
 
 class ProgramCourse(TimeStampedModel):
     """
-    TODO: replace with a brief description of the model.
-
-    TODO: Add either a negative or a positive PII annotation to the end of this docstring.  For more
-    information, see OEP-30:
-    https://open-edx-proposals.readthedocs.io/en/latest/oep-0030-arch-pii-markup-and-auditing.html
+    Курс образовательной программы
     """
 
     class Meta:
@@ -209,11 +193,7 @@ class ProgramCourse(TimeStampedModel):
     active = models.BooleanField(default=True)
 
     def __str__(self):
-        """
-        Get a string representation of this model instance.
-        """
-        # TODO: return a string appropriate for the data fields
-        return f'<ProgramCourse, ID: {self.id}, Course: {self.course.id}, Program: {self.program.id}>'
+        return f'<ProgramCourse, ID: {self.id}, Course: {self.course}, Program: {self.program}>'
 
 
 class OrganizationCourse(TimeStampedModel):
@@ -232,7 +212,7 @@ class OrganizationCourse(TimeStampedModel):
     active = models.BooleanField(default=True)
 
     def __str__(self):
-        return f'<OrganizationCourse, ID: {self.id}, Course: {self.course.id}, Organization: {self.organization.id}>'
+        return f'<OrganizationCourse, ID: {self.id}, Course: {self.course}, Organization: {self.organization}>'
 
 
 class TextBlock(TimeStampedModel):
