@@ -4,6 +4,7 @@ from typing import List
 from ninja import ModelSchema
 from ninja import NinjaAPI
 from ninja import Schema
+from ninja.orm import create_schema
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 
 from .core.models import Program, Project, Organization
@@ -11,54 +12,55 @@ from .courses.models import Course
 
 api = NinjaAPI()
 
+CourseOverviewSchema = create_schema(
+    CourseOverview,
+    fields=[
+        'display_name',
+        'start_date',
+        'end_date',
+        'banner_image_url',
+        'course_image_url',
+        'lowest_passing_grade',
+        'enrollment_start',
+        'enrollment_end',
+        'invitation_only',
+        'max_student_enrollments_allowed',
+        'catalog_visibility',
+        'short_description',
+        'course_video_url',
+        'effort',
+        'language',
+    ],
+    custom_fields=[
+        ('location', str, None),
+        ('number', str, None),
+        ('url_name', str, None),
+        ('display_name_with_default', str, None),
+        ('display_name_with_default_escaped', str, None),
+        ('dashboard_start_display', str, None),
+        # ('start_date_is_still_default', str, None),
+        # ('sorting_score', str, None),
+        # ('start_type', str, None),
+        # ('start_display', str, None),
+        # ('pre_requisite_courses', str, None),
+        # ('tabs', str, None),
+        # ('image_urls', str, None),
+        # ('pacing', str, None),
+        # ('closest_released_language', str, None),
+        # ('allow_public_wiki_access', str, None),
+        # ('textbooks', str, None),
+        # ('pdf_textbooks', str, None),
+        # ('html_textbooks', str, None),
+        # ('hide_progress_tab', str, None),
+        # ('edxnotes', str, None),
+        # ('enable_ccx', str, None),
+        # ('course_visibility', str, None),
+        # ('teams_enabled', str, None),
+        # ('show_calculator', bool, False),
+        # ('edxnotes_visibility', bool, False),
+    ]
 
-class CourseOverviewSchema(ModelSchema):
-    class Config:
-        model = CourseOverview
-        model_fields = [
-            'display_name',
-            'start_date',
-            'end_date',
-            'banner_image_url',
-            'course_image_url',
-            'lowest_passing_grade',
-            'enrollment_start',
-            'enrollment_end',
-            'invitation_only',
-            'max_student_enrollments_allowed',
-            'catalog_visibility',
-            'short_description',
-            'course_video_url',
-            'effort',
-            'language',
-
-            'location',
-            'number',
-            'url_name',
-            'display_name_with_default',
-            'display_name_with_default_escaped',
-            'dashboard_start_display',
-            'start_date_is_still_default',
-            'sorting_score',
-            'start_type',
-            'start_display',
-            'pre_requisite_courses',
-            'tabs',
-            'image_urls',
-            'pacing',
-            'closest_released_language',
-            'allow_public_wiki_access',
-            'textbooks',
-            'pdf_textbooks',
-            'html_textbooks',
-            'hide_progress_tab',
-            'edxnotes',
-            'enable_ccx',
-            'course_visibility',
-            'teams_enabled',
-            'show_calculator',
-            'edxnotes_visibility',
-        ]
+)
 
 
 class CourseSchema(ModelSchema):
