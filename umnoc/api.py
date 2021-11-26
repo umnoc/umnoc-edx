@@ -5,16 +5,24 @@ from ninja import ModelSchema
 from ninja import NinjaAPI
 from ninja import Schema
 
-from .core.models import Program, Project
+from .core.models import Program, Project, Organization
 
 api = NinjaAPI()
 
 
+class OrganizationSchema(ModelSchema):
+    class Config:
+        model_fields = ['uuid', 'title', 'short_name', 'slug', 'description', 'logo', 'image_background', 'status']
+
+
 class ProgramSchema(ModelSchema):
+    owner: OrganizationSchema
+
     class Config:
         model = Program
         model_fields = ['uuid', 'title', 'short_name', 'slug', 'description', 'number_of_hours', 'logo',
-                        'edu_start_date', 'edu_end_date']
+                        'image_background',
+                        'edu_start_date', 'edu_end_date', 'issued_document_name', 'enrollment_allowed', 'owner']
 
 
 @api.get("/programs", response=List[ProgramSchema])
