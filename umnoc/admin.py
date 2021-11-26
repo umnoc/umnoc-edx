@@ -37,13 +37,13 @@ class ProgramCourseInline(admin.TabularInline):
 
 # modeladmins
 
-@admin.register(Course)
+@admin.register(Course, site=umnoc_admin_site)
 class CourseAdmin(admin.ModelAdmin):
     autocomplete_fields = ['course_overview']
     search_fields = ['course_overview__display_name']
 
 
-@admin.register(Program)
+@admin.register(Program, site=umnoc_admin_site)
 class ProgramAdmin(admin.ModelAdmin):
     list_display = ('title', 'slug', 'logo', 'active', 'owner')
     list_filter = ('active', 'owner')
@@ -52,7 +52,7 @@ class ProgramAdmin(admin.ModelAdmin):
     inlines = [ProgramCourseInline]
 
 
-@admin.register(Organization)
+@admin.register(Organization, site=umnoc_admin_site)
 class OrganizationAdmin(admin.ModelAdmin):
     list_display = ('title', 'short_name', 'logo', 'active',)
     list_filter = ('active',)
