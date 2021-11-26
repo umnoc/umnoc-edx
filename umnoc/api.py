@@ -42,7 +42,7 @@ BaseCourseOverviewSchema = create_schema(
         ('start_date_is_still_default', bool, True),
         ('sorting_score', int, None),
         ('start_type', str, 'empty'),
-        ('start_display', date, None),
+        ('start_display', str, None),
         ('pre_requisite_courses', str, None),
         ('tabs', str, None),
         # ('image_urls', str, None),
