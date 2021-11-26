@@ -31,18 +31,15 @@ class Organization(TimeStampedModel, SoftDeletableModel):
     )
     active = models.BooleanField(default=True)
 
+    class Meta:
+        verbose_name = 'организация'
+        verbose_name_plural = 'организации'
+
     def get_courses(self):
         return self.organizationcourse_set.all()
 
-    class Meta:
-        """ Meta class for this Django model """
-        verbose_name = 'Организация'
-        verbose_name_plural = 'Организации'
-
     status = StatusField()
     published_at = MonitorField(monitor='status', when=['published'])
-
-    # TODO: add field definitions
 
     def __str__(self):
         return f'<Organization, title: {self.title}>'
@@ -142,7 +139,7 @@ class Program(TimeStampedModel, SoftDeletableModel):
     project = models.ForeignKey(Project, related_name="realized_programs", blank=True, null=True,
                                 on_delete=models.SET_NULL)
     direction = models.ForeignKey(Direction, blank=True, null=True, on_delete=models.SET_NULL)
-    id_unit_program = models.CharField("Программа ID", blank=True, null=True, max_length=64)
+    id_unit_program = models.CharField("UNI UUID", blank=True, null=True, max_length=64)
     edu_start_date = models.DateField("Дата начала программы", null=True, blank=True)
     edu_end_date = models.DateField("Дата завершения программы", null=True, blank=True)
     number_of_hours = models.PositiveSmallIntegerField("Количество часов", null=True, blank=True)
