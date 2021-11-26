@@ -1,10 +1,12 @@
 from datetime import date
 from typing import List
 
+import orjson
 from ninja import ModelSchema
 from ninja import NinjaAPI
 from ninja import Schema
 from ninja.orm import create_schema
+from ninja.renderers import BaseRenderer
 from opaque_keys.edx.keys import UsageKey, CourseKey
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 from xmodule.tabs import CourseTab
@@ -12,7 +14,19 @@ from xmodule.tabs import CourseTab
 from .core.models import Program, Project, Organization
 from .courses.models import Course
 
-api = NinjaAPI()
+
+class ORJSONRenderer(BaseRenderer):
+    media_type = "application/json"
+
+    def default(self, obj):
+        if isinstance(obj, decimal.Decimal):
+            return str(obj)
+
+    def render(self, request, data, *, response_status):
+        return orjson.dumps(data, default=self.default)
+
+
+api = NinjaAPI(renderer=ORJSONRenderer())
 
 BaseCourseOverviewSchema = create_schema(
     CourseOverview,
@@ -99,12 +113,12 @@ class ProgramSchema(ModelSchema):
 
 
 @api.get("/programs", response=List[ProgramSchema])
-def programs(request):
+def programs(request, limit: int = 10, offset: int = 0):
     qs = Program.available_objects.filter(active=True, status='published')
-    return qs
+    return qs[offset: offset + limit]
 
 
 @api.get("/courses", response=List[CourseSchema])
-def courses(request):
+def courses(request, limit: int = 20, offset: int = 0):
     qs = Course.objects.filter(status='published')
-    return qs
+    return qs[offset: offset + limit]
