@@ -15,22 +15,23 @@ api = NinjaAPI()
 class CourseOverviewSchema(ModelSchema):
     class Config:
         model = CourseOverview
-        model_fields = ['id',
-                        'display_name',
-                        'start_date',
-                        'end_date',
-                        'banner_image_url',
-                        'course_image_url',
-                        'lowest_passing_grade',
-                        'enrollment_start',
-                        'enrollment_end',
-                        'invitation_only',
-                        'max_student_enrollments_allowed',
-                        'catalog_visibility',
-                        'short_description',
-                        'course_video_url',
-                        'effort',
-                        'language']
+        model_fields = [
+            'display_name',
+            'start_date',
+            'end_date',
+            'banner_image_url',
+            'course_image_url',
+            'lowest_passing_grade',
+            'enrollment_start',
+            'enrollment_end',
+            'invitation_only',
+            'max_student_enrollments_allowed',
+            'catalog_visibility',
+            'short_description',
+            'course_video_url',
+            'effort',
+            'language',
+        ]
 
 
 class CourseSchema(ModelSchema):
