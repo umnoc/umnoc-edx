@@ -13,7 +13,7 @@ from .courses.models import Course
 
 api = NinjaAPI()
 
-CourseOverviewSchema = create_schema(
+BaseCourseOverviewSchema = create_schema(
     CourseOverview,
     fields=[
         'display_name',
@@ -62,6 +62,11 @@ CourseOverviewSchema = create_schema(
     ]
 
 )
+
+
+class CourseOverviewSchema(BaseCourseOverviewSchema):
+    class Config(BaseCourseOverviewSchema.Config):
+        arbitrary_types_allowed = True
 
 
 class CourseSchema(ModelSchema):
