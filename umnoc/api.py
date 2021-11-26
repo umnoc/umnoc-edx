@@ -65,7 +65,7 @@ BaseCourseOverviewSchema = create_schema(
         ('pacing', str, None),
         ('closest_released_language', str, None),
         ('allow_public_wiki_access', bool, None),
-        ('textbooks', List[Dict[str]], None),
+        ('textbooks', List[Dict[str, str]], None),
         # ('pdf_textbooks', str, None),
         # ('html_textbooks', str, None),
         # ('hide_progress_tab', str, None),
