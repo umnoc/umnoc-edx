@@ -15,6 +15,7 @@ class UmnocEdxConfig(AppConfig):
 
 
 class UMNOCAdminConfig(AdminConfig):
-    default_site = 'umnoc.admin.UMNOCAdminSite'
+    # default_site = 'umnoc.admin.UMNOCAdminSite'
+    name = 'umnoc.admin.UMNOCAdminSite'
     label = 'umnoc_admin'
 
