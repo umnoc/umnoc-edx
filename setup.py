@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Package metadata for umnoc_edx.
+Package metadata for umnoc.
 """
 import os
 import re
@@ -89,7 +89,7 @@ def is_requirement(line):
     return line and line.strip() and not line.startswith(("-r", "#", "-e", "git+", "-c"))
 
 
-VERSION = get_version('umnoc_edx', '__init__.py')
+VERSION = get_version('umnoc', '__init__.py')
 
 if sys.argv[-1] == 'tag':
     print("Tagging the version on github:")
@@ -109,7 +109,7 @@ setup(
     author_email='oscm@edx.org',
     url='https://github.com/edx/umnoc-edx',
     packages=[
-        'umnoc_edx',
+        'umnoc',
     ],
     include_package_data=True,
     install_requires=load_requirements('requirements/base.in'),

@@ -1,5 +1,5 @@
 """
-Database models for umnoc_edx profiles.
+Database models for umnoc profiles.
 """
 from django.contrib.auth import get_user_model
 from django.db import models
@@ -7,7 +7,7 @@ from model_utils import Choices
 from model_utils.fields import StatusField, UUIDField
 from model_utils.models import TimeStampedModel
 
-from umnoc_edx.utils import generate_new_filename
+from umnoc.utils import generate_new_filename
 
 
 class Profile(TimeStampedModel):

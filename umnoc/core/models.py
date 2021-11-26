@@ -1,5 +1,5 @@
 """
-Database models for umnoc_edx core.
+Database models for umnoc core.
 """
 from django.db import models
 from model_utils import Choices

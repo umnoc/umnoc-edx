@@ -1,11 +1,11 @@
 """
-Database models for umnoc_edx courses module.
+Database models for umnoc courses module.
 """
 from django.db import models
 from model_utils.models import TimeStampedModel, StatusModel
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 
-from umnoc_edx.core.models import Program
+from umnoc.core.models import Program
 
 
 class Course(TimeStampedModel, StatusModel):
@@ -18,7 +18,7 @@ class Course(TimeStampedModel, StatusModel):
         """
 
     class Meta:
-        app_label = "umnoc_edx"
+        app_label = "umnoc"
 
     course_overview = models.ForeignKey(CourseOverview, db_index=True, related_name="tab_set", on_delete=models.CASCADE)
 
@@ -43,7 +43,7 @@ class ProgramCourse(TimeStampedModel):
     """
 
     class Meta:
-        app_label = "umnoc_edx"
+        app_label = "umnoc"
         unique_together = (
             ('course', 'program'),
         )
@@ -70,7 +70,7 @@ class OrganizationCourse(TimeStampedModel):
     """
 
     class Meta:
-        app_label = "umnoc_edx"
+        app_label = "umnoc"
         unique_together = (
             ('course', 'organization'),
         )
