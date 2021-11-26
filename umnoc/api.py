@@ -31,6 +31,15 @@ class ORJSONRenderer(BaseRenderer):
 
 api = NinjaAPI(renderer=ORJSONRenderer())
 
+
+class ChapterSchema(Schema):
+    url: str = None
+
+
+class PDFTextbookSchema(Schema):
+    chapters: List[ChapterSchema] = []
+
+
 BaseCourseOverviewSchema = create_schema(
     CourseOverview,
     fields=[
@@ -67,7 +76,7 @@ BaseCourseOverviewSchema = create_schema(
         ('closest_released_language', str, None),
         ('allow_public_wiki_access', bool, None),
         ('textbooks', List[Dict[str, str]], None),
-        ('pdf_textbooks', List[Dict[str, str]], None),
+        ('pdf_textbooks', List[PDFTextbookSchema], None),
         ('html_textbooks', List[Dict[str, str]], None),
         ('course_visibility', str, None),
         ('teams_enabled', bool, None),
