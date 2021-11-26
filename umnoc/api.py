@@ -1,4 +1,5 @@
 from datetime import date
+from typing import List
 from uuid import UUID
 
 from ninja import NinjaAPI
