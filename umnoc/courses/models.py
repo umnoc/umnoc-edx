@@ -2,6 +2,7 @@
 Database models for umnoc courses module.
 """
 from django.db import models
+from model_utils import Choices
 from model_utils.models import TimeStampedModel, StatusModel
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 
@@ -21,6 +22,8 @@ class Course(TimeStampedModel, StatusModel):
         app_label = "umnoc"
 
     course_overview = models.ForeignKey(CourseOverview, db_index=True, related_name="tab_set", on_delete=models.CASCADE)
+
+    STATUS = Choices('draft', 'published')
 
     # TODO: Добавить поля паспорта
     # TODO: Написать методы
