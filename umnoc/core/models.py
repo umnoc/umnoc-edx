@@ -17,8 +17,7 @@ class Organization(TimeStampedModel, SoftDeletableModel):
 
     title = models.CharField('Название', blank=False, null=False, max_length=1024)
     short_name = models.CharField('Аббревиатура', null=True, unique=True, max_length=64)
-    slug = models.CharField('Человеко-понятный уникальный идентификатор', blank=False, null=False, max_length=64,
-                            unique=True)
+    slug = models.CharField('Человеко-понятный уникальный идентификатор', null=True, max_length=64, unique=True)
     description = models.TextField('Описание', blank=True, null=True)
     logo = models.ImageField(
         upload_to='org_logos',
