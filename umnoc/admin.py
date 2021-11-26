@@ -1,8 +1,15 @@
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
-from .core.models import (Organization, Direction, Project, TextBlock)
-from .courses.models import (Course, ProgramCourse, OrganizationCourse)
+from .core.models import (
+    Organization,
+    ProgramCourse,
+    OrganizationCourse,
+    Direction,
+    Project,
+    TextBlock
+)
+from .courses.models import (Course)
 from .learners.models import (ProgramEnrollment)
 from .profiles.models import (Profile, Reflection, Question, Answer)
 
