@@ -20,6 +20,9 @@ class ProgramOut(Schema):
     edu_start_date: date = None
     edu_end_date: date = None
 
+    class Config:
+        arbitrary_types_allowed = True
+
 
 @api.get("/programs")
 def programs(request, response=List[ProgramOut]):
