@@ -21,7 +21,7 @@ class Course(TimeStampedModel, StatusModel):
     class Meta:
         app_label = "umnoc"
 
-    course_overview = models.ForeignKey(CourseOverview, db_index=True, related_name="tab_set", on_delete=models.CASCADE)
+    course_overview = models.ForeignKey(CourseOverview, db_index=True, related_name="umnoc_courses", on_delete=models.CASCADE)
 
     STATUS = Choices('draft', 'published')
 

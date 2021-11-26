@@ -35,7 +35,8 @@ class ProgramEnrollment(TimeStampedModel):
     user = models.ForeignKey(
         get_user_model(),
         null=True,
-        blank=True, on_delete=models.CASCADE
+        blank=True, on_delete=models.CASCADE,
+        related_name="umnoc_programs",
     )
     external_user_key = models.CharField(
         db_index=True,
