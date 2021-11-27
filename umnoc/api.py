@@ -118,6 +118,32 @@ class ProgramSchema(ModelSchema):
                         'edu_start_date', 'edu_end_date', 'issued_document_name', 'enrollment_allowed', 'owner']
 
 
+class ProjectSchema(ModelSchema):
+    programs: List[ProgramSchema] = []
+    owner: OrganizationSchema = None
+
+    class Config:
+        model = Project
+        model_fields = [
+            'title',
+            'short_name',
+            'slug',
+            'owner',
+            'description',
+            'logo',
+            'image_background',
+            'active',
+            'status',
+            'published_at',
+        ]
+
+
+@api.get("/projects", response=List[ProjectSchema])
+def projects(request, limit: int = 10, offset: int = 0):
+    qs = Project.available_objects.filter(active=True, status='published')
+    return qs[offset: offset + limit]
+
+
 @api.get("/programs", response=List[ProgramSchema])
 def programs(request, limit: int = 10, offset: int = 0):
     qs = Program.available_objects.filter(active=True, status='published')
