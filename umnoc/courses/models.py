@@ -9,8 +9,6 @@ from model_utils.models import (
     StatusField,
     MonitorField)
 
-from umnoc.core.models import Program
-
 
 class Course(TimeStampedModel, SoftDeletableModel):
     """

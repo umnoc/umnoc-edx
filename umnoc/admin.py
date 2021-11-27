@@ -67,6 +67,7 @@ class ProgramAdmin(admin.ModelAdmin):
     list_display = ('title', 'slug', 'logo', 'active', 'owner')
     list_filter = ('active', 'owner')
     ordering = ('title',)
+    filter_horizontal = ['courses']
     search_fields = ('title', 'short_name', 'slug')
     inlines = [ProgramCourseInline]
 

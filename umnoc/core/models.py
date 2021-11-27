@@ -5,6 +5,8 @@ from django.db import models
 from model_utils import Choices
 from model_utils.fields import StatusField, MonitorField, UUIDField
 from model_utils.models import TimeStampedModel, SoftDeletableModel
+from umnoc.courses.models import Course
+
 
 
 class Organization(TimeStampedModel, SoftDeletableModel):
@@ -144,6 +146,7 @@ class Program(TimeStampedModel, SoftDeletableModel):
     edu_end_date = models.DateField("Дата завершения программы", null=True, blank=True)
     number_of_hours = models.PositiveSmallIntegerField("Количество часов", null=True, blank=True)
     issued_document_name = models.CharField("Выдаваемый Документ", null=True, blank=True, max_length=128)
+    courses = models.ManyToManyField(Course, blank=True)
 
     active = models.BooleanField(default=True)
 

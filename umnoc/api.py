@@ -110,12 +110,13 @@ class OrganizationSchema(ModelSchema):
 
 class ProgramSchema(ModelSchema):
     owner: OrganizationSchema = None
+    courses: List[CourseSchema] = []
 
     class Config:
         model = Program
         model_fields = ['uuid', 'title', 'short_name', 'slug', 'description', 'number_of_hours', 'logo',
                         'image_background',
-                        'edu_start_date', 'edu_end_date', 'issued_document_name', 'enrollment_allowed', 'owner']
+                        'edu_start_date', 'edu_end_date', 'issued_document_name', 'enrollment_allowed', 'owner', 'courses']
 
 
 class ProjectSchema(ModelSchema):
