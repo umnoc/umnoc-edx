@@ -85,7 +85,7 @@ BaseCourseOverviewSchema = create_schema(
         ('sorting_score', int, None),
         ('start_type', str, 'empty'),
         ('start_display', str, None),
-        # ('pre_requisite_courses', str, None),
+        # ('pre_requisite_courses', List[CourseKey], None),
         ('tabs', List[CourseTab], None),
         ('image_urls', dict, None),
         ('pacing', str, None),
@@ -101,11 +101,12 @@ BaseCourseOverviewSchema = create_schema(
 
 
 class CourseOverviewSchema(BaseCourseOverviewSchema):
-    # pre_requisite_courses: List[CourseKey] = []
-    # tabs: List[CourseTab] = []
+    # pre_requisite_courses: List[CourseKey]
+    tabs: List[CourseTab]
 
     class Config(BaseCourseOverviewSchema.Config):
         arbitrary_types_allowed = True
+        json_encoders = {CourseTab: str}
 
 
 class CourseSchema(ModelSchema):
