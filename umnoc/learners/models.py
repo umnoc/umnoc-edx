@@ -45,7 +45,7 @@ class ProgramEnrollment(TimeStampedModel):
     )
     program_uuid = models.UUIDField(db_index=True, null=False)
     project_uuid = models.UUIDField(db_index=True, null=False)
-    status = models.CharField(max_length=9, choices=STATUS_CHOICES)
+    status = models.CharField(max_length=9, default='pending', choices=STATUS_CHOICES)
     historical_records = HistoricalRecords()
 
     def clean(self):

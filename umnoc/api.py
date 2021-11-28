@@ -174,7 +174,12 @@ def courses(request, limit: int = 20, offset: int = 0):
     return qs[offset: offset + limit]
 
 
-@api.post("/enroll", response=List[ProgramSchema])
-def programs(request, limit: int = 10, offset: int = 0):
-    qs = Program.available_objects.filter(active=True, status='published')
-    return qs[offset: offset + limit]
+@api.post("/enroll", description="Зачисляет пользователя на программу или проект")
+def enroll_user_to_program(request, payload: ProgramEnrollmentIn):
+    enrollment = ProgramEnrollment.objects.create(**payload.dict())
+    return {
+        "email": enrollment.user.email,
+        "program_uuid": enrollment.program_uuid,
+        "project_uuid": enrollment.project_uuid,
+        "success": True
+    }
