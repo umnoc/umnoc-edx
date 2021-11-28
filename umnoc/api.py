@@ -12,6 +12,7 @@ from ninja.orm import create_schema
 from ninja.renderers import BaseRenderer
 from opaque_keys.edx.keys import UsageKey, CourseKey
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
+from pydantic import validator
 from xmodule.course_module import Textbook
 from xmodule.tabs import CourseTab
 
@@ -103,6 +104,10 @@ BaseCourseOverviewSchema = create_schema(
 class CourseOverviewSchema(BaseCourseOverviewSchema):
     # pre_requisite_courses: List[CourseKey]
     tabs: List[CourseTab]
+
+    @validator('tabs')
+    def pass_validator(self, course_overview):
+        return course_overview
 
     class Config(BaseCourseOverviewSchema.Config):
         arbitrary_types_allowed = True
