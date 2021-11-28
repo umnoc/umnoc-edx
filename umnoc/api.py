@@ -2,6 +2,7 @@ from datetime import date
 from typing import List, Dict
 
 import orjson
+from django.contrib.auth import get_user_model
 from lms.djangoapps.courseware.tabs import (
     CourseInfoTab,
     CourseTab
@@ -16,6 +17,7 @@ from xmodule.tabs import CourseTab
 
 from .core.models import Program, Project, Organization
 from .courses.models import Course
+from .learners.models import ProgramEnrollment
 
 
 class ORJSONRenderer(BaseRenderer):
@@ -24,12 +26,26 @@ class ORJSONRenderer(BaseRenderer):
     def default(self, obj):
         if isinstance(obj, CourseTab):
             return obj.title
+        elif isinstance(obj, CourseKey):
+            return str(obj)
 
     def render(self, request, data, *, response_status):
         return orjson.dumps(data, default=self.default)
 
 
 api = NinjaAPI(renderer=ORJSONRenderer())
+
+
+class UserIn(Schema):
+    id: str = None
+    username: str = None
+    email: int = None
+
+
+class ProgramEnrollmentIn(Schema):
+    user: UserIn
+    program_uuid: str = None
+    project_uuid: str = None
 
 
 class ChapterSchema(Schema):
@@ -116,7 +132,8 @@ class ProgramSchema(ModelSchema):
         model = Program
         model_fields = ['uuid', 'title', 'short_name', 'slug', 'description', 'number_of_hours', 'logo',
                         'image_background',
-                        'edu_start_date', 'edu_end_date', 'issued_document_name', 'enrollment_allowed', 'owner', 'courses']
+                        'edu_start_date', 'edu_end_date', 'issued_document_name', 'enrollment_allowed', 'owner',
+                        'courses']
 
 
 class ProjectSchema(ModelSchema):
@@ -139,7 +156,7 @@ class ProjectSchema(ModelSchema):
         ]
 
 
-@api.get("/projects", response=List[ProjectSchema])
+@api.get("/projects", response=List[ProjectSchema])  # description="Creates an order and updates stock"
 def projects(request, limit: int = 10, offset: int = 0):
     qs = Project.available_objects.filter(active=True, status='published')
     return qs[offset: offset + limit]
@@ -154,4 +171,10 @@ def programs(request, limit: int = 10, offset: int = 0):
 @api.get("/courses", response=List[CourseSchema])
 def courses(request, limit: int = 20, offset: int = 0):
     qs = Course.objects.filter(status='published')
+    return qs[offset: offset + limit]
+
+
+@api.post("/enroll", response=List[ProgramSchema])
+def programs(request, limit: int = 10, offset: int = 0):
+    qs = Program.available_objects.filter(active=True, status='published')
     return qs[offset: offset + limit]
