@@ -14,7 +14,7 @@ from .core.models import (
 from .courses.models import (Course)
 from .learners.models import (ProgramEnrollment)
 from .profiles.models import (Profile, Reflection, Question, Answer)
-
+from django.contrib.auth import get_user_model
 
 class UMNOCAdminSite(admin.AdminSite):
     site_header = _('UMNOC administration')
@@ -86,4 +86,4 @@ class ProgramEnrollmentAdmin(admin.ModelAdmin):
     list_display = ('user', 'external_user_key', 'program_uuid', 'project_uuid', 'status')
     list_filter = ('status',)
     search_fields = ('user',)
-    autocomplete_fields = ('user',)
+    raw_id_fields = ('user',)
