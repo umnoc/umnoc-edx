@@ -85,7 +85,7 @@ BaseCourseOverviewSchema = create_schema(
         ('sorting_score', int, None),
         ('start_type', str, 'empty'),
         ('start_display', str, None),
-        ('pre_requisite_courses', str, None),
+        # ('pre_requisite_courses', str, None),
         ('tabs', str, None),
         ('image_urls', dict, None),
         ('pacing', str, None),
@@ -101,7 +101,7 @@ BaseCourseOverviewSchema = create_schema(
 
 
 class CourseOverviewSchema(BaseCourseOverviewSchema):
-    pre_requisite_courses: List[CourseKey] = []
+    # pre_requisite_courses: List[CourseKey] = []
     tabs: List[CourseTab] = []
 
     class Config(BaseCourseOverviewSchema.Config):
