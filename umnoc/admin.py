@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 
@@ -14,7 +15,7 @@ from .core.models import (
 from .courses.models import (Course)
 from .learners.models import (ProgramEnrollment)
 from .profiles.models import (Profile, Reflection, Question, Answer)
-from django.contrib.auth import get_user_model
+
 
 class UMNOCAdminSite(admin.AdminSite):
     site_header = _('UMNOC administration')
