@@ -86,3 +86,4 @@ class ProgramEnrollmentAdmin(admin.ModelAdmin):
     list_display = ('user', 'external_user_key', 'program_uuid', 'project_uuid', 'status')
     list_filter = ('status',)
     search_fields = ('user',)
+    autocomplete_fields = ('user',)
