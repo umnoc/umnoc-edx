@@ -82,7 +82,7 @@ class OrganizationAdmin(admin.ModelAdmin):
 
 
 @admin.register(ProgramEnrollment, site=umnoc_admin_site)
-class ProgramEnrollmentAdmin(admin.Admin):
+class ProgramEnrollmentAdmin(admin.ModelAdmin):
     list_display = ('user', 'external_user_key', 'program_uuid', 'project_uuid', 'status')
     list_filter = ('status',)
     search_fields = ('user',)
