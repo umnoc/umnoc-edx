@@ -74,8 +74,15 @@ class ProgramAdmin(admin.ModelAdmin):
 
 @admin.register(Organization, site=umnoc_admin_site)
 class OrganizationAdmin(admin.ModelAdmin):
-    list_display = ('title', 'short_name', 'logo', 'active',)
+    list_display = ('title', 'short_name', 'logo', 'active')
     list_filter = ('active',)
     ordering = ('title', 'short_name',)
     search_fields = ('title', 'short_name', 'slug')
     inlines = [OrganizationCourseInline]
+
+
+@admin.register(ProgramEnrollment, site=umnoc_admin_site)
+class ProgramEnrollmentAdmin(admin.Admin):
+    list_display = ('user', 'external_user_key', 'program_uuid', 'project_uuid', 'status')
+    list_filter = ('status',)
+    search_fields = ('user',)
