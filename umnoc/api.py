@@ -86,7 +86,7 @@ BaseCourseOverviewSchema = create_schema(
         ('start_type', str, 'empty'),
         ('start_display', str, None),
         # ('pre_requisite_courses', str, None),
-        ('tabs', str, None),
+        # ('tabs', str, None),
         ('image_urls', dict, None),
         ('pacing', str, None),
         ('closest_released_language', str, None),
