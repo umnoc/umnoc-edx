@@ -38,7 +38,7 @@ class ORJSONRenderer(BaseRenderer):
 
     def default(self, obj):
         if isinstance(obj, CourseTabPydantic):
-            return obj.title
+            return obj.tab_dict
         elif isinstance(obj, CourseKey):
             return str(obj)
 
@@ -63,6 +63,12 @@ class ProgramEnrollmentIn(Schema):
 
 class ChapterSchema(Schema):
     url: str = None
+
+
+CourseTabSchema = create_schema(
+    CourseTabPydantic,
+    fields=['tab_dict']
+)
 
 
 class TextbookSchema(Schema):
@@ -99,14 +105,14 @@ BaseCourseOverviewSchema = create_schema(
         ('start_type', str, 'empty'),
         ('start_display', str, None),
         # ('pre_requisite_courses', List[CourseKey], []),
-        # ('tabs', List[CourseTabPydantic], []),
+        ('tabs', List[CourseTabSchema], []),
         ('image_urls', dict, None),
         ('pacing', str, None),
         ('closest_released_language', str, None),
         ('allow_public_wiki_access', bool, None),
-        ('textbooks', List[TextbookSchema], None),
-        ('pdf_textbooks', List[TextbookSchema], None),
-        ('html_textbooks', List[TextbookSchema], None),
+        ('textbooks', List[TextbookSchema], []),
+        ('pdf_textbooks', List[TextbookSchema], []),
+        ('html_textbooks', List[TextbookSchema], []),
         ('course_visibility', str, None),
         ('teams_enabled', bool, None),
     ]
