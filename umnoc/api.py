@@ -1,3 +1,4 @@
+import logging
 from datetime import date
 from typing import List, Dict, Any
 
@@ -20,20 +21,8 @@ from xmodule.tabs import CourseTab
 from .core.models import Program, Project, Organization
 from .courses.models import Course
 from .learners.models import ProgramEnrollment
-import logging
 
 log = logging.getLogger(__name__)
-
-class CourseTabPydantic(CourseTab):
-    @classmethod
-    def __get_validators__(cls):
-        # one or more validators may be yielded which will be called in the
-        # order to validate the input, each validator will receive as an input
-        # the value returned from the previous validator
-        def proxy_validate(value):
-            return cls.validate(tab_dict=value)
-
-        yield proxy_validate
 
 
 class ORJSONRenderer(BaseRenderer):
@@ -83,7 +72,8 @@ class TextbookSchema(Schema):
 class CourseOverviewProxy(CourseOverview):
     @property
     def description(self):
-        log.warning(f"!!!!!!!!!!!!!!!!!!!!! ------------- {self.id}, {CourseDetails.fetch_about_attribute(self.id, 'description')}")
+        log.warning(
+            f"!!!!!!!!!!!!!!!!!!!!! ------------- {self.id}, {CourseDetails.fetch_about_attribute(self.id, 'description')}")
         return 'lol test'
 
 
@@ -110,7 +100,7 @@ BaseCourseOverviewSchema = create_schema(
     custom_fields=[
         # ('id', CourseKeySchema, None),
         ('number', str, None),
-        ('description', str, None),
+        ('description', str),
         ('url_name', str, None),
         ('display_name_with_default', str, None),
         ('dashboard_start_display', date, None),
@@ -135,6 +125,7 @@ BaseCourseOverviewSchema = create_schema(
 
 class CourseOverviewSchema(BaseCourseOverviewSchema):
     id: Any
+
     class Config(BaseCourseOverviewSchema.Config):
         arbitrary_types_allowed = True
 
