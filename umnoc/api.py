@@ -1,5 +1,5 @@
 from datetime import date
-from typing import List, Dict
+from typing import List, Dict, Any
 
 import orjson
 from django.contrib.auth import get_user_model
@@ -132,6 +132,7 @@ BaseCourseOverviewSchema = create_schema(
 
 
 class CourseOverviewSchema(BaseCourseOverviewSchema):
+    id: Any
     class Config(BaseCourseOverviewSchema.Config):
         arbitrary_types_allowed = True
 
