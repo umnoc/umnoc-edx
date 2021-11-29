@@ -30,7 +30,7 @@ class CourseTabPydantic(CourseTab):
         def proxy_validate(value):
             return cls.validate(tab_dict=value)
 
-        yield cls.proxy_validate
+        yield proxy_validate
 
 
 class ORJSONRenderer(BaseRenderer):
