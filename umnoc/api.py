@@ -104,7 +104,7 @@ BaseCourseOverviewSchema = create_schema(
         'language',
     ],
     custom_fields=[
-        ('id', CourseKeySchema, None),
+        ('id', str, None),
         ('number', str, None),
         ('description', str, None),
         ('url_name', str, None),
