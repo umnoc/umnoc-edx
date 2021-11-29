@@ -21,6 +21,7 @@ from xmodule.tabs import CourseTab
 from .core.models import Program, Project, Organization
 from .courses.models import Course
 from .learners.models import ProgramEnrollment
+import asyncio
 
 log = logging.getLogger(__name__)
 
@@ -185,8 +186,8 @@ def projects(request, limit: int = 10, offset: int = 0):
 
 
 @api.get("/programs", response=List[ProgramSchema])
-def programs(request, limit: int = 10, offset: int = 0):
-    qs = Program.available_objects.filter(active=True, status='published')
+async def programs(request, limit: int = 10, offset: int = 0):
+    qs = await Program.available_objects.filter(active=True, status='published')
     return qs[offset: offset + limit]
 
 
