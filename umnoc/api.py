@@ -87,7 +87,6 @@ class CourseOverviewProxy(CourseOverview):
 BaseCourseOverviewSchema = create_schema(
     CourseOverviewProxy,
     fields=[
-        'id',
         'display_name',
         'start_date',
         'end_date',
@@ -105,6 +104,7 @@ BaseCourseOverviewSchema = create_schema(
         'language',
     ],
     custom_fields=[
+        ('id', CourseKeySchema, None),
         ('number', str, None),
         ('description', str, None),
         ('url_name', str, None),
