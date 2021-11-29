@@ -27,7 +27,10 @@ class CourseTabPydantic(CourseTab):
         # one or more validators may be yielded which will be called in the
         # order to validate the input, each validator will receive as an input
         # the value returned from the previous validator
-        yield cls.validate
+        def proxy_validate(value):
+            return cls.validate(tab_dict=value)
+
+        yield cls.proxy_validate
 
 
 class ORJSONRenderer(BaseRenderer):
