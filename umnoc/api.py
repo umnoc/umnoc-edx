@@ -60,7 +60,8 @@ class ProgramEnrollmentIn(Schema):
 
 
 class ChapterSchema(Schema):
-    url: str = None
+    title: str
+    url: str
 
 
 class CourseTabSchema(Schema):
