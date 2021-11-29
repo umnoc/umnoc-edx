@@ -21,11 +21,20 @@ from .courses.models import Course
 from .learners.models import ProgramEnrollment
 
 
+class CourseTabPydantic(CourseTab):
+    @classmethod
+    def __get_validators__(cls):
+        # one or more validators may be yielded which will be called in the
+        # order to validate the input, each validator will receive as an input
+        # the value returned from the previous validator
+        yield cls.validate
+
+
 class ORJSONRenderer(BaseRenderer):
     media_type = "application/json"
 
     def default(self, obj):
-        if isinstance(obj, CourseTab):
+        if isinstance(obj, CourseTabPydantic):
             return obj.title
         elif isinstance(obj, CourseKey):
             return str(obj)
@@ -87,7 +96,7 @@ BaseCourseOverviewSchema = create_schema(
         ('start_type', str, 'empty'),
         ('start_display', str, None),
         # ('pre_requisite_courses', List[CourseKey], None),
-        ('tabs', List[CourseTab], None),
+        ('tabs', List[CourseTabPydantic], None),
         ('image_urls', dict, None),
         ('pacing', str, None),
         ('closest_released_language', str, None),
@@ -103,7 +112,7 @@ BaseCourseOverviewSchema = create_schema(
 
 class CourseOverviewSchema(BaseCourseOverviewSchema):
     # pre_requisite_courses: List[CourseKey]
-    tabs: List[CourseTab]
+    tabs: List[CourseTabPydantic]
 
     @validator('tabs')
     def pass_validator(self, course_overview):
@@ -111,7 +120,6 @@ class CourseOverviewSchema(BaseCourseOverviewSchema):
 
     class Config(BaseCourseOverviewSchema.Config):
         arbitrary_types_allowed = True
-        json_encoders = {CourseTab: str}
 
 
 class CourseSchema(ModelSchema):
