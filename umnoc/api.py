@@ -67,7 +67,8 @@ class ChapterSchema(Schema):
 
 
 class CourseTabSchema(Schema):
-    tab_dict: dict = None
+    type: str = None
+    name: str = None
 
 
 class TextbookSchema(Schema):
