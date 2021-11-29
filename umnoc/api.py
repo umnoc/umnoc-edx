@@ -81,6 +81,7 @@ class TextbookSchema(Schema):
 class CourseOverviewProxy(CourseOverview):
     @property
     def description(self):
+        print('!!!!!!!!!!!', self.id, CourseDetails.fetch_about_attribute(self.id, 'description'))
         return CourseDetails.fetch_about_attribute(self.id, 'description')
 
 
