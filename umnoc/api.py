@@ -84,7 +84,7 @@ class CourseOverviewProxy(CourseOverview):
     @property
     def description(self):
         log.warning(f"!!!!!!!!!!!!!!!!!!!!! ------------- {self.id}, {CourseDetails.fetch_about_attribute(self.id, 'description')}")
-        return CourseDetails.fetch_about_attribute(self.id, 'description')
+        return 'lol test'
 
 
 BaseCourseOverviewSchema = create_schema(
@@ -113,7 +113,6 @@ BaseCourseOverviewSchema = create_schema(
         ('description', str, None),
         ('url_name', str, None),
         ('display_name_with_default', str, None),
-        ('display_name_with_default_escaped', str, None),
         ('dashboard_start_display', date, None),
         ('start_date_is_still_default', bool, True),
         ('sorting_score', int, None),
