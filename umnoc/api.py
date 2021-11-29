@@ -33,14 +33,11 @@ class CourseTabPydantic(CourseTab):
         yield proxy_validate
 
 
-
 class ORJSONRenderer(BaseRenderer):
     media_type = "application/json"
 
     def default(self, obj):
-        if isinstance(obj, CourseTabPydantic):
-            return obj.tab_dict
-        elif isinstance(obj, CourseKey):
+        if isinstance(obj, CourseKey):
             return str(obj)
 
     def render(self, request, data, *, response_status):
@@ -69,6 +66,10 @@ class ChapterSchema(Schema):
 class CourseTabSchema(Schema):
     type: str = None
     name: str = None
+
+
+class CourseKeySchema(Schema):
+    course: str = None
 
 
 class TextbookSchema(Schema):
@@ -104,7 +105,7 @@ BaseCourseOverviewSchema = create_schema(
         ('sorting_score', int, None),
         ('start_type', str, 'empty'),
         ('start_display', str, None),
-        # ('pre_requisite_courses', List[CourseKey], []),
+        ('pre_requisite_courses', List[CourseKeySchema], []),
         ('tabs', List[CourseTabSchema], []),
         ('image_urls', dict, None),
         ('pacing', str, None),
@@ -120,13 +121,6 @@ BaseCourseOverviewSchema = create_schema(
 
 
 class CourseOverviewSchema(BaseCourseOverviewSchema):
-    # pre_requisite_courses: List[CourseKey]
-    # tabs: List[CourseTabPydantic] = []
-
-    # @validator('tabs')
-    # def pass_validator(cls, value):
-    #     return value
-
     class Config(BaseCourseOverviewSchema.Config):
         arbitrary_types_allowed = True
 
