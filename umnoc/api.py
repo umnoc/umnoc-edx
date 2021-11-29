@@ -100,6 +100,7 @@ BaseCourseOverviewSchema = create_schema(
         ('start_display', str, None),
         # ('pre_requisite_courses', List[CourseKey], None),
         ('tabs', List[CourseTabPydantic], None),
+        ('_tabs', List[CourseTabPydantic], None),
         ('image_urls', dict, None),
         ('pacing', str, None),
         ('closest_released_language', str, None),
