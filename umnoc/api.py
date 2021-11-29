@@ -100,7 +100,7 @@ BaseCourseOverviewSchema = create_schema(
     custom_fields=[
         # ('id', CourseKeySchema, None),
         ('number', str, None),
-        ('description', str),
+        ('description', str, 'lol'),
         ('url_name', str, None),
         ('display_name_with_default', str, None),
         ('dashboard_start_display', date, None),
