@@ -33,6 +33,7 @@ class CourseTabPydantic(CourseTab):
         yield proxy_validate
 
 
+
 class ORJSONRenderer(BaseRenderer):
     media_type = "application/json"
 
@@ -65,10 +66,8 @@ class ChapterSchema(Schema):
     url: str = None
 
 
-CourseTabSchema = create_schema(
-    CourseTabPydantic,
-    fields=['tab_dict']
-)
+class CourseTabSchema(Schema):
+    tab_dict: dict = None
 
 
 class TextbookSchema(Schema):
