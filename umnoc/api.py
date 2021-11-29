@@ -21,7 +21,6 @@ from xmodule.tabs import CourseTab
 from .core.models import Program, Project, Organization
 from .courses.models import Course
 from .learners.models import ProgramEnrollment
-import asyncio
 
 log = logging.getLogger(__name__)
 
@@ -75,7 +74,7 @@ class CourseOverviewProxy(CourseOverview):
     def description(self):
         log.warning(
             f"!!!!!!!!!!!!!!!!!!!!! ------------- {self.id}, {CourseDetails.fetch_about_attribute(self.id, 'description')}")
-        return 'lol test'
+        return CourseDetails.fetch_about_attribute(self.id, 'description')
 
 
 BaseCourseOverviewSchema = create_schema(
@@ -101,11 +100,10 @@ BaseCourseOverviewSchema = create_schema(
     custom_fields=[
         # ('id', CourseKeySchema, None),
         ('number', str, None),
-        ('description', str, 'lol'),
+        ('description', str, 'Not implemented'),
         ('url_name', str, None),
         ('display_name_with_default', str, None),
         ('dashboard_start_display', date, None),
-        ('start_date_is_still_default', bool, True),
         ('sorting_score', int, None),
         ('start_type', str, 'empty'),
         ('start_display', str, None),
@@ -113,13 +111,10 @@ BaseCourseOverviewSchema = create_schema(
         ('tabs', List[CourseTabSchema], []),
         ('image_urls', dict, None),
         ('pacing', str, None),
-        ('closest_released_language', str, None),
-        ('allow_public_wiki_access', bool, None),
         ('textbooks', List[TextbookSchema], []),
         ('pdf_textbooks', List[TextbookSchema], []),
         ('html_textbooks', List[TextbookSchema], []),
         ('course_visibility', str, None),
-        ('teams_enabled', bool, None),
     ]
 )
 
@@ -186,8 +181,8 @@ def projects(request, limit: int = 10, offset: int = 0):
 
 
 @api.get("/programs", response=List[ProgramSchema])
-async def programs(request, limit: int = 10, offset: int = 0):
-    qs = await Program.available_objects.filter(active=True, status='published')
+def programs(request, limit: int = 10, offset: int = 0):
+    qs = Program.available_objects.filter(active=True, status='published')
     return qs[offset: offset + limit]
 
 
