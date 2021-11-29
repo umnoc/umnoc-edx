@@ -117,9 +117,9 @@ class CourseOverviewSchema(BaseCourseOverviewSchema):
     # pre_requisite_courses: List[CourseKey]
     tabs: List[CourseTabPydantic]
 
-    # @validator('tabs')
-    # def pass_validator(self, course_overview):
-    #     return course_overview
+    @validator('tabs')
+    def pass_validator(cls, value):
+        return value
 
     class Config(BaseCourseOverviewSchema.Config):
         arbitrary_types_allowed = True
