@@ -12,6 +12,7 @@ from ninja.orm import create_schema
 from ninja.renderers import BaseRenderer
 from opaque_keys.edx.keys import UsageKey, CourseKey
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
+from openedx.core.djangoapps.models.course_details import CourseDetails
 from pydantic import validator
 from xmodule.course_module import Textbook
 from xmodule.tabs import CourseTab
@@ -77,9 +78,16 @@ class TextbookSchema(Schema):
     chapters: List[ChapterSchema] = []
 
 
+class CourseOverviewProxy(CourseOverview):
+    @property
+    def description(self):
+        return CourseDetails.fetch_about_attribute(self.id, 'description')
+
+
 BaseCourseOverviewSchema = create_schema(
-    CourseOverview,
+    CourseOverviewProxy,
     fields=[
+        'id',
         'display_name',
         'start_date',
         'end_date',
@@ -92,6 +100,7 @@ BaseCourseOverviewSchema = create_schema(
         'max_student_enrollments_allowed',
         'catalog_visibility',
         'short_description',
+        'description',
         'course_video_url',
         'effort',
         'language',
