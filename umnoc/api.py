@@ -98,9 +98,8 @@ BaseCourseOverviewSchema = create_schema(
         ('sorting_score', int, None),
         ('start_type', str, 'empty'),
         ('start_display', str, None),
-        # ('pre_requisite_courses', List[CourseKey], None),
-        # ('tabs', List[CourseTabPydantic], None),
-        # ('_tabs', List[CourseTabPydantic], None),
+        # ('pre_requisite_courses', List[CourseKey], []),
+        ('tabs', List[CourseTabPydantic], []),
         ('image_urls', dict, None),
         ('pacing', str, None),
         ('closest_released_language', str, None),
@@ -116,7 +115,7 @@ BaseCourseOverviewSchema = create_schema(
 
 class CourseOverviewSchema(BaseCourseOverviewSchema):
     # pre_requisite_courses: List[CourseKey]
-    tabs: List[CourseTabPydantic]
+    # tabs: List[CourseTabPydantic]
 
     @validator('tabs')
     def pass_validator(cls, value):
