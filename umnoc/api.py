@@ -115,7 +115,7 @@ BaseCourseOverviewSchema = create_schema(
 
 class CourseOverviewSchema(BaseCourseOverviewSchema):
     # pre_requisite_courses: List[CourseKey]
-    tabs: List[CourseTabPydantic] = []
+    # tabs: List[CourseTabPydantic] = []
 
     # @validator('tabs')
     # def pass_validator(cls, value):
