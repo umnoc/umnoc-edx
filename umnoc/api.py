@@ -20,7 +20,9 @@ from xmodule.tabs import CourseTab
 from .core.models import Program, Project, Organization
 from .courses.models import Course
 from .learners.models import ProgramEnrollment
+import logging
 
+log = logging.getLogger(__name__)
 
 class CourseTabPydantic(CourseTab):
     @classmethod
@@ -81,7 +83,7 @@ class TextbookSchema(Schema):
 class CourseOverviewProxy(CourseOverview):
     @property
     def description(self):
-        print('!!!!!!!!!!!', self.id, CourseDetails.fetch_about_attribute(self.id, 'description'))
+        log.warning(f"!!!!!!!!!!!!!!!!!!!!! ------------- {self.id}, {CourseDetails.fetch_about_attribute(self.id, 'description')}")
         return CourseDetails.fetch_about_attribute(self.id, 'description')
 
 
