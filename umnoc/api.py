@@ -224,6 +224,12 @@ class ProjectSchema(ModelSchema):
         ]
 
 
+@api.get("/orgs", response=List[OrganizationSchema])
+def orgs(request, limit: int = 10, offset: int = 0):
+    qs = Organization.objects.filter(active=True, status='published')
+    return qs[offset: offset + limit]
+
+
 @api.get("/projects", response=List[ProjectSchema])  # description="Creates an order and updates stock"
 def projects(request, limit: int = 10, offset: int = 0):
     qs = Project.available_objects.filter(active=True, status='published')
