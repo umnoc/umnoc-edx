@@ -19,7 +19,7 @@ from xmodule.course_module import Textbook
 from xmodule.tabs import CourseTab
 
 from .core.models import Program, Project, Organization
-from .courses.models import Course
+from .courses.models import Course, Author
 from .learners.models import ProgramEnrollment
 
 log = logging.getLogger(__name__)
