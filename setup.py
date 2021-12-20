@@ -105,9 +105,9 @@ setup(
     version=VERSION,
     description="""UMNOC Educational programs and online courses management subsystem.""",
     long_description=README + '\n\n' + CHANGELOG,
-    author='edX',
-    author_email='oscm@edx.org',
-    url='https://github.com/edx/umnoc-edx',
+    author='N.V.Ignatchenko',
+    author_email='mastergowen@gmail.com',
+    url='https://github.com/umnoc/umnoc-edx',
     packages=[
         'umnoc',
     ],
