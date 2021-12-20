@@ -72,16 +72,16 @@ class Course(TimeStampedModel, SoftDeletableModel):
 
 class Competence(models.Model):
     title = models.TextField()
-    course = models.ForeignKey(Course, on_delete=models.SET_NULL)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
 
 
 class Result(models.Model):
     title = models.TextField()
-    course = models.ForeignKey(Course, on_delete=models.SET_NULL)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
 
 
 class Author(models.Model):
     name = models.CharField("ФИО", max_length=255)
     photo = models.ImageField("Фотография")
     description = models.TextField("Краткая справка о регалиях")
-    course = models.ForeignKey(Course, on_delete=models.SET_NULL)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
