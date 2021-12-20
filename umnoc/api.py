@@ -137,7 +137,6 @@ CourseSchema = create_schema(
         'labor',
         'lectures_count',
         'prerequisites',
-        'language',
         'format',
     ],
     custom_fields=[
