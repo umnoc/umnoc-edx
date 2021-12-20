@@ -42,7 +42,7 @@ class Course(TimeStampedModel, SoftDeletableModel):
     target = models.TextField("Описание направленности и целевого назначения курса", blank=True, null=True)
     description = models.TextField("О курсе, общая информация о курсе", blank=True, null=True)
     course_program = models.TextField("Программа курса", blank=True, null=True)
-    min_duration = models.PositiveSmallIntegerField(verbose_name="Длительность изучения курса, мин")
+    min_duration = models.PositiveSmallIntegerField(verbose_name="Длительность изучения курса, мин", default=0)
     max_duration = models.PositiveSmallIntegerField(verbose_name="Длительность изучения курса, макс",
                                                     help_text="Оставьте пустым, если значение точное",
                                                     blank=True, null=True)
