@@ -180,7 +180,7 @@ CourseSchema = create_schema(
         ('pre_requisite_courses', List[Any], []),
         ('authors', List[AuthorSchema], []),
         ('competences', List[CompetenceSchema], []),
-        ('results', List[str], []),
+        ('results', List[Any], []),
         # ('course_overview', CourseOverviewSchema, None),
     ]
 
