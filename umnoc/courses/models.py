@@ -38,7 +38,6 @@ class Course(TimeStampedModel, SoftDeletableModel):
     course_overview = models.ForeignKey('course_overviews.CourseOverview', db_index=True, related_name='umnoc_courses',
                                         on_delete=models.CASCADE)
 
-    title = models.CharField("Название курса", max_length=255)
     target = models.TextField("Описание направленности и целевого назначения курса", blank=True, null=True)
     description = models.TextField("О курсе, общая информация о курсе", blank=True, null=True)
     course_program = models.TextField("Программа курса", blank=True, null=True)
@@ -81,6 +80,14 @@ class Course(TimeStampedModel, SoftDeletableModel):
     @property
     def course_id(self):
         return self.course_overview.id
+
+    @property
+    def course_image_url(self):
+        return self.course_overview.course_image_url
+
+    @property
+    def banner_image_url(self):
+        return self.course_overview.banner_image_url
 
     @property
     def start_date(self):
