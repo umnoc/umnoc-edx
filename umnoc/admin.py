@@ -88,7 +88,6 @@ class CourseAdmin(admin.ModelAdmin):
     search_fields = ['course_overview__display_name', 'course_overview__id']
     list_display = ('display_name', 'course_id', 'start_date', 'end_date', 'course_program', 'status')
     inlines = [CompetenceInline, ResultInline, AuthorInline]
-    date_hierarchy = 'start_date'
 
 
 @admin.register(Program, site=umnoc_admin_site)

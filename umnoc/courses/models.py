@@ -64,6 +64,8 @@ class Course(TimeStampedModel, SoftDeletableModel):
 
     @property
     def duration(self):
+        if self.min_duration == 0:
+            return None
         if not self.max_duration or self.max_duration == 0:
             return '{} {}'.format(self.min_duration, self.week_conv(self.min_duration))
         else:
