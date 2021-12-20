@@ -145,8 +145,8 @@ class Result(models.Model):
 
 
 class Author(models.Model):
-    name = models.CharField("ФИО", max_length=255)
-    photo = models.ImageField("Фотография")
-    description = models.TextField("Краткая справка о регалиях")
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    name = models.CharField('ФИО', max_length=255)
+    photo = models.ImageField('Фотография')
+    description = models.TextField('Краткая справка о регалиях')
+    course = models.ForeignKey(Course, related_name='authors', on_delete=models.CASCADE)
     order = models.PositiveSmallIntegerField(default=0)

@@ -69,6 +69,17 @@ class TextbookSchema(Schema):
     chapters: List[ChapterSchema] = []
 
 
+class AuthorSchema(ModelSchema):
+    class Config:
+        model = Author
+        model_fields = [
+            'name',
+            'photo',
+            'description',
+            'order',
+        ]
+
+
 class CourseOverviewProxy(CourseOverview):
     @property
     def description(self):
@@ -155,6 +166,7 @@ CourseSchema = create_schema(
         ('max_student_enrollments_allowed', str, None),
         ('language', str, None),
         ('pre_requisite_courses', List[Any], []),
+        ('authors', List[AuthorSchema], [])
         # ('course_overview', CourseOverviewSchema, None),
 
     ]
