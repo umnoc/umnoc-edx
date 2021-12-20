@@ -128,6 +128,7 @@ class CourseOverviewSchema(BaseCourseOverviewSchema):
 
 CourseSchema = create_schema(
     Course,
+    depth=2,
     fields=[
         'id',
         'title',
@@ -139,7 +140,6 @@ CourseSchema = create_schema(
         'prerequisites',
         'language',
         'format',
-        'duration',
     ],
     custom_fields=[
         ('duration', str, None),
