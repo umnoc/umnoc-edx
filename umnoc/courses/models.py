@@ -138,6 +138,10 @@ class Course(TimeStampedModel, SoftDeletableModel):
     def pre_requisite_courses(self):
         return self.course_overview.pre_requisite_courses
 
+    @property
+    def results(self):
+        return self.result_set.values_list('title', flat=True)
+
 
 class Competence(models.Model):
     title = models.TextField()
@@ -150,7 +154,7 @@ class Competence(models.Model):
 
 class Result(models.Model):
     title = models.TextField()
-    course = models.ForeignKey(Course, related_name="results", on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
     order = models.PositiveSmallIntegerField(default=0)
 
     class Meta:
