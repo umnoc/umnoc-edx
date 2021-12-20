@@ -1,3 +1,4 @@
+from admin_ordering.admin import OrderableAdmin
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _
@@ -37,22 +38,25 @@ class ProgramCourseInline(admin.TabularInline):
     autocomplete_fields = ['course']
 
 
-class CompetenceInline(admin.TabularInline):
+class CompetenceInline(OrderableAdmin, admin.TabularInline):
     model = Competence
     extra = 1
     autocomplete_fields = ['course']
+    ordering_field = "order"
 
 
-class ResultInline(admin.TabularInline):
+class ResultInline(OrderableAdmin, admin.TabularInline):
     model = Result
     extra = 1
     autocomplete_fields = ['course']
+    ordering_field = "order"
 
 
-class AuthorInline(admin.TabularInline):
+class AuthorInline(OrderableAdmin, admin.TabularInline):
     model = Author
     extra = 1
     autocomplete_fields = ['course']
+    ordering_field = "order"
 
 
 # modeladmins

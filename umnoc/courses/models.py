@@ -73,11 +73,13 @@ class Course(TimeStampedModel, SoftDeletableModel):
 class Competence(models.Model):
     title = models.TextField()
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    order = models.PositiveSmallIntegerField(default=0)
 
 
 class Result(models.Model):
     title = models.TextField()
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    order = models.PositiveSmallIntegerField(default=0)
 
 
 class Author(models.Model):
@@ -85,3 +87,4 @@ class Author(models.Model):
     photo = models.ImageField("Фотография")
     description = models.TextField("Краткая справка о регалиях")
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    order = models.PositiveSmallIntegerField(default=0)
