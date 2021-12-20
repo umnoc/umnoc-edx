@@ -142,7 +142,7 @@ class CourseSchema(ModelSchema):
             'prerequisites',
             'language',
             'format',
-            'duration',
+            # 'duration',
         ]
 
 
