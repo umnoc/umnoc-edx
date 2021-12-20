@@ -154,7 +154,7 @@ CourseSchema = create_schema(
         ('invitation_only', bool, None),
         ('max_student_enrollments_allowed', str, None),
         ('language', str, None),
-        ('pre_requisite_courses', str, []),
+        ('pre_requisite_courses', List[Any], []),
         # ('course_overview', CourseOverviewSchema, None),
 
     ]
