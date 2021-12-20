@@ -12,7 +12,7 @@ from .core.models import (
     Program,
     TextBlock
 )
-from .courses.models import (Course)
+from .courses.models import (Course, Competence, Result, Author)
 from .learners.models import (ProgramEnrollment)
 from .profiles.models import (Profile, Reflection, Question, Answer)
 
@@ -35,6 +35,24 @@ class ProgramCourseInline(admin.TabularInline):
     model = ProgramCourse
     extra = 1
     autocomplete_fields = ['course']
+
+
+class CompetenceInline(admin.TabularInline):
+    model = Competence
+    extra = 1
+    autocomplete_fields = course
+
+
+class ResultInline(admin.TabularInline):
+    model = Result
+    extra = 1
+    autocomplete_fields = course
+
+
+class AuthorInline(admin.TabularInline):
+    model = Author
+    extra = 1
+    autocomplete_fields = course
 
 
 # modeladmins
@@ -62,6 +80,7 @@ class CourseAdmin(admin.ModelAdmin):
     autocomplete_fields = ['course_overview']
     search_fields = ['title', 'course_overview__display_name']
     list_display = ('title', 'target', 'language', 'lectures_count')
+    inlines = [CompetenceInline, ResultInline, AuthorInline]
 
 
 @admin.register(Program, site=umnoc_admin_site)
