@@ -80,6 +80,18 @@ class AuthorSchema(ModelSchema):
         ]
 
 
+class CompetenceSchema(ModelSchema):
+    class Config:
+        model = Competence
+        model_fields = ["title"]
+
+
+class ResultSchema(ModelSchema):
+    class Config:
+        model = Result
+        model_fields = ["title"]
+
+
 class CourseOverviewProxy(CourseOverview):
     @property
     def description(self):
@@ -166,7 +178,9 @@ CourseSchema = create_schema(
         ('max_student_enrollments_allowed', str, None),
         ('language', str, None),
         ('pre_requisite_courses', List[Any], []),
-        ('authors', List[AuthorSchema], [])
+        ('authors', List[AuthorSchema], []),
+        ('competences', List[CompetenceSchema], []),
+        ('results', List[ResultSchema], []),
         # ('course_overview', CourseOverviewSchema, None),
 
     ]

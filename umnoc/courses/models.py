@@ -141,14 +141,20 @@ class Course(TimeStampedModel, SoftDeletableModel):
 
 class Competence(models.Model):
     title = models.TextField()
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, related_name="competences", on_delete=models.CASCADE)
     order = models.PositiveSmallIntegerField(default=0)
+
+    class Meta:
+        ordering = ('order',)
 
 
 class Result(models.Model):
     title = models.TextField()
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, related_name="results", on_delete=models.CASCADE)
     order = models.PositiveSmallIntegerField(default=0)
+
+    class Meta:
+        ordering = ('order',)
 
 
 class Author(models.Model):
@@ -157,3 +163,6 @@ class Author(models.Model):
     description = models.TextField('Краткая справка о регалиях')
     course = models.ForeignKey(Course, related_name='authors', on_delete=models.CASCADE)
     order = models.PositiveSmallIntegerField(default=0)
+
+    class Meta:
+        ordering = ('order',)
