@@ -156,6 +156,11 @@ class Competence(models.Model):
 
     class Meta:
         ordering = ('order',)
+        verbose_name = 'компетенция'
+        verbose_name_plural = 'компетенции'
+
+    def __str__(self):
+        return self.title
 
     def save(self, *args, **kwargs):
         title = re.sub("\s+", " ", str(self.title))
@@ -170,6 +175,11 @@ class Result(models.Model):
 
     class Meta:
         ordering = ('order',)
+        verbose_name = 'результат обучения'
+        verbose_name_plural = 'результаты обучения'
+
+    def __str__(self):
+        return self.title
 
     def save(self, *args, **kwargs):
         title = re.sub('\s+', ' ', str(self.title))
@@ -186,3 +196,8 @@ class Author(models.Model):
 
     class Meta:
         ordering = ('order',)
+        verbose_name = 'автор'
+        verbose_name_plural = 'авторы'
+
+    def __str__(self):
+        return self.name
