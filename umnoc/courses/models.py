@@ -2,6 +2,9 @@
 Database models for umnoc courses module.
 """
 import re
+from datetime import datetime
+from typing import List
+from typing import Optional
 
 from django.db import models
 from model_utils import Choices
@@ -61,11 +64,11 @@ class Course(TimeStampedModel, SoftDeletableModel):
     # TODO: Добавить поля паспорта
     # TODO: Написать методы
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f'<UMNOC course, ID: {self.course_overview}, title: {self.course_overview.display_name}>'
 
     @property
-    def duration(self):
+    def duration(self) -> str:
         if self.min_duration == 0:
             return None
         if not self.max_duration or self.max_duration == 0:
@@ -74,66 +77,66 @@ class Course(TimeStampedModel, SoftDeletableModel):
             return '{}-{} {}'.format(self.min_duration, self.max_duration, self.week_conv(self.max_duration))
 
     @property
-    def credits(self):
+    def credits(self) -> str:
         if self.labor > 0:
             return f"{self.labor} з.е."
         else:
             return None
 
     @property
-    def start_display(self):
+    def start_display(self) -> str:
         return self.course_overview.start_display
 
     @property
-    def display_name(self):
+    def display_name(self) -> str:
         return self.course_overview.display_name
 
     @property
-    def course_id(self):
+    def course_id(self) -> str:
         return self.course_overview.id
 
     @property
-    def course_image_url(self):
+    def course_image_url(self) -> str:
         return self.course_overview.course_image_url
 
     @property
-    def banner_image_url(self):
+    def banner_image_url(self) -> str:
         return self.course_overview.banner_image_url
 
     @property
-    def start_date(self):
+    def start_date(self) -> Optional[datetime]:
         return self.course_overview.start_date
 
     @property
-    def end_date(self):
+    def end_date(self) -> Optional[datetime]:
         return self.course_overview.end_date
 
     @property
-    def enrollment_start(self):
+    def enrollment_start(self) -> Optional[datetime]:
         return self.course_overview.enrollment_start
 
     @property
-    def invitation_only(self):
-        return self.course_overview.invitation_only
-
-    @property
-    def max_student_enrollments_allowed(self):
-        return self.course_overview.max_student_enrollments_allowed
-
-    @property
-    def enrollment_end(self):
+    def enrollment_end(self) -> Optional[datetime]:
         return self.course_overview.enrollment_end
 
     @property
-    def short_description(self):
+    def invitation_only(self) -> Optional[datetime]:
+        return self.course_overview.invitation_only
+
+    @property
+    def max_student_enrollments_allowed(self) -> bool:
+        return self.course_overview.max_student_enrollments_allowed
+
+    @property
+    def short_description(self) -> str:
         return self.course_overview.short_description
 
     @property
-    def course_video_url(self):
+    def course_video_url(self) -> str:
         return self.course_overview.course_video_url
 
     @property
-    def language(self):
+    def language(self) -> str:
         return self.course_overview.language
 
     @property
@@ -141,11 +144,11 @@ class Course(TimeStampedModel, SoftDeletableModel):
         return self.course_overview.pre_requisite_courses
 
     @property
-    def results(self):
+    def results(self) -> List[Optional[str]]:
         return self.result_set.values_list('title', flat=True)
 
     @property
-    def competences(self):
+    def competences(self) -> List[Optional[str]]:
         return self.competence_set.values_list('title', flat=True)
 
 
