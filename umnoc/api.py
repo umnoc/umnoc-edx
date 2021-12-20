@@ -142,7 +142,9 @@ CourseSchema = create_schema(
     ],
     custom_fields=[
         ('duration', str, None),
-        ('course_overview', CourseOverviewSchema, None)
+        ('course_overview', CourseOverviewSchema, None),
+        ('start_display', str, None)
+
     ]
 
 )

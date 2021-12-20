@@ -70,6 +70,10 @@ class Course(TimeStampedModel, SoftDeletableModel):
         else:
             return '{}-{} {}'.format(self.min_duration, self.max_duration, self.week_conv(self.max_duration))
 
+    @property
+    def start_display(self):
+        return self.course_overview.start_display
+
 
 class Competence(models.Model):
     title = models.TextField()
