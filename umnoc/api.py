@@ -75,8 +75,7 @@ class AuthorSchema(ModelSchema):
         model_fields = [
             'name',
             'photo',
-            'description',
-            'order',
+            'description'
         ]
 
 
