@@ -81,16 +81,6 @@ BaseCourseOverviewSchema = create_schema(
     CourseOverviewProxy,
     fields=[
         'id',
-        'title',
-        'target',
-        'description',
-        'course_program',
-        'labor',
-        'lectures_count',
-        'prerequisites',
-        'language',
-        'format',
-        'duration',
         'display_name',
         'start_date',
         'end_date',
@@ -142,7 +132,17 @@ class CourseSchema(ModelSchema):
     class Config:
         model = Course
         model_fields = [
-            'id'
+            'id',
+            'title',
+            'target',
+            'description',
+            'course_program',
+            'labor',
+            'lectures_count',
+            'prerequisites',
+            'language',
+            'format',
+            'duration',
         ]
 
 
