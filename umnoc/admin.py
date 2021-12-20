@@ -89,14 +89,14 @@ class CourseAdmin(admin.ModelAdmin):
     list_display = ('display_name', 'course_id', 'start_date', 'end_date', 'course_program', 'status')
     fieldsets = (
         (None, {
-            'fields': (('course_overview', 'status', 'is_removed', 'published_at'),)
+            'fields': (('course_overview', 'status', 'is_removed'), 'published_at')
         }),
-        ('Numeric fields', {
-            'classes': ('collapse',),
+        ('Численная информация', {
+            'classes': ('wide',),
             'fields': (('min_duration', 'max_duration'), 'labor', 'lectures_count')
         }),
-        ('Advanced options', {
-            'classes': ('collapse',),
+        ('Текстовая информация', {
+            'classes': ('wide',),
             'fields': ('target', 'description', 'course_program', 'prerequisites', 'format'),
         }),
     )
