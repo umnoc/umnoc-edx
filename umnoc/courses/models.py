@@ -46,8 +46,8 @@ class Course(TimeStampedModel, SoftDeletableModel):
     max_duration = models.PositiveSmallIntegerField(verbose_name="Длительность изучения курса, макс",
                                                     help_text="Оставьте пустым, если значение точное",
                                                     blank=True, null=True)
-    labor = models.PositiveSmallIntegerField("Трудоемкость, з.е.")
-    lectures_count = models.PositiveSmallIntegerField("Количество лекций")
+    labor = models.PositiveSmallIntegerField("Трудоемкость, з.е.", default=0)
+    lectures_count = models.PositiveSmallIntegerField("Количество лекций", default=0)
     prerequisites = models.TextField("Пререквизиты", null=True)
     language = models.CharField("Язык курса", max_length=16)
     format = models.TextField("Формат обучения", null=True)
