@@ -155,6 +155,10 @@ class Competence(models.Model):
     class Meta:
         ordering = ('order',)
 
+    def save(self, *args, **kwargs):
+        self.title = self.title.strip()
+        super(Competence, self).save(*args, **kwargs)
+
 
 class Result(models.Model):
     title = models.TextField()
@@ -163,6 +167,10 @@ class Result(models.Model):
 
     class Meta:
         ordering = ('order',)
+
+    def save(self, *args, **kwargs):
+        self.title = self.title.strip()
+        super(Result, self).save(*args, **kwargs)
 
 
 class Author(models.Model):
