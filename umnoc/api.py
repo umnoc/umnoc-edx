@@ -104,7 +104,6 @@ BaseCourseOverviewSchema = create_schema(
         ('url_name', str, None),
         ('display_name_with_default', str, None),
         ('dashboard_start_display', date, None),
-        ('sorting_score', int, None),
         ('start_type', str, 'empty'),
         ('start_display', str, None),
         ('pre_requisite_courses', List[CourseKeySchema], []),
