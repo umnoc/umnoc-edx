@@ -40,19 +40,19 @@ class ProgramCourseInline(admin.TabularInline):
 class CompetenceInline(admin.TabularInline):
     model = Competence
     extra = 1
-    autocomplete_fields = course
+    autocomplete_fields = ['course']
 
 
 class ResultInline(admin.TabularInline):
     model = Result
     extra = 1
-    autocomplete_fields = course
+    autocomplete_fields = ['course']
 
 
 class AuthorInline(admin.TabularInline):
     model = Author
     extra = 1
-    autocomplete_fields = course
+    autocomplete_fields = ['course']
 
 
 # modeladmins
