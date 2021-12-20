@@ -143,8 +143,8 @@ CourseSchema = create_schema(
         ('duration', str, None),
         ('start_display', str, None),
         ('display_name', str, None),
-        ('course_id', str, None),
-        ('start_date', str, None),
+        ('course_id', Any, None),
+        ('start_date', Any, None),
         ('end_date', str, None),
         ('enrollment_start', str, None),
         ('invitation_only', bool, None),
@@ -153,7 +153,7 @@ CourseSchema = create_schema(
         ('short_description', str, None),
         ('course_video_url', str, None),
         ('language', str, None),
-        ('pre_requisite_courses', str, None),
+        ('pre_requisite_courses', Any, None),
         # ('course_overview', CourseOverviewSchema, None),
 
     ]
