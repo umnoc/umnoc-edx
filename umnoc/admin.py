@@ -60,7 +60,8 @@ class CourseOverviewAdmin(admin.ModelAdmin):
 @admin.register(Course, site=umnoc_admin_site)
 class CourseAdmin(admin.ModelAdmin):
     autocomplete_fields = ['course_overview']
-    search_fields = ['course_overview__display_name']
+    search_fields = ['title', 'course_overview__display_name']
+    list_display = ('title', 'target', 'language', 'lectures_count')
 
 
 @admin.register(Program, site=umnoc_admin_site)
