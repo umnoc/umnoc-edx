@@ -43,6 +43,7 @@ class CompetenceInline(OrderableAdmin, admin.TabularInline):
     # extra = 1
     autocomplete_fields = ['course']
     ordering_field = "order"
+    ordering_field_hide_input = True
 
 
 class ResultInline(OrderableAdmin, admin.TabularInline):
@@ -50,6 +51,7 @@ class ResultInline(OrderableAdmin, admin.TabularInline):
     # extra = 1
     autocomplete_fields = ['course']
     ordering_field = "order"
+    ordering_field_hide_input = True
 
 
 class AuthorInline(OrderableAdmin, admin.TabularInline):
@@ -57,6 +59,7 @@ class AuthorInline(OrderableAdmin, admin.TabularInline):
     # extra = 1
     autocomplete_fields = ['course']
     ordering_field = "order"
+    ordering_field_hide_input = True
 
 
 # modeladmins
