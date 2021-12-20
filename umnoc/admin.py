@@ -85,9 +85,12 @@ class CourseOverviewAdmin(admin.ModelAdmin):
 @admin.register(Course, site=umnoc_admin_site)
 class CourseAdmin(admin.ModelAdmin):
     autocomplete_fields = ['course_overview']
-    search_fields = ['course_overview__display_name', 'course_overview__display_name']
-    list_display = ('course_overview__display_name', 'target', 'language', 'lectures_count')
+    search_fields = ['course_overview__display_name', 'course_overview__id']
+    list_display = ('display_name', 'target', 'language', 'lectures_count')
     inlines = [CompetenceInline, ResultInline, AuthorInline]
+
+    def display_name(self, obj: Course) -> str:
+        return obj.display_name
 
 
 @admin.register(Program, site=umnoc_admin_site)
