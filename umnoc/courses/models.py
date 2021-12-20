@@ -50,7 +50,7 @@ class Course(TimeStampedModel, SoftDeletableModel):
                                              help_text="Зачётных единиц")
     lectures_count = models.PositiveSmallIntegerField("Количество лекций", default=0)
     prerequisites = models.TextField("Пререквизиты", blank=True, null=True)
-    language = models.CharField("Язык курса", max_length=16, default="русский")
+    # language = models.CharField("Язык курса", max_length=16, default="русский")
     format = models.TextField("Формат обучения", blank=True, null=True)
 
     STATUS = Choices('draft', 'published')
@@ -73,6 +73,54 @@ class Course(TimeStampedModel, SoftDeletableModel):
     @property
     def start_display(self):
         return self.course_overview.start_display
+
+    @property
+    def display_name(self):
+        return self.course_overview.display_name
+
+    @property
+    def course_id(self):
+        return self.course_overview.id
+
+    @property
+    def start_date(self):
+        return self.course_overview.start_date
+
+    @property
+    def end_date(self):
+        return self.course_overview.end_date
+
+    @property
+    def enrollment_start(self):
+        return self.course_overview.enrollment_start
+
+    @property
+    def invitation_only(self):
+        return self.course_overview.invitation_only
+
+    @property
+    def max_student_enrollments_allowed(self):
+        return self.course_overview.max_student_enrollments_allowed
+
+    @property
+    def enrollment_end(self):
+        return self.course_overview.enrollment_end
+
+    @property
+    def short_description(self):
+        return self.course_overview.short_description
+
+    @property
+    def course_video_url(self):
+        return self.course_overview.course_video_url
+
+    @property
+    def language(self):
+        return self.course_overview.language
+
+    @property
+    def pre_requisite_courses(self):
+        return self.course_overview.pre_requisite_courses
 
 
 class Competence(models.Model):

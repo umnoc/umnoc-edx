@@ -142,8 +142,20 @@ CourseSchema = create_schema(
     ],
     custom_fields=[
         ('duration', str, None),
-        ('course_overview', CourseOverviewSchema, None),
-        ('start_display', str, None)
+        ('start_display', str, None),
+        ('display_name', str, None),
+        ('course_id', str, None),
+        ('start_date', str, None),
+        ('end_date', str, None),
+        ('enrollment_start', str, None),
+        ('invitation_only', bool, None),
+        ('max_student_enrollments_allowed', str, None),
+        ('enrollment_end', str, None),
+        ('short_description', str, None),
+        ('course_video_url', str, None),
+        ('language', str, None),
+        ('pre_requisite_courses', str, None),
+        # ('course_overview', CourseOverviewSchema, None),
 
     ]
 
@@ -202,7 +214,7 @@ def programs(request, limit: int = 10, offset: int = 0):
 
 @api.get("/courses", response=List[CourseSchema])
 def courses(request, limit: int = 20, offset: int = 0):
-    qs = Course.objects.filter(status='published')
+    qs = Course.objects.filter(status='published', course_overview__catalog_visibility='both')
     return qs[offset: offset + limit]
 
 
