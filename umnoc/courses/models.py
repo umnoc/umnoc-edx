@@ -158,8 +158,8 @@ class Competence(models.Model):
         ordering = ('order',)
 
     def save(self, *args, **kwargs):
-        self.title = re.sub("s+", " ", self.title)
-        self.title = self.title.strip()
+        title = re.sub("s+", " ", str(self.title))
+        self.title = title.strip()
         super(Competence, self).save(*args, **kwargs)
 
 
@@ -172,8 +172,8 @@ class Result(models.Model):
         ordering = ('order',)
 
     def save(self, *args, **kwargs):
-        self.title = re.sub("s+", " ", self.title)
-        self.title = self.title.strip()
+        title = re.sub("s+", " ", str(self.title))
+        self.title = title.strip()
         super(Result, self).save(*args, **kwargs)
 
 
