@@ -1,6 +1,8 @@
 """
 Database models for umnoc courses module.
 """
+import re
+
 from django.db import models
 from model_utils import Choices
 from model_utils.models import (
@@ -156,6 +158,7 @@ class Competence(models.Model):
         ordering = ('order',)
 
     def save(self, *args, **kwargs):
+        self.title = re.sub("s+", " ", self.title)
         self.title = self.title.strip()
         super(Competence, self).save(*args, **kwargs)
 
@@ -169,6 +172,7 @@ class Result(models.Model):
         ordering = ('order',)
 
     def save(self, *args, **kwargs):
+        self.title = re.sub("s+", " ", self.title)
         self.title = self.title.strip()
         super(Result, self).save(*args, **kwargs)
 
