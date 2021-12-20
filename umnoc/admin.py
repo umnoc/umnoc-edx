@@ -40,21 +40,21 @@ class ProgramCourseInline(admin.TabularInline):
 
 class CompetenceInline(OrderableAdmin, admin.TabularInline):
     model = Competence
-    extra = 1
+    # extra = 1
     autocomplete_fields = ['course']
     ordering_field = "order"
 
 
 class ResultInline(OrderableAdmin, admin.TabularInline):
     model = Result
-    extra = 1
+    # extra = 1
     autocomplete_fields = ['course']
     ordering_field = "order"
 
 
 class AuthorInline(OrderableAdmin, admin.TabularInline):
     model = Author
-    extra = 1
+    # extra = 1
     autocomplete_fields = ['course']
     ordering_field = "order"
 
