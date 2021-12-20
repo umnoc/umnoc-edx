@@ -68,7 +68,7 @@ class Course(TimeStampedModel, SoftDeletableModel):
         if not self.max_duration or self.max_duration == 0:
             return '{} {}'.format(self.min_duration, self.week_conv(self.min_duration))
         else:
-            return '{} - {} {}'.format(self.min_duration, self.max_duration, self.week_conv(self.max_duration))
+            return '{}-{} {}'.format(self.min_duration, self.max_duration, self.week_conv(self.max_duration))
 
 
 class Competence(models.Model):
