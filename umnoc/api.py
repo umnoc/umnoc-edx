@@ -19,7 +19,7 @@ from xmodule.course_module import Textbook
 from xmodule.tabs import CourseTab
 
 from .core.models import Program, Project, Organization
-from .courses.models import Course, Author
+from .courses.models import Course, Author, Competence, Result
 from .learners.models import ProgramEnrollment
 
 log = logging.getLogger(__name__)
@@ -144,7 +144,6 @@ CourseSchema = create_schema(
         'target',
         'description',
         'course_program',
-        'labor',
         'lectures_count',
         'prerequisites',
         'format',
@@ -157,6 +156,7 @@ CourseSchema = create_schema(
         ('course_video_url', str, None),
         ('short_description', str, None),
         ('duration', str, None),
+        ('credits', str, None),
         ('start_display', str, None),
         ('start_date', Any, None),
         ('end_date', str, None),

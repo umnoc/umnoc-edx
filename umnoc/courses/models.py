@@ -72,6 +72,13 @@ class Course(TimeStampedModel, SoftDeletableModel):
             return '{}-{} {}'.format(self.min_duration, self.max_duration, self.week_conv(self.max_duration))
 
     @property
+    def credits(self):
+        if self.labor > 0:
+            return f"{self.labor} з.е."
+        else:
+            return None
+
+    @property
     def start_display(self):
         return self.course_overview.start_display
 
