@@ -126,24 +126,27 @@ class CourseOverviewSchema(BaseCourseOverviewSchema):
         arbitrary_types_allowed = True
 
 
-class CourseSchema(ModelSchema):
-    course_overview: CourseOverviewSchema = None
+CourseSchema = create_schema(
+    Course,
+    fields=[
+        'id',
+        'title',
+        'target',
+        'description',
+        'course_program',
+        'labor',
+        'lectures_count',
+        'prerequisites',
+        'language',
+        'format',
+        'duration',
+    ],
+    custom_fields=[
+        ('duration', str, None),
+        ('course_overview', CourseOverviewSchema, None)
+    ]
 
-    class Config:
-        model = Course
-        model_fields = [
-            'id',
-            'title',
-            'target',
-            'description',
-            'course_program',
-            'labor',
-            'lectures_count',
-            'prerequisites',
-            'language',
-            'format',
-            # 'duration',
-        ]
+)
 
 
 class OrganizationSchema(ModelSchema):
