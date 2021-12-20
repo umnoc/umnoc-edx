@@ -54,7 +54,6 @@ class Course(TimeStampedModel, SoftDeletableModel):
                                              help_text="Зачётных единиц")
     lectures_count = models.PositiveSmallIntegerField("Количество лекций", default=0)
     prerequisites = models.TextField("Пререквизиты", blank=True, null=True)
-    # language = models.CharField("Язык курса", max_length=16, default="русский")
     format = models.TextField("Формат обучения", blank=True, null=True)
 
     STATUS = Choices('draft', 'published')

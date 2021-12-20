@@ -87,6 +87,19 @@ class CourseAdmin(admin.ModelAdmin):
     autocomplete_fields = ['course_overview']
     search_fields = ['course_overview__display_name', 'course_overview__id']
     list_display = ('display_name', 'course_id', 'start_date', 'end_date', 'course_program', 'status')
+    fieldsets = (
+        (None, {
+            'fields': ('course_overview', 'status', 'is_removed', 'published_at')
+        }),
+        ('Numeric fields', {
+            'classes': ('collapse',),
+            'fields': ('min_duration', 'max_duration', 'labor', 'lectures_count')
+        }),
+        ('Advanced options', {
+            'classes': ('collapse',),
+            'fields': ('target', 'description', 'course_program', 'prerequisites', 'format'),
+        }),
+    )
     inlines = [CompetenceInline, ResultInline, AuthorInline]
 
 
