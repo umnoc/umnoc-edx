@@ -12,6 +12,7 @@ class UmnocEdxConfig(AppConfig):
     """
 
     name = 'umnoc'
+    icon = 'fa fa-university'
 
 
 class UMNOCAdminConfig(AdminConfig):
