@@ -6,4 +6,4 @@ django-model-utils        # Provides TimeStampedModel abstract base class
 django-ninja
 orjson
 django-admin-ordering
-django-admin-volt
+django-jazzmin
