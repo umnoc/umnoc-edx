@@ -77,7 +77,7 @@ AuthorSchema = create_schema(
         'description'
     ],
     custom_fields=[
-        ('photo_url', str, None)
+        ('photo_url', Any, None)
     ]
 )
 
