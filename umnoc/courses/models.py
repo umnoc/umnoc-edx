@@ -99,7 +99,7 @@ class Course(TimeStampedModel, SoftDeletableModel):
 
     @property
     def course_image_url(self) -> str:
-        return self.course_overview.course_image_url
+        return f'{settings.LMS_ROOT_URL}{self.course_overview.course_image_url}'
 
     @property
     def banner_image_url(self) -> str:
