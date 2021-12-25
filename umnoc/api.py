@@ -73,7 +73,6 @@ AuthorSchema = create_schema(
     Author,
     fields=[
         'name',
-        'photo',
         'description'
     ],
     custom_fields=[
