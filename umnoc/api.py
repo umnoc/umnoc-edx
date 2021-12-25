@@ -246,7 +246,7 @@ def programs(request, limit: int = 10, offset: int = 0):
 
 @api.get("/courses", response=List[CourseSchema])
 def courses(request, limit: int = 20, offset: int = 0):
-    qs = Course.objects.filter(status='published', course_overview__catalog_visibility='both')
+    qs = Course.objects.filter(status='published', course_overview__catalog_visibility='both').order_by('id')
     return qs[offset: offset + limit]
 
 
