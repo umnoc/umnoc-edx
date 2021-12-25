@@ -72,7 +72,7 @@ class Course(TimeStampedModel, SoftDeletableModel):
     @property
     def duration(self) -> str:
         if self.min_duration == 0:
-            return None
+            return ''
         if not self.max_duration or self.max_duration == 0:
             return '{} {}'.format(self.min_duration, self.week_conv(self.min_duration))
         else:
@@ -81,9 +81,9 @@ class Course(TimeStampedModel, SoftDeletableModel):
     @property
     def credits(self) -> str:
         if self.labor > 0:
-            return f"{self.labor} з.е."
+            return f'{self.labor} з.е.'
         else:
-            return None
+            return ''
 
     @property
     def start_display(self) -> str:
@@ -164,8 +164,8 @@ class Competence(models.Model):
         verbose_name = 'компетенция'
         verbose_name_plural = 'компетенции'
 
-    def __str__(self):
-        return self.title
+    def __str__(self) -> str:
+        return str(self.title)
 
     def save(self, *args, **kwargs):
         title = re.sub('\s+', ' ', str(self.title))
@@ -204,8 +204,9 @@ class Author(models.Model):
         verbose_name = 'автор'
         verbose_name_plural = 'авторы'
 
-    def __str__(self):
-        return self.name
+    def __str__(self) -> str:
+        return str(self.name)
 
-    def photo_url(self):
+    @property
+    def photo_url(self) -> str:
         return f'{settings.LMS_ROOT_URL}{self.photo}'
