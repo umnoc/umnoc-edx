@@ -21,10 +21,11 @@ class Course(TimeStampedModel, SoftDeletableModel):
         Онлайн-курс. Модель позволяет расширить course_overview.
     """
 
-    def week_conv(self, n):
+    @staticmethod
+    def week_conv(n):
         es = ['неделя', 'недели', 'недель']
         n = n % 100
-        if n >= 11 and n <= 19:
+        if 11 <= n <= 19:
             s = es[2]
         else:
             i = n % 10
@@ -37,29 +38,29 @@ class Course(TimeStampedModel, SoftDeletableModel):
         return s
 
     class Meta:
-        app_label = "umnoc"
-        verbose_name = "курс"
-        verbose_name_plural = "курсы"
+        app_label = 'umnoc'
+        verbose_name = 'курс'
+        verbose_name_plural = 'курсы'
 
     course_overview = models.ForeignKey('course_overviews.CourseOverview', db_index=True, related_name='umnoc_courses',
                                         on_delete=models.CASCADE)
 
-    target = models.TextField("Описание направленности и целевого назначения курса", blank=True, null=True)
-    description = models.TextField("О курсе, общая информация о курсе", blank=True, null=True)
-    course_program = models.TextField("Программа курса", blank=True, null=True)
-    min_duration = models.PositiveSmallIntegerField(verbose_name="Длительность изучения курса, мин",
-                                                    help_text="недель", default=0)
-    max_duration = models.PositiveSmallIntegerField(verbose_name="Длительность изучения курса, макс",
-                                                    help_text="Оставьте пустым, если значение точное",
+    target = models.TextField('Описание направленности и целевого назначения курса', blank=True, null=True)
+    description = models.TextField('О курсе, общая информация о курсе', blank=True, null=True)
+    course_program = models.TextField('Программа курса', blank=True, null=True)
+    min_duration = models.PositiveSmallIntegerField(verbose_name='Длительность изучения курса, мин',
+                                                    help_text='недель', default=0)
+    max_duration = models.PositiveSmallIntegerField(verbose_name='Длительность изучения курса, макс',
+                                                    help_text='Оставьте пустым, если значение точное',
                                                     blank=True, null=True)
-    labor = models.PositiveSmallIntegerField("Трудоемкость", default=0,
-                                             help_text="Зачётных единиц")
-    lectures_count = models.PositiveSmallIntegerField("Количество лекций", default=0)
-    prerequisites = models.TextField("Пререквизиты", blank=True, null=True)
-    format = models.TextField("Формат обучения", blank=True, null=True)
+    labor = models.PositiveSmallIntegerField('Трудоемкость', default=0,
+                                             help_text='Зачётных единиц')
+    lectures_count = models.PositiveSmallIntegerField('Количество лекций', default=0)
+    prerequisites = models.TextField('Пререквизиты', blank=True, null=True)
+    format = models.TextField('Формат обучения', blank=True, null=True)
 
     STATUS = Choices('draft', 'published')
-    status = StatusField(choices_name="STATUS")
+    status = StatusField(choices_name='STATUS')
     published_at = MonitorField(monitor='status', when=['published'])
 
     # TODO: Добавить поля паспорта
@@ -167,7 +168,7 @@ class Competence(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        title = re.sub("\s+", " ", str(self.title))
+        title = re.sub('\s+', ' ', str(self.title))
         self.title = title.strip()
         super(Competence, self).save(*args, **kwargs)
 
@@ -207,4 +208,4 @@ class Author(models.Model):
         return self.name
 
     def photo_url(self):
-        return f"{settings.LMS_ROOT_URL}{self.photo}"
+        return f'{settings.LMS_ROOT_URL}{self.photo}'
