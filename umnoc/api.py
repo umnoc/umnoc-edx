@@ -69,14 +69,17 @@ class TextbookSchema(Schema):
     chapters: List[ChapterSchema] = []
 
 
-class AuthorSchema(ModelSchema):
-    class Config:
-        model = Author
-        model_fields = [
-            'name',
-            'photo',
-            'description'
-        ]
+AuthorSchema = create_schema(
+    Author,
+    fields=[
+        'name',
+        'photo',
+        'description'
+    ],
+    custom_fields=[
+        ('photo_url', str, None)
+    ]
+)
 
 
 class CompetenceSchema(ModelSchema):

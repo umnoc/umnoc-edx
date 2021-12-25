@@ -6,6 +6,7 @@ from datetime import datetime
 from typing import List
 from typing import Optional
 
+from django.conf import settings
 from django.db import models
 from model_utils import Choices
 from model_utils.models import (
@@ -204,3 +205,6 @@ class Author(models.Model):
 
     def __str__(self):
         return self.name
+
+    def photo_url(self):
+        return f"{settings.LMS_ROOT_URL}{self.photo}"
