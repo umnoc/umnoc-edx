@@ -209,4 +209,4 @@ class Author(models.Model):
 
     @property
     def photo_url(self) -> str:
-        return f'{settings.LMS_ROOT_URL}{self.photo}'
+        return f'{settings.LMS_ROOT_URL}{settings.MEDIA_URL}{self.photo}'
