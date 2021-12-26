@@ -40,7 +40,7 @@ class ORJSONRenderer(BaseRenderer):
         return orjson.dumps(data, default=self.default)
 
 
-api = NinjaAPI(renderer=ORJSONRenderer())
+api = NinjaAPI(renderer=ORJSONRenderer(), csrf=True)
 
 
 class UserSchema(ModelSchema):
