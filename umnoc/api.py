@@ -252,10 +252,10 @@ def courses(request, limit: int = 20, offset: int = 0):
     return qs[offset: offset + limit]
 
 
-@api.get("/courses/{courses_id}", response=CourseSchema)
-def get_course(request, courses_id: int):
-    course = get_object_or_404(Course, id=courses_id)
-    return courses
+@api.get("/courses/{int:course_id}", response=CourseSchema)
+def get_course(request, course_id: int):
+    course = get_object_or_404(Course, id=course_id)
+    return course
 
 
 @api.post("/enroll", description="Зачисляет пользователя на программу или проект")
