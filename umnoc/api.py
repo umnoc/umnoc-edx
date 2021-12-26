@@ -4,6 +4,7 @@ from typing import List, Dict, Any
 
 import orjson
 from django.contrib.auth import get_user_model
+from django.shortcuts import get_object_or_404
 from lms.djangoapps.courseware.tabs import (
     CourseInfoTab,
     CourseTab
