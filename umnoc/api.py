@@ -51,7 +51,7 @@ UserProfileSchema = create_schema(
         'year_of_birth',
         'mailing_address',
         'city',
-        'country',
+        # 'country',
         'state',
         'goals',
         'allow_certificate',
@@ -63,6 +63,7 @@ UserProfileSchema = create_schema(
         ('age', int, None),
         ('level_of_education_display', str, None),
         ('gender_display', str, None),
+        ('country', Any, None)
     ]
 )
 
