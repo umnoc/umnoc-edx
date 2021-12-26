@@ -42,23 +42,27 @@ class ORJSONRenderer(BaseRenderer):
 
 api = NinjaAPI(renderer=ORJSONRenderer(), csrf=True)
 
+
+class UserSchema(ModelSchema):
+    class Config:
+        model = User
+        model_fields = ['username', 'email', 'is_staff', 'is_active']
+
+
 UserProfileSchema = create_schema(
     UserProfile,
     fields=[
         'name',
-        'language',
-        'location',
         'year_of_birth',
         'mailing_address',
         'city',
-        # 'country',
-        'state',
         'goals',
         'allow_certificate',
         'bio',
         'phone_number',
     ],
     custom_fields=[
+        ('user', UserSchema, None),
         ('has_profile_image', bool, False),
         ('age', int, None),
         ('level_of_education_display', str, None),
