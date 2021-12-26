@@ -3,7 +3,9 @@ from datetime import date
 from typing import List, Dict, Any
 
 import orjson
+from common.djangoapps.student.models import UserProfile
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from lms.djangoapps.courseware.tabs import (
     CourseInfoTab,
@@ -39,6 +41,30 @@ class ORJSONRenderer(BaseRenderer):
 
 
 api = NinjaAPI(renderer=ORJSONRenderer(), csrf=True)
+
+UserProfileSchema = create_schema(
+    UserProfile,
+    fields=[
+        'name',
+        'language',
+        'location',
+        'year_of_birth',
+        'mailing_address',
+        'city',
+        'country',
+        'state',
+        'goals',
+        'allow_certificate',
+        'bio',
+        'phone_number',
+    ],
+    custom_fields=[
+        ('has_profile_image', bool, False),
+        ('age', int, None),
+        ('level_of_education_display', str, None),
+        ('gender_display', str, None),
+    ]
+)
 
 
 class UserIn(Schema):
@@ -229,9 +255,11 @@ class ProjectSchema(ModelSchema):
         ]
 
 
-@api.get("/me", auth=django_auth)
-def pets(request):
-    return f"Authenticated user {request.auth}"
+@api.get("/me", auth=django_auth, response=UserProfileSchema)
+def me(request):
+    user = User.objects.get(username=request.auth)
+    profile = UserProfile.objects.get(user=user)
+    return profile
 
 
 @api.get("/orgs", response=List[OrganizationSchema])
