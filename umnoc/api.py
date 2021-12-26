@@ -12,6 +12,7 @@ from lms.djangoapps.courseware.tabs import (
 from ninja import NinjaAPI, ModelSchema, Schema
 from ninja.orm import create_schema
 from ninja.renderers import BaseRenderer
+from ninja.security import django_auth
 from opaque_keys.edx.keys import UsageKey, CourseKey
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 from openedx.core.djangoapps.models.course_details import CourseDetails
@@ -37,7 +38,7 @@ class ORJSONRenderer(BaseRenderer):
         return orjson.dumps(data, default=self.default)
 
 
-api = NinjaAPI(renderer=ORJSONRenderer())
+api = NinjaAPI(renderer=ORJSONRenderer(), csrf=True)
 
 
 class UserIn(Schema):
@@ -226,6 +227,11 @@ class ProjectSchema(ModelSchema):
             'status',
             'published_at',
         ]
+
+
+@api.get("/me", auth=django_auth)
+def pets(request):
+    return f"Authenticated user {request.auth}"
 
 
 @api.get("/orgs", response=List[OrganizationSchema])
