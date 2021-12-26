@@ -251,6 +251,12 @@ def courses(request, limit: int = 20, offset: int = 0):
     return qs[offset: offset + limit]
 
 
+@api.get("/courses/{courses_id}", response=CourseSchema)
+def get_course(request, courses_id: int):
+    course = get_object_or_404(Course, id=courses_id)
+    return courses
+
+
 @api.post("/enroll", description="Зачисляет пользователя на программу или проект")
 def enroll_user_to_program(request, payload: ProgramEnrollmentIn):
     enrollment = ProgramEnrollment.objects.create(**payload.dict())
