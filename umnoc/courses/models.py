@@ -90,6 +90,10 @@ class Course(TimeStampedModel, SoftDeletableModel):
         return self.course_overview.start_display
 
     @property
+    def organization(self) -> str:
+        return self.course_overview.display_org_with_default
+
+    @property
     def display_name(self) -> str:
         return self.course_overview.display_name
 

@@ -164,6 +164,7 @@ CourseSchema = create_schema(
     custom_fields=[
         ('course_id', Any, None),
         ('display_name', str, None),
+        ('organization', str, None),
         ('course_image_url', str, None),
         ('banner_image_url', str, None),
         ('course_video_url', str, None),
