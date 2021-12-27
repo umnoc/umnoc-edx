@@ -9,4 +9,5 @@ from .api import api
 urlpatterns = [
     url('^admin/', umnoc_admin_site.urls),
     url('^api/', api.urls),
+    url('^summernote/', include('django_summernote.urls')),
 ]

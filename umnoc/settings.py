@@ -139,3 +139,5 @@ JAZZMIN_UI_TWEAKS = {
 }
 
 LOGO_IMAGE_EXTRA_TEXT = 'Уральский межрегиональный научно-образовательный центр мирового уровня'
+
+INSTALLED_APPS += ('django_summernote', )

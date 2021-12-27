@@ -7,3 +7,4 @@ django-ninja
 orjson
 django-admin-ordering
 django-jazzmin
+django-summernote
