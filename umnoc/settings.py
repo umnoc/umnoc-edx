@@ -96,8 +96,8 @@ JAZZMIN_SETTINGS = {
         'auth.Group': 'fas fa-users',
     },
     # Icons that are used when one is not manually specified
-    'default_icon_parents': 'fas fa-caret-square-down',
-    'default_icon_children': 'fas fa-caret-right',
+    'default_icon_parents': 'fas fa-folder',
+    'default_icon_children': 'fas fa-file',
 
     #################
     # Related Modal #
