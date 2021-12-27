@@ -1,7 +1,7 @@
 """
 URLs for umnoc.
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 
 from .admin import umnoc_admin_site
 from .api import api
