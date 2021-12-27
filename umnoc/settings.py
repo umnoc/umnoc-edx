@@ -9,7 +9,7 @@ JAZZMIN_SETTINGS = {
     "site_brand": "Платформа УМНОЦ",
 
     # Logo to use for your site, must be present in static files, used for brand on top left
-    "site_logo": "images/logo.png",
+    "site_logo": "images/logo-grey.png",
 
     # CSS classes that are applied to the logo above
     "site_logo_classes": "caret-right",
@@ -129,3 +129,6 @@ JAZZMIN_SETTINGS = {
     # Add a language dropdown into the admin
     "language_chooser": True,
 }
+
+
+LOGO_IMAGE_EXTRA_TEXT = 'Уральский межрегиональный научно-образовательный центр мирового уровня'
