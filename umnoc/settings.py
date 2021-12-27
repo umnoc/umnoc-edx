@@ -12,13 +12,13 @@ JAZZMIN_SETTINGS = {
     "site_logo": "images/logo-grey.png",
 
     # CSS classes that are applied to the logo above
-    "site_logo_classes": "caret-right",
+    "site_logo_classes": "img-circle",
 
     # Relative path to a favicon for your site, will default to site_logo if absent (ideally 32x32 px)
     "site_icon": "images/favicon.ico",
 
     # Welcome text on the login screen
-    "welcome_sign": "Платформа УМНОЦ",
+    "welcome_sign": "Для входа введите имя пользователя и пароль.",
 
     # Copyright on the footer
     "copyright": "ЦНОТ УрФУ",
@@ -97,7 +97,7 @@ JAZZMIN_SETTINGS = {
     },
     # Icons that are used when one is not manually specified
     "default_icon_parents": "fas fa-caret-square-down",
-    "default_icon_children": "fas caret-right",
+    "default_icon_children": "fas fa-caret-right",
 
     #################
     # Related Modal #
@@ -127,8 +127,11 @@ JAZZMIN_SETTINGS = {
     # override change forms on a per modeladmin basis
     "changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "vertical_tabs"},
     # Add a language dropdown into the admin
-    "language_chooser": True,
+    "language_chooser": False,
 }
 
+JAZZMIN_UI_TWEAKS = {
+    "theme": "superhero",
+}
 
 LOGO_IMAGE_EXTRA_TEXT = 'Уральский межрегиональный научно-образовательный центр мирового уровня'
