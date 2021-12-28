@@ -269,9 +269,9 @@ def me(request):
 
 @api.get("/me_test")
 def me(request):
-    log.warning(f"!!!!    {request}")
+    log.warning(f"!!!!    {request.__dict__}")
 
-    return request
+    return request.__dict__
 
 
 @api.get("/orgs", response=List[OrganizationSchema])
