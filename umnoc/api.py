@@ -40,7 +40,7 @@ class ORJSONRenderer(BaseRenderer):
         return orjson.dumps(data, default=self.default)
 
 
-api = NinjaAPI(renderer=ORJSONRenderer(), csrf=True)
+api = NinjaAPI(renderer=ORJSONRenderer())
 
 
 class UserSchema(ModelSchema):
@@ -129,8 +129,6 @@ class ResultSchema(ModelSchema):
 class CourseOverviewProxy(CourseOverview):
     @property
     def description(self):
-        log.warning(
-            f"!!!!!!!!!!!!!!!!!!!!! ------------- {self.id}, {CourseDetails.fetch_about_attribute(self.id, 'description')}")
         return CourseDetails.fetch_about_attribute(self.id, 'description')
 
 
@@ -260,7 +258,7 @@ class ProjectSchema(ModelSchema):
         ]
 
 
-@api.get("/me", auth=django_auth, response=UserProfileSchema)
+@api.get("/me", response=UserProfileSchema)
 def me(request):
     user = User.objects.get(username=request.auth)
     profile = UserProfile.objects.get(user=user)
