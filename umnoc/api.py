@@ -11,6 +11,7 @@ from lms.djangoapps.courseware.tabs import (
     CourseInfoTab,
     CourseTab
 )
+from ninja.security import APIKeyCookie
 from ninja import NinjaAPI, ModelSchema, Schema
 from ninja.orm import create_schema
 from ninja.renderers import BaseRenderer
@@ -260,6 +261,7 @@ class ProjectSchema(ModelSchema):
 
 @api.get("/me", auth=django_auth, response=UserProfileSchema)
 def me(request):
+    log.warning(f"!!!!    {request}")
     user = User.objects.get(username=request.auth)
     profile = UserProfile.objects.get(user=user)
     return profile
