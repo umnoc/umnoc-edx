@@ -86,11 +86,6 @@ class ProgramEnrollmentIn(Schema):
     project_uuid: str = None
 
 
-class CourseEnrollmentIn(Schema):
-    username: str = None
-    course_id: str = None
-
-
 class ChapterSchema(Schema):
     title: str
     url: str
