@@ -18,7 +18,7 @@ from ninja.security import APIKeyCookie
 from ninja.security import django_auth
 from opaque_keys.edx.keys import UsageKey, CourseKey
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
-from openedx.core.djangoapps.enrollments.api import get_enrollments, add_enrollment
+from openedx.core.djangoapps.enrollments import api as enrollments_api
 from openedx.core.djangoapps.models.course_details import CourseDetails
 from pydantic import validator
 from xmodule.course_module import Textbook
@@ -269,7 +269,7 @@ def me(request):
 
 @api.get("/courses/my", auth=django_auth)
 def me(request):
-    enrollments = get_enrollments(request.auth, include_inactive=True)
+    enrollments = enrollments_api.get_enrollments(request.auth, include_inactive=True)
     return enrollments
 
 
@@ -306,7 +306,7 @@ def get_course(request, course_id: int):
 @api.get("/me/enroll/{int:course_id}", auth=django_auth)
 def add_course_enrollment(request, course_id: int):
     course = get_object_or_404(Course, id=course_id)
-    enrollment = add_enrollment(request.auth, course.course_id)
+    enrollment = enrollments_api.add_enrollment(request.auth, str(course.course_id))
     return enrollment
 
 
