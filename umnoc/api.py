@@ -18,6 +18,7 @@ from ninja.security import APIKeyCookie
 from ninja.security import django_auth
 from opaque_keys.edx.keys import UsageKey, CourseKey
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
+from openedx.core.djangoapps.enrollments.api import get_enrollments
 from openedx.core.djangoapps.models.course_details import CourseDetails
 from pydantic import validator
 from xmodule.course_module import Textbook
@@ -261,17 +262,15 @@ class ProjectSchema(ModelSchema):
 
 @api.get("/me", auth=django_auth, response=UserProfileSchema)
 def me(request):
-    log.warning(f"!!!!    {request}")
     user = User.objects.get(username=request.auth)
     profile = UserProfile.objects.get(user=user)
     return profile
 
 
-@api.get("/me_test")
+@api.get("/courses/my", auth=django_auth)
 def me(request):
-    log.warning(f"!!!!    {request.__dict__}")
-
-    return request.__dict__
+    enrollments = get_enrollments(request.auth, include_inactive=True)
+    return enrollments
 
 
 @api.get("/orgs", response=List[OrganizationSchema])
