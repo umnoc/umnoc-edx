@@ -18,7 +18,7 @@ from ninja.security import APIKeyCookie
 from ninja.security import django_auth
 from opaque_keys.edx.keys import UsageKey, CourseKey
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
-from openedx.core.djangoapps.enrollments.api import get_enrollments
+from openedx.core.djangoapps.enrollments.api import get_enrollments, add_enrollment
 from openedx.core.djangoapps.models.course_details import CourseDetails
 from pydantic import validator
 from xmodule.course_module import Textbook
@@ -84,6 +84,11 @@ class ProgramEnrollmentIn(Schema):
     user: UserIn
     program_uuid: str = None
     project_uuid: str = None
+
+
+class CourseEnrollmentIn(Schema):
+    username: str = None
+    course_id: str = None
 
 
 class ChapterSchema(Schema):
@@ -301,6 +306,13 @@ def courses(request, limit: int = 20, offset: int = 0):
 def get_course(request, course_id: int):
     course = get_object_or_404(Course, id=course_id)
     return course
+
+
+@api.get("/me/enroll/{int:course_id}", auth=django_auth)
+def add_course_enrollment(request, course_id: int):
+    course = get_object_or_404(Course, id=course_id)
+    enrollment = add_enrollment(request.auth, course.course_id)
+    return enrollment
 
 
 @api.post("/enroll", description="Зачисляет пользователя на программу или проект")
