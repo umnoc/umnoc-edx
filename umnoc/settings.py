@@ -138,3 +138,4 @@ JAZZMIN_UI_TWEAKS = {
 }
 
 LOGO_IMAGE_EXTRA_TEXT = 'Уральский межрегиональный научно-образовательный центр мирового уровня'
+UMNOC_LOGO_URL = 'https://edu.umnoc.ru/'
