@@ -11,10 +11,10 @@ from lms.djangoapps.courseware.tabs import (
     CourseInfoTab,
     CourseTab
 )
-from ninja.security import APIKeyCookie
 from ninja import NinjaAPI, ModelSchema, Schema
 from ninja.orm import create_schema
 from ninja.renderers import BaseRenderer
+from ninja.security import APIKeyCookie
 from ninja.security import django_auth
 from opaque_keys.edx.keys import UsageKey, CourseKey
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
@@ -265,6 +265,13 @@ def me(request):
     user = User.objects.get(username=request.auth)
     profile = UserProfile.objects.get(user=user)
     return profile
+
+
+@api.get("/me_test")
+def me(request):
+    log.warning(f"!!!!    {request}")
+
+    return request
 
 
 @api.get("/orgs", response=List[OrganizationSchema])
