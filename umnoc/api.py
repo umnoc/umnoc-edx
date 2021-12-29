@@ -273,6 +273,20 @@ def me(request):
     return enrollments
 
 
+@api.get("/courses/{int:course_id}/my", auth=django_auth)
+def add_course_enrollment(request, course_id: int):
+    course = get_object_or_404(Course, id=course_id)
+    enrollment = enrollments_api.get_enrollment(request.auth, str(course.course_id))
+    return enrollment
+
+
+@api.get("/me/enroll/{int:course_id}", auth=django_auth)
+def add_course_enrollment(request, course_id: int):
+    course = get_object_or_404(Course, id=course_id)
+    enrollment = enrollments_api.add_enrollment(request.auth, str(course.course_id))
+    return enrollment
+
+
 @api.get("/orgs", response=List[OrganizationSchema])
 def orgs(request, limit: int = 10, offset: int = 0):
     qs = Organization.objects.filter(active=True, status='published')
@@ -301,13 +315,6 @@ def courses(request, limit: int = 20, offset: int = 0):
 def get_course(request, course_id: int):
     course = get_object_or_404(Course, id=course_id)
     return course
-
-
-@api.get("/me/enroll/{int:course_id}", auth=django_auth)
-def add_course_enrollment(request, course_id: int):
-    course = get_object_or_404(Course, id=course_id)
-    enrollment = enrollments_api.add_enrollment(request.auth, str(course.course_id))
-    return enrollment
 
 
 @api.post("/enroll", description="Зачисляет пользователя на программу или проект")
