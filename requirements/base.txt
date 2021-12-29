@@ -7,6 +7,7 @@ django-ninja
 orjson
 django-admin-ordering
 django-jazzmin
+git+https://github.com/umnoc/django-jazzmin.git@480e4b65384983cbb5c1ee6c2c0c59d91709c8c0#egg=jazzmin
 django-summernote
 django-simple-history
 pytz
