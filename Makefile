@@ -75,14 +75,14 @@ selfcheck: ## check that the Makefile is well-formed
 
 extract_translations: ## extract strings to be translated, outputting .mo files
 	rm -rf docs/_build
-	cd umnoc_edx && ../manage.py makemessages -l en -v1 -d django
-	cd umnoc_edx && ../manage.py makemessages -l en -v1 -d djangojs
+	cd umnoc && ../manage.py makemessages -l ru -v1 -d django
+	cd umnoc && ../manage.py makemessages -l ru -v1 -d djangojs
 
 compile_translations: ## compile translation files, outputting .po files for each supported language
-	cd umnoc_edx && ../manage.py compilemessages
+	cd umnoc && ../manage.py compilemessages
 
 detect_changed_source_translations:
-	cd umnoc_edx && i18n_tool changed
+	cd umnoc && i18n_tool changed
 
 pull_translations: ## pull translations from Transifex
 	tx pull -af --mode reviewed
@@ -91,7 +91,7 @@ push_translations: ## push source translation files (.po) from Transifex
 	tx push -s
 
 dummy_translations: ## generate dummy translation (.po) files
-	cd umnoc_edx && i18n_tool dummy
+	cd umnoc && i18n_tool dummy
 
 build_dummy_translations: extract_translations dummy_translations compile_translations ## generate and compile dummy translation files
 

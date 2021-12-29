@@ -1,0 +1,12 @@
+# Core requirements for using this application
+-c constraints.txt
+
+Django<2.3              # Web application framework
+django-model-utils        # Provides TimeStampedModel abstract base class
+django-ninja
+orjson
+django-admin-ordering
+django-jazzmin
+django-summernote
+django-simple-history
+pytz
