@@ -6,7 +6,7 @@ from .models import UrFUProfile
 class UrFUProfileForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
-        super(ProfileForm, self).__init__(*args, **kwargs)
+        super(UrFUProfileForm, self).__init__(*args, **kwargs)
         self.fields['SNILS'].error_messages = {
             "required": u"Введите СНИЛС",
             "invalid": u"Некорректно",
