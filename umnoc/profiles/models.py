@@ -123,7 +123,7 @@ class UrFUProfile(TimeStampedModel):
 
     SNILS = models.CharField("Номер СНИЛС", max_length=355, null=True, blank=True)
     specialty = models.CharField("Специальность (направление подготовки)", max_length=355)
-    country = models.CharField("Гражданство", default='РФ', max_length=255)
+    country = models.CharField("Гражданство", max_length=255)
     education_level = models.CharField("Уровень базового образования", max_length=1, choices=EDUCATION_LEVEL)
     job = models.CharField("Место работы", max_length=2048)
     position = models.CharField("Должность", max_length=2048)
