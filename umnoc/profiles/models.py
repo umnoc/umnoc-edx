@@ -107,7 +107,7 @@ class Profile(TimeStampedModel):
         return f'<Profile, ID: {self.uuid}>'
 
 
-class Profile1(TimeStampedModel):
+class UrFUProfile(TimeStampedModel):
     """
     TODO: replace with a brief description of the model.
 
@@ -119,10 +119,15 @@ class Profile1(TimeStampedModel):
     EDUCATION_LEVEL = (('M', 'Среднее профессиональное'), ('H', 'Высшее'))
 
     user = models.OneToOneField(get_user_model(), unique=True, db_index=True, related_name='verified_profile1',
-                               verbose_name="Пользователь", on_delete=models.CASCADE, null=True)
+                                verbose_name="Пользователь", on_delete=models.CASCADE, null=True)
 
     SNILS = models.CharField("Номер СНИЛС", max_length=355, null=True, blank=True)
-    specialty = models.CharField("Специальность (направление подготовки)", max_length=355, null=True, blank=True)
+    specialty = models.CharField("Специальность (направление подготовки)", max_length=355)
+    country = models.CharField("Гражданство", default='РФ', max_length=255)
+    education_level = models.CharField("Уровень базового образования", max_length=1, choices=EDUCATION_LEVEL)
+    job = models.CharField("Место работы", max_length=2048)
+    position = models.CharField("Должность", max_length=2048)
+    birth_date = models.CharField("Дата рождения", max_length=16)
 
     @classmethod
     def get_profile(cls, user):

@@ -1,9 +1,9 @@
 from django.forms import ModelForm
 
-from .models import Profile1
+from .models import UrFUProfile
 
 
-class ProfileForm(ModelForm):
+class UrFUProfileForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
@@ -17,5 +17,5 @@ class ProfileForm(ModelForm):
         }
 
     class Meta:
-        model = Profile1
-        fields = ['SNILS', 'specialty']
+        model = UrFUProfile
+        fields = ['SNILS', 'specialty', 'country', 'education_level', 'job', 'position', 'birth_date']
