@@ -15,7 +15,7 @@ from .core.models import (
 )
 from .courses.models import (Course, Competence, Result, Author)
 from .learners.models import (ProgramEnrollment)
-from .profiles.models import (Profile, Reflection, Question, Answer)
+from .profiles.models import (Profile1, Reflection, Question, Answer)
 
 
 class UMNOCAdminSite(admin.AdminSite):
