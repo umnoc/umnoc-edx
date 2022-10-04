@@ -128,3 +128,8 @@ class ProgramEnrollmentAdmin(admin.ModelAdmin):
     list_filter = ('status',)
     search_fields = ('user',)
     raw_id_fields = ('user',)
+
+
+@admin.register(Profile, site=umnoc_admin_site)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'SNILS', 'education_level')
