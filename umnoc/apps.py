@@ -13,6 +13,9 @@ class UmnocEdxConfig(AppConfig):
 
     name = 'umnoc'
 
+    def ready(self):
+        import umnoc.profile.signals
+
 
 class UMNOCAdminConfig(AdminConfig):
     # default_site = 'umnoc.admin.UMNOCAdminSite'
