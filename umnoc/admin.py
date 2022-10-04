@@ -132,4 +132,4 @@ class ProgramEnrollmentAdmin(admin.ModelAdmin):
 
 @admin.register(Profile, site=umnoc_admin_site)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'SNILS', 'education_level')
+    list_display = ('user', 'SNILS', 'specialty')
