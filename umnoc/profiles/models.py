@@ -107,6 +107,39 @@ class Profile(TimeStampedModel):
         return f'<Profile, ID: {self.uuid}>'
 
 
+class Profile1(TimeStampedModel):
+    """
+    TODO: replace with a brief description of the model.
+
+    TODO: Add either a negative or a positive PII annotation to the end of this docstring.  For more
+    information, see OEP-30:
+    https://open-edx-proposals.readthedocs.io/en/latest/oep-0030-arch-pii-markup-and-auditing.html
+    """
+
+    EDUCATION_LEVEL = (('M', 'Среднее профессиональное'), ('H', 'Высшее'))
+
+    SNILS = models.CharField("Номер СНИЛС", max_length=355, null=True, blank=True)
+    specialty = models.CharField("Специальность (направление подготовки)", max_length=355, null=True, blank=True)
+
+    @classmethod
+    def get_profile(cls, user):
+        if cls.objects.select_related().filter(user=user).exists():
+            return cls.objects.select_related().filter(user=user)
+        else:
+            return None
+
+    class Meta:
+        verbose_name = 'анкета для зачисления1'
+        verbose_name_plural = 'анкеты для зачисления1'
+
+    def __str__(self):
+        """
+        Get a string representation of this model instance.
+        """
+        # TODO: return a string appropriate for the data fields
+        return f'<Profile1, ID: {self.uuid}>'
+
+
 class Reflection(TimeStampedModel):
     """
     TODO: replace with a brief description of the model.

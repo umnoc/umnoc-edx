@@ -130,6 +130,6 @@ class ProgramEnrollmentAdmin(admin.ModelAdmin):
     raw_id_fields = ('user',)
 
 
-@admin.register(Profile, site=umnoc_admin_site)
-class ProfileAdmin(admin.ModelAdmin):
+@admin.register(Profile1, site=umnoc_admin_site)
+class Profile1Admin(admin.ModelAdmin):
     list_display = ('user', 'SNILS', 'specialty')
