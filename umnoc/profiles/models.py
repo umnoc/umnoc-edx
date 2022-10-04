@@ -6,7 +6,7 @@ from django.db import models
 from model_utils import Choices
 from model_utils.fields import StatusField, UUIDField
 from model_utils.models import TimeStampedModel
-
+from django_countries.fields import CountryField
 from umnoc.utils import generate_new_filename
 
 
@@ -123,7 +123,7 @@ class UrFUProfile(TimeStampedModel):
 
     SNILS = models.CharField("Номер СНИЛС", max_length=355, null=True, blank=True)
     specialty = models.CharField("Специальность (направление подготовки)", max_length=355)
-    country = models.CharField("Гражданство", max_length=255)
+    country = CountryField(verbose_name="Гражданство")
     education_level = models.CharField("Уровень базового образования", max_length=1, choices=EDUCATION_LEVEL)
     job = models.CharField("Место работы", max_length=2048)
     position = models.CharField("Должность", max_length=2048)
@@ -137,8 +137,8 @@ class UrFUProfile(TimeStampedModel):
             return None
 
     class Meta:
-        verbose_name = 'анкета для зачисления1'
-        verbose_name_plural = 'анкеты для зачисления1'
+        verbose_name = 'анкета для зачисления'
+        verbose_name_plural = 'анкеты для зачисления'
 
     def __str__(self):
         """
