@@ -118,7 +118,7 @@ class Profile1(TimeStampedModel):
 
     EDUCATION_LEVEL = (('M', 'Среднее профессиональное'), ('H', 'Высшее'))
 
-    user = models.OneToOneField(get_user_model(), unique=True, db_index=True, related_name='verified_profile',
+    user = models.OneToOneField(get_user_model(), unique=True, db_index=True, related_name='verified_profile1',
                                verbose_name="Пользователь", on_delete=models.CASCADE, null=True)
 
     SNILS = models.CharField("Номер СНИЛС", max_length=355, null=True, blank=True)
