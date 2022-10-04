@@ -145,7 +145,7 @@ class UrFUProfile(TimeStampedModel):
         Get a string representation of this model instance.
         """
         # TODO: return a string appropriate for the data fields
-        return f'<Profile1, ID: {self.uuid}>'
+        return f'<Profile1, ID: {self.pk}>'
 
 
 class Reflection(TimeStampedModel):
