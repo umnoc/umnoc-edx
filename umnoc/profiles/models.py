@@ -8,6 +8,7 @@ from model_utils.fields import StatusField, UUIDField
 from model_utils.models import TimeStampedModel
 from django_countries.fields import CountryField
 from umnoc.utils import generate_new_filename
+from django_countries.data import COUNTRIES
 
 
 class Profile(TimeStampedModel):
@@ -116,6 +117,8 @@ class UrFUProfile(TimeStampedModel):
     https://open-edx-proposals.readthedocs.io/en/latest/oep-0030-arch-pii-markup-and-auditing.html
     """
 
+    COUNTRIES_LIST = tuple((x, COUNTRIES[x]) for x in COUNTRIES.keys())
+
     EDUCATION_LEVEL = (('M', 'Среднее профессиональное'), ('H', 'Высшее'))
 
     user = models.OneToOneField(get_user_model(), unique=True, db_index=True, related_name='verified_profile1',
@@ -123,7 +126,7 @@ class UrFUProfile(TimeStampedModel):
 
     SNILS = models.CharField("Номер СНИЛС", max_length=355, null=True, blank=True)
     specialty = models.CharField("Специальность (направление подготовки)", max_length=355)
-    country = models.CharField("Гражданство", max_length=255)
+    country = models.CharField("Гражданство", max_length=255, choices=COUNTRIES_LIST)
     education_level = models.CharField("Уровень базового образования", max_length=1, choices=EDUCATION_LEVEL)
     job = models.CharField("Место работы", max_length=2048)
     position = models.CharField("Должность", max_length=2048)
