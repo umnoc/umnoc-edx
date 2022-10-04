@@ -14,7 +14,7 @@ class UmnocEdxConfig(AppConfig):
     name = 'umnoc'
 
     def ready(self):
-        import umnoc.profile.signals
+        import umnoc.profiles.signals
 
 
 class UMNOCAdminConfig(AdminConfig):
