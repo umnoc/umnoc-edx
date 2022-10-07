@@ -141,6 +141,6 @@ LOGO_IMAGE_EXTRA_TEXT = 'Уральский межрегиональный на�
 UMNOC_LOGO_URL = 'https://edu.umnoc.ru/'
 LOGOUT_REDIRECT_URL = UMNOC_LOGO_URL
 
-BITRIX_URL = ''
-BITRIX_USER_ID = ''
-BITRIX_WEBHOOK = ''
+BITRIX_URL = 'https://fgaouvo.bitrix24.ru/'
+BITRIX_USER_ID = '1'
+BITRIX_WEBHOOK = 'zg1n9k7pmo0m7lwc'

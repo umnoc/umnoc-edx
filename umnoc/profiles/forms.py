@@ -18,4 +18,5 @@ class UrFUProfileForm(ModelForm):
 
     class Meta:
         model = UrFUProfile
-        fields = ['SNILS', 'specialty', 'country', 'education_level', 'job', 'position', 'birth_date']
+        fields = ['last_name', 'first_name', 'second_name', 'phone', 'SNILS', 'specialty', 'country', 'education_level',
+                  'job', 'position', 'birth_date']

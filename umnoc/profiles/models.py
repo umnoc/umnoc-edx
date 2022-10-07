@@ -123,6 +123,10 @@ class UrFUProfile(TimeStampedModel):
 
     user = models.OneToOneField(get_user_model(), unique=True, db_index=True, related_name='verified_profile1',
                                 verbose_name="Пользователь", on_delete=models.CASCADE, null=True)
+    last_name = models.CharField("Фамилия", max_length=255, null=False, blank=False)
+    first_name = models.CharField("Имя", max_length=255, null=False, blank=False)
+    second_name = models.CharField("Отчество", max_length=255, null=True, blank=True)
+    phone = models.CharField("Телефон", max_length=255, null=False, blank=False)
 
     SNILS = models.CharField("Номер СНИЛС", max_length=355, null=True, blank=True)
     specialty = models.CharField("Специальность (направление подготовки)", max_length=355)
