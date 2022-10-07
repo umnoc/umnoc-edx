@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
+from fast_bitrix24 import Bitrix
 
 from .models import UrFUProfile
 
@@ -14,21 +15,20 @@ log = logging.getLogger(__name__)
 def create_profile(sender, instance, created, **kwargs):
     if created:
         # TODO: Send to Bitrix24 webhook
-        try:
-            webhook = f"https://{settings.BITRIX_URL}/rest/{settings.BITRIX_USER_ID}/{settings.BITRIX_WEBHOOK}/"
-            b = Bitrix(webhook)
-            method = 'crm.lead.add'
-            params = {'fields': {
-                'TITLE': 'УМНОЦ лид',
-                'NAME': instance.first_name,
-                'SECOND_NAME': instance.second_name,
-                'LAST_NAME': instance.last_name,
-                'STATUS_ID': 'NEW',
-                'EMAIL': [{'ID': instance.user.id, 'VALUE': instance.user.email, 'VALUE_TYPE': 'WORK'}],
-                'PHONE': [{'ID': instance.user.id, 'VALUE': instance.phone, 'VALUE_TYPE': 'MOBILE'}]
-            }
-            }  # for sample
-            b.call(method, params)
-        except:
-            log.warning(f"Cannot send request to Bitrix24: {instance.user}")
+        # try:
+        webhook = f"https://{settings.BITRIX_URL}/rest/{settings.BITRIX_USER_ID}/{settings.BITRIX_WEBHOOK}/"
+        b = Bitrix(webhook)
+        method = 'crm.lead.add'
+        params = {'fields': {
+            'TITLE': 'УМНОЦ лид',
+            'NAME': instance.first_name,
+            'SECOND_NAME': instance.second_name,
+            'LAST_NAME': instance.last_name,
+            'STATUS_ID': 'NEW',
+            'EMAIL': [{'ID': instance.user.id, 'VALUE': instance.user.email, 'VALUE_TYPE': 'WORK'}],
+            'PHONE': [{'ID': instance.user.id, 'VALUE': instance.phone, 'VALUE_TYPE': 'MOBILE'}]
+        }}
+        b.call(method, params)
+        # except:
+        #     log.warning(f"Cannot send request to Bitrix24: {instance.user}")
         log.warning(f"User profile created: {instance.user}")
