@@ -1,8 +1,8 @@
+import asyncio
 import logging
 
 from django.conf import settings
-from django.contrib.auth.models import User
-from django.db.models.signals import post_save, post_delete
+from django.db.models.signals import post_save
 from django.dispatch import receiver
 from fast_bitrix24 import Bitrix
 
@@ -16,6 +16,8 @@ def create_profile(sender, instance, created, **kwargs):
     if created:
         # TODO: Send to Bitrix24 webhook
         # try:
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
         webhook = f"https://{settings.BITRIX_URL}/rest/{settings.BITRIX_USER_ID}/{settings.BITRIX_WEBHOOK}/"
         b = Bitrix(webhook)
         method = 'crm.lead.add'
