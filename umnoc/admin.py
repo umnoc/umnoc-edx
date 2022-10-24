@@ -138,5 +138,5 @@ class UrFUProfileAdmin(admin.ModelAdmin):
 @admin.register(LeadRequest, site=umnoc_admin_site)
 class LeadRequestAdmin(admin.ModelAdmin):
     list_display = ('pk', 'method', 'title', 'name', 'last_name', 'status_id', 'email', 'phone', 'status', 'created')
-    readonly_fields = ('method', 'title', 'name', 'last_name', 'status_id', 'email', 'phone', 'status')
+    readonly_fields = ('method', 'title', 'name', 'second_name', 'last_name', 'status_id', 'email', 'phone', 'status')
     list_filter = ('status',)
