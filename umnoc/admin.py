@@ -15,7 +15,7 @@ from .core.models import (
 )
 from .courses.models import (Course, Competence, Result, Author)
 from .learners.models import (ProgramEnrollment)
-from .profiles.models import (UrFUProfile, Reflection, Question, Answer)
+from .profiles.models import (UrFUProfile, LeadRequest, Reflection, Question, Answer)
 
 
 class UMNOCAdminSite(admin.AdminSite):
@@ -132,4 +132,10 @@ class ProgramEnrollmentAdmin(admin.ModelAdmin):
 
 @admin.register(UrFUProfile, site=umnoc_admin_site)
 class UrFUProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'SNILS', 'specialty', 'country', 'education_level', 'job', 'position', 'birth_date', )
+    list_display = ('user', 'SNILS', 'specialty', 'country', 'education_level', 'job', 'position', 'birth_date',)
+
+
+@admin.register(LeadRequest, site=umnoc_admin_site)
+class LeadRequestAdmin(admin.ModelAdmin):
+    list_display = ('pk', 'method', 'title', 'name', 'last_name', 'status_id', 'email', 'phone', 'status')
+    list_filter = ('status',)

@@ -144,15 +144,37 @@ class UrFUProfile(TimeStampedModel):
             return None
 
     class Meta:
-        verbose_name = 'анкета для зачисления'
-        verbose_name_plural = 'анкеты для зачисления'
+        verbose_name = 'профиль'
+        verbose_name_plural = 'профили'
 
     def __str__(self):
         """
         Get a string representation of this model instance.
         """
-        # TODO: return a string appropriate for the data fields
-        return f'<Profile1, ID: {self.pk}>'
+        return f'<UrFUProfile, ID: {self.pk}, Person: {self.last_name} {self.first_name}>'
+
+
+class LeadRequest(TimeStampedModel):
+    STATUSES = ('created', 'sent', 'error')
+    method = models.CharField(max_length=32, null=False, blank=False)
+    title = models.CharField(max_length=32, blank=True)
+    name = models.CharField(max_length=32, blank=True)
+    second_name = models.CharField(max_length=32, blank=True)
+    last_name = models.CharField(max_length=32, blank=True)
+    status_id = models.CharField(max_length=32, blank=True)
+    email = models.CharField(max_length=32, blank=True)
+    phone = models.CharField(max_length=32, blank=True)
+    status = models.CharField(max_length=10, choices=STATUSES, default=STATUSES[0])
+
+    def set_status(self, status):
+        self.status = status
+        self.save()
+
+    def __str__(self):
+        """
+        Get a string representation of this model instance.
+        """
+        return f'<LeadRequest, ID: {self.pk}, Lead: {self.last_name} {self.name}, Status: {self.status}>'
 
 
 class Reflection(TimeStampedModel):
