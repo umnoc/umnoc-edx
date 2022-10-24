@@ -168,7 +168,7 @@ class LeadRequest(TimeStampedModel):
     status_id = models.CharField(max_length=32, blank=True)
     email = models.CharField(max_length=32, blank=True)
     phone = models.CharField(max_length=32, blank=True)
-    status = models.CharField(max_length=10, choices=STATUSES, default=STATUSES[0])
+    status = models.CharField(max_length=10, choices=STATUSES, default=STATUSES[0][0])
 
     def set_status(self, status):
         self.status = status
