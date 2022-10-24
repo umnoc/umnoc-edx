@@ -163,7 +163,7 @@ class LeadRequest(TimeStampedModel):
     method = models.CharField(max_length=32, null=False, blank=False)
     title = models.CharField(max_length=32, blank=True)
     name = models.CharField(max_length=32, blank=True)
-    second_name = models.CharField(max_length=32, blank=True)
+    second_name = models.CharField(max_length=32, null=True, blank=True)
     last_name = models.CharField(max_length=32, blank=True)
     status_id = models.CharField(max_length=32, blank=True)
     email = models.CharField(max_length=32, blank=True)
