@@ -19,6 +19,7 @@ def create_profile(sender, instance, created, **kwargs):
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         webhook = f"https://{settings.BITRIX_URL}/rest/{settings.BITRIX_USER_ID}/{settings.BITRIX_WEBHOOK}/"
+        log.warning('BITRIX24 !!!!!!!!!!!!!!!!', webhook)
         b = Bitrix(webhook)
         method = 'crm.lead.add'
         params = {'fields': {
