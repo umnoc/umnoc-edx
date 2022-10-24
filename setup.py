@@ -103,7 +103,7 @@ CHANGELOG = open(os.path.join(os.path.dirname(__file__), 'CHANGELOG.rst'), encod
 setup(
     name='umnoc-edx',
     version=VERSION,
-    description="""UMNOC Educational programs and online courses management subsystem.""",
+    description='UMNOC Educational programs and online courses management subsystem.',
     long_description=README + '\n\n' + CHANGELOG,
     author='N.V.Ignatchenko',
     author_email='mastergowen@gmail.com',

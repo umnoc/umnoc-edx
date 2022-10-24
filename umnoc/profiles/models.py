@@ -155,6 +155,9 @@ class UrFUProfile(TimeStampedModel):
 
 
 class LeadRequest(TimeStampedModel):
+    """
+    Model for store CRM requests
+    """
     STATUSES = (
         ('created', 'created'),
         ('sent', 'sent'),
