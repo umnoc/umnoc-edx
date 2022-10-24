@@ -155,7 +155,11 @@ class UrFUProfile(TimeStampedModel):
 
 
 class LeadRequest(TimeStampedModel):
-    STATUSES = ('created', 'sent', 'error')
+    STATUSES = (
+        ('created', 'created'),
+        ('sent', 'sent'),
+        ('error', 'error')
+    )
     method = models.CharField(max_length=32, null=False, blank=False)
     title = models.CharField(max_length=32, blank=True)
     name = models.CharField(max_length=32, blank=True)
