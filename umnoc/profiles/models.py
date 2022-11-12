@@ -3,12 +3,12 @@ Database models for umnoc profiles.
 """
 from django.contrib.auth import get_user_model
 from django.db import models
+from django_countries.data import COUNTRIES
 from model_utils import Choices
 from model_utils.fields import StatusField, UUIDField
 from model_utils.models import TimeStampedModel
-from django_countries.fields import CountryField
+
 from umnoc.utils import generate_new_filename
-from django_countries.data import COUNTRIES
 
 
 class Profile(TimeStampedModel):
@@ -182,6 +182,10 @@ class LeadRequest(TimeStampedModel):
         Get a string representation of this model instance.
         """
         return f'<LeadRequest, ID: {self.pk}, Lead: {self.last_name} {self.name}, Status: {self.status}>'
+
+    class Meta:
+        verbose_name = 'запрос в Битрикс'
+        verbose_name_plural = 'запросы в Битрикс'
 
 
 class Reflection(TimeStampedModel):
