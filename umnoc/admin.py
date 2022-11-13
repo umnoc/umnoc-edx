@@ -151,16 +151,18 @@ User = get_user_model()
 
 try:
     admin.site.unregister(User)
-except NotRegistered:
+except NotRegistered:k
     pass
 
 
-@admin.register(User, site=umnoc_admin_site)
-class UserAdmin(BaseUserAdmin):
+class UserAdminTmp(BaseUserAdmin):
     actions = (make_active,)
 
     def get_list_display(self, request):
-        list_display = super(UserAdmin, self).get_list_display(request)
+        list_display = super(UserAdminTmp, self).get_list_display(request)
         return list_display + ('is_active', 'date_joined')
 
+
+@admin.register(User, site=umnoc_admin_site)
+class UserAdmin(UserAdminTmp):
     list_editable = ('is_active',)
