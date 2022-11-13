@@ -141,10 +141,11 @@ class LeadRequestAdmin(admin.ModelAdmin):
     list_filter = ('status',)
 
 
-@admin.action(description='Активировать учетки')
 def make_active(modeladmin, request, queryset):
     queryset.update(is_active=True)
 
+
+make_active.short_description = 'Активировать учетки'
 
 User = get_user_model()
 
