@@ -162,4 +162,4 @@ class UserAdmin(BaseUserAdmin):
 
     def get_list_display(self, request):
         list_display = super(UserAdmin, self).get_list_display(request)
-        return list_display + ('is_active',)
+        return list_display + ('is_active', 'date_joined')
