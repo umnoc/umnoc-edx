@@ -151,7 +151,7 @@ User = get_user_model()
 
 try:
     admin.site.unregister(User)
-except NotRegistered:k
+except NotRegistered:
     pass
 
 
