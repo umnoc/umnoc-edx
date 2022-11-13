@@ -155,14 +155,10 @@ except NotRegistered:
     pass
 
 
-class UserAdminTmp(BaseUserAdmin):
-    actions = (make_active,)
-
-    def get_list_display(self, request):
-        list_display = super(UserAdminTmp, self).get_list_display(request)
-        return list_display + ('is_active', 'date_joined')
-
-
 @admin.register(User, site=umnoc_admin_site)
-class UserAdmin(UserAdminTmp):
+class UserAdmin(BaseUserAdmin):
+    actions = (make_active,)
+    list_display = BaseUserAdmin.list_display + ('is_active', 'date_joined')
     list_editable = ('is_active',)
+
+
