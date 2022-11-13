@@ -1,5 +1,7 @@
 from admin_ordering.admin import OrderableAdmin
+from common.djangoapps.student.admin import UserAdmin as BaseUserAdmin
 from django.contrib import admin
+from django.contrib.admin.sites import NotRegistered
 from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
@@ -8,14 +10,11 @@ from .core.models import (
     Organization,
     ProgramCourse,
     OrganizationCourse,
-    Direction,
-    Project,
-    Program,
-    TextBlock
+    Program
 )
 from .courses.models import (Course, Competence, Result, Author)
 from .learners.models import (ProgramEnrollment)
-from .profiles.models import (UrFUProfile, LeadRequest, Reflection, Question, Answer)
+from .profiles.models import (UrFUProfile, LeadRequest)
 
 
 class UMNOCAdminSite(admin.AdminSite):
@@ -140,3 +139,16 @@ class LeadRequestAdmin(admin.ModelAdmin):
     list_display = ('pk', 'method', 'title', 'name', 'last_name', 'status_id', 'email', 'phone', 'status', 'created')
     readonly_fields = ('method', 'title', 'name', 'second_name', 'last_name', 'status_id', 'email', 'phone', 'status')
     list_filter = ('status',)
+
+
+User = get_user_model()
+
+try:
+    admin.site.unregister(User)
+except NotRegistered:
+    pass
+
+
+@admin.register(User)
+class UserAdmin(BaseUserAdmin):
+    list_editable = ('is_active',)
