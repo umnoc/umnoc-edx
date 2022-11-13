@@ -149,6 +149,6 @@ except NotRegistered:
     pass
 
 
-@admin.register(User)
+@admin.register(User, site=umnoc_admin_site)
 class UserAdmin(BaseUserAdmin):
     list_editable = ('is_active',)
