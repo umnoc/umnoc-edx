@@ -152,3 +152,9 @@ except NotRegistered:
 @admin.register(User, site=umnoc_admin_site)
 class UserAdmin(BaseUserAdmin):
     list_editable = ('is_active',)
+
+    def get_list_display(self, request, obj=None):
+        list_display = super().get_list_display(request, obj)
+        if obj:
+            return list_display + ('is_active',)
+        return list_display
