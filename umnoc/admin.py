@@ -141,6 +141,11 @@ class LeadRequestAdmin(admin.ModelAdmin):
     list_filter = ('status',)
 
 
+@admin.action(description='Активировать учетки')
+def make_active(modeladmin, request, queryset):
+    queryset.update(is_active=True)
+
+
 User = get_user_model()
 
 try:
@@ -152,6 +157,7 @@ except NotRegistered:
 @admin.register(User, site=umnoc_admin_site)
 class UserAdmin(BaseUserAdmin):
     list_editable = ('is_active',)
+    actions = (make_active,)
 
     def get_list_display(self, request):
         list_display = super(UserAdmin, self).get_list_display(request)
