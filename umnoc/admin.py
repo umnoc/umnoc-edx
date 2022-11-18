@@ -158,7 +158,8 @@ except NotRegistered:
 @admin.register(User, site=umnoc_admin_site)
 class UserAdmin(BaseUserAdmin):
     actions = (make_active,)
-    list_display = BaseUserAdmin.list_display + ('is_active', 'date_joined')
-    list_editable = ('is_active',)
+    list_display = BaseUserAdmin.list_display + ('id', 'is_active', 'date_joined')
+    save_on_top = True
+    # search_fields = BaseUserAdmin.search_fields
 
 
