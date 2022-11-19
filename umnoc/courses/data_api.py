@@ -17,13 +17,13 @@ def get_course_enrollments(username, include_inactive=False):
     if not include_inactive:
         qset = qset.filter(is_active=True)
 
-    for course in qset:
+    for enrollment in qset:
         enrollments.append({
-            "id": course.id,
-            'course_id': course.id,
-            'display_name': course.display_name,
-            'start_date': course.start_date,
-            'end_date': course.end_date,
+            "id": enrollment.course.id,
+            'course_id': enrollment.course.id,
+            'display_name': enrollment.course.display_name,
+            'start_date': enrollment.course.start_date,
+            'end_date': enrollment.course.end_date,
         })
 
     return enrollments
