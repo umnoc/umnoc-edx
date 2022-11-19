@@ -18,8 +18,9 @@ def get_course_enrollments(username, include_inactive=False):
         qset = qset.filter(is_active=True)
 
     for enrollment in qset:
+        umnoc_course = enrollment.course.umnoc_course.first()
         enrollments.append({
-            "id": enrollment.course.umnoc_course.first().id,
+            "id": umnoc_course.id if umnoc_course else None,
             'course_id': enrollment.course.id,
             'display_name': enrollment.course.display_name,
             'start_date': enrollment.course.start_date,
