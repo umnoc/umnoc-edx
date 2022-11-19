@@ -19,7 +19,7 @@ def get_course_enrollments(username, include_inactive=False):
 
     for course in qset:
         enrollments.append({
-            "id": course.umnoc_course.id,
+            "id": course.id,
             'course_id': course.id,
             'display_name': course.display_name,
             'start_date': course.start_date,
