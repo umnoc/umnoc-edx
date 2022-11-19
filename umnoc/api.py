@@ -26,7 +26,7 @@ from xmodule.tabs import CourseTab
 
 from .core.models import Program, Project, Organization
 from .courses.models import Course, Author, Competence, Result
-from .courses.api import get_course_enrollments
+from .courses.data_api import get_course_enrollments
 from .learners.models import ProgramEnrollment
 
 log = logging.getLogger(__name__)
