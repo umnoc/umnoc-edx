@@ -26,6 +26,7 @@ from xmodule.tabs import CourseTab
 
 from .core.models import Program, Project, Organization
 from .courses.models import Course, Author, Competence, Result
+from .courses.api import get_course_enrollments
 from .learners.models import ProgramEnrollment
 
 log = logging.getLogger(__name__)
@@ -269,7 +270,7 @@ def me(request):
 
 @api.get("/courses/my", auth=django_auth)
 def me(request):
-    enrollments = enrollments_api.get_enrollments(request.auth, include_inactive=True)
+    enrollments = get_course_enrollments(request.auth, include_inactive=True)
     return enrollments
 
 

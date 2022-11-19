@@ -10,6 +10,20 @@ from .models import UrFUProfile, LeadRequest
 
 log = logging.getLogger(__name__)
 
+from django.dispatch import receiver
+
+from .models import User, Person
+
+
+@receiver(user_signed_up, sender=User)
+def create_profile(*args, **kwargs):
+    Person.objects.create(user=kwargs['user'])
+
+
+@receiver(user_signed_up, sender=User)
+def save_profile(*args, **kwargs):
+    person = kwargs["user"].get_person()
+    person.save()
 
 @receiver(post_save, sender=UrFUProfile)
 def create_profile(sender, instance, created, **kwargs):

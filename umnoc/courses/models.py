@@ -42,7 +42,7 @@ class Course(TimeStampedModel, SoftDeletableModel):
         verbose_name = 'курс'
         verbose_name_plural = 'курсы'
 
-    course_overview = models.ForeignKey('course_overviews.CourseOverview', db_index=True, related_name='umnoc_courses',
+    course_overview = models.ForeignKey('course_overviews.CourseOverview', db_index=True, related_name='umnoc_course',
                                         on_delete=models.CASCADE)
 
     target = models.TextField('Описание направленности и целевого назначения курса', blank=True, null=True)
