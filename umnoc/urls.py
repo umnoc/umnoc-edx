@@ -5,7 +5,7 @@ from django.conf.urls import url, include
 
 from .admin import umnoc_admin_site
 from .api import api
-from .core import views
+# from .core import views
 
 urlpatterns = [
     url('^admin/', umnoc_admin_site.urls),
