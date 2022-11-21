@@ -5,6 +5,7 @@ from django.contrib.admin.sites import NotRegistered
 from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
+from model_clone import CloneModelAdmin
 
 from .core.models import (
     Organization,
@@ -82,7 +83,7 @@ class CourseOverviewAdmin(admin.ModelAdmin):
 
 
 @admin.register(Course, site=umnoc_admin_site)
-class CourseAdmin(admin.ModelAdmin):
+class CourseAdmin(CloneModelAdmin):
     autocomplete_fields = ['course_overview']
     search_fields = ['course_overview__display_name', 'course_overview__id']
     list_display = ('display_name', 'course_id', 'start_date', 'end_date', 'course_program', 'status')

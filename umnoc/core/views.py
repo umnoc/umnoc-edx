@@ -2,4 +2,5 @@ from django.views.generic import View
 
 
 class RedirectAfterLoginView(View):
-    pass
+    def get(self, request, *args, **kwargs):
+

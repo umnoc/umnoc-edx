@@ -15,8 +15,10 @@ from model_utils.models import (
     StatusField,
     MonitorField)
 
+from model_clone.models import CloneModel
 
-class Course(TimeStampedModel, SoftDeletableModel):
+
+class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
     """
         Онлайн-курс. Модель позволяет расширить course_overview.
     """
