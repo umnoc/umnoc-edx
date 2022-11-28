@@ -349,7 +349,7 @@ def like_course(request, payload: LikedCourseIn):
     return {"success": True}
 
 
-@api.get('/courses/likes', description='List liked courses')
-def liked_course(request, auth=django_auth):
+@api.get('/courses/likes', auth=django_auth, description='List liked courses')
+def liked_course(request):
     liked_courses = get_liked_courses(request.auth)
     return liked_courses
