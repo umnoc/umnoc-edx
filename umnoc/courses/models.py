@@ -16,6 +16,7 @@ from model_utils.models import (
     MonitorField)
 
 from model_clone.models import CloneModel
+from django.contrib.auth import get_user_model
 
 
 class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
