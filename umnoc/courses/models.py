@@ -160,6 +160,24 @@ class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
     def competences(self) -> List[Optional[str]]:
         return self.competence_set.values_list('title', flat=True)
 
+    @classmethod
+    def get_icctm_courses(cls):
+        import requests, json
+        response = requests.get(
+        'https://edu.icctm.ru/webservice/rest/server.php?wstoken=c10c0e2b77be09a7e930e9c8c0f48543&wsfunction=icctm_course_get_courses&moodlewsrestformat=json')
+        courses = json.loads(response.json())
+        for course_data in courses:
+            """
+            Find existing course by display name
+            If not exists:
+              create course with json data;
+              create authors; competences; results objects, bind with course
+            if exists:
+
+
+            """
+
+
 
 class Competence(models.Model):
     title = models.TextField()
