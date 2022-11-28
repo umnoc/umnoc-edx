@@ -225,3 +225,10 @@ class LikedCourse(models.Model):
 
     def __str__(self) -> str:
         return str(self.user) + str(self.course)
+
+    @classmethod
+    def create(cls,username,course_id):
+        user = get_user_model().objects.get(username=username),
+        course = Course.objects.get(pk=course_id)
+        obj = cls.objects.create(user=user,course=course)
+        return obj

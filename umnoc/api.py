@@ -342,11 +342,11 @@ def enroll_user_to_program(request, payload: ProgramEnrollmentIn):
 
 @api.post('/courses/like', description='Mark course as liked')
 def like_course(request, payload: LikedCourseIn):
-    liked = LikedCourse.objects.create(
-        user=get_user_model().objects.get(email=payload.dict()['username']),
-        course=Course.objects.get(pk=payload.dict()['course_id'])
+    liked = LikedCourse.create(
+        username=payload.dict()['username'],
+        course_id=payload.dict()['course_id']
     )
-    return {"success": True}
+    return {"success": bool(liked)}
 
 
 @api.get('/courses/likes', auth=django_auth, description='List liked courses')
