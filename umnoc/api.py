@@ -26,7 +26,7 @@ from xmodule.tabs import CourseTab
 
 from .core.models import Program, Project, Organization
 from .courses.models import Course, Author, Competence, Result, LikedCourse
-from .courses.data_api import get_course_enrollments
+from .courses.data_api import get_course_enrollments, get_liked_courses
 from .learners.models import ProgramEnrollment
 
 log = logging.getLogger(__name__)
@@ -94,7 +94,7 @@ class ProgramEnrollmentIn(Schema):
 
 
 class LikedCourseIn(Schema):
-    email: str = None
+    username: str = None
     course_id: str = None
 
 
@@ -343,7 +343,13 @@ def enroll_user_to_program(request, payload: ProgramEnrollmentIn):
 @api.post('/courses/like', description='Mark course as liked')
 def like_course(request, payload: LikedCourseIn):
     liked = LikedCourse.objects.create(
-        user=get_user_model().objects.get(email=payload.dict()['email']),
+        user=get_user_model().objects.get(email=payload.dict()['username']),
         course=Course.objects.get(pk=payload.dict()['course_id'])
     )
     return {"success": True}
+
+
+@api.get('/courses/likes', description='List liked courses')
+def liked_course(request, auth=django_auth):
+    liked_courses = get_liked_courses(request.auth)
+    return liked_courses

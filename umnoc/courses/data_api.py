@@ -3,7 +3,9 @@ import logging
 from common.djangoapps.student.models import (
     CourseEnrollment
 )
+from .models import LikedCourse
 from openedx.core.djangoapps.enrollments.serializers import CourseEnrollmentSerializer
+from django.contrib.auth import get_user_model
 
 log = logging.getLogger(__name__)
 
@@ -28,3 +30,9 @@ def get_course_enrollments(username, include_inactive=False):
         })
 
     return enrollments
+
+
+def get_liked_courses(username):
+    return LikedCourse.objects.filter(
+        user=get_user_model().objects.get(username=username)).values_list('course__id',
+                                                                          flat=True)
