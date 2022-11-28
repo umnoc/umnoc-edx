@@ -94,7 +94,7 @@ class ProgramEnrollmentIn(Schema):
 
 
 class LikedCourseIn(Schema):
-    user: UserIn
+    email: str = None
     course: str = None
 
 
