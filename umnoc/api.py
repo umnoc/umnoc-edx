@@ -95,7 +95,7 @@ class ProgramEnrollmentIn(Schema):
 
 class LikedCourseIn(Schema):
     email: str = None
-    course: str = None
+    course_id: str = None
 
 
 class ChapterSchema(Schema):
@@ -342,5 +342,8 @@ def enroll_user_to_program(request, payload: ProgramEnrollmentIn):
 
 @api.post('/courses/like', description='Mark course as liked')
 def like_course(request, payload: LikedCourseIn):
-    liked = LikedCourse.objects.create(**payload.dict())
+    liked = LikedCourse.objects.create(
+        user=get_user_model().objects.get(email=payload['email']),
+        course=Course.objects.get(pk=payload['course_id'])
+    )
     return {"success": True}
