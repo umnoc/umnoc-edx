@@ -216,3 +216,11 @@ class Author(models.Model):
     @property
     def photo_url(self) -> str:
         return f'{settings.LMS_ROOT_URL}{settings.MEDIA_URL}{self.photo}'
+
+
+class LikedCourse(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return str(self.user) + str(self.course)

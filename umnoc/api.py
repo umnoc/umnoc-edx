@@ -25,7 +25,7 @@ from xmodule.course_module import Textbook
 from xmodule.tabs import CourseTab
 
 from .core.models import Program, Project, Organization
-from .courses.models import Course, Author, Competence, Result
+from .courses.models import Course, Author, Competence, Result, LikedCourse
 from .courses.data_api import get_course_enrollments
 from .learners.models import ProgramEnrollment
 
@@ -44,6 +44,12 @@ class ORJSONRenderer(BaseRenderer):
 
 
 api = NinjaAPI(renderer=ORJSONRenderer(), csrf=True)
+
+
+class LikedCourseSchema(ModelSchema):
+    class Config:
+        model = LikedCourse
+        model_fields = ['course', 'user']
 
 
 class UserSchema(ModelSchema):
@@ -85,6 +91,11 @@ class ProgramEnrollmentIn(Schema):
     user: UserIn
     program_uuid: str = None
     project_uuid: str = None
+
+
+class LikedCourseIn(Schema):
+    user: UserIn
+    course: str = None
 
 
 class ChapterSchema(Schema):
@@ -327,3 +338,9 @@ def enroll_user_to_program(request, payload: ProgramEnrollmentIn):
         "project_uuid": enrollment.project_uuid,
         "success": True
     }
+
+
+@api.post('/courses/like', description='Mark course as liked')
+def like_course(request, payload: LikedCourseIn):
+    liked = LikedCourse.objects.create(**payload.dict())
+    return {"success": True}

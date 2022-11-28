@@ -13,7 +13,7 @@ from .core.models import (
     OrganizationCourse,
     Program
 )
-from .courses.models import (Course, Competence, Result, Author)
+from .courses.models import (Course, Competence, Result, Author, LikedCourse)
 from .learners.models import (ProgramEnrollment)
 from .profiles.models import (UrFUProfile, LeadRequest)
 
@@ -166,3 +166,8 @@ class UserAdmin(BaseUserAdmin):
 
     def get_ordering(self, request):
         return ['-date_joined']
+
+
+@admin.register(LikedCourse, site=umnoc_admin_site)
+class LikedCourseAdmin(admin.ModelAdmin):
+    list_display = ('__str__',)
