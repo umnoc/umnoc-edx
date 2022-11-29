@@ -14,8 +14,10 @@ from openedx.core.djangoapps.enrollments import api as enrollments_api
 from .core.models import Program, Project, Organization
 from .courses.data_api import get_course_enrollments, get_liked_courses
 from .courses.models import Course, LikedCourse
+from .profiles.models import UrFUProfile
 from .learners.models import ProgramEnrollment
 from .schema import (UserProfileSchema,
+                     UrFUProfileSchema,
                      ProgramEnrollmentIn,
                      LikedCourseIn,
                      CourseSchema,
@@ -46,6 +48,13 @@ def me(request):
     user = User.objects.get(username=request.auth)
     profile = UserProfile.objects.get(user=user)
     return profile
+
+
+@api.get('me/profile', auth=django_auth, response=UrFUProfileSchema)
+def profile(request):
+    user = User.objects.get(username=request.auth)
+    verified_profile = UrFUProfile.objects.get(user=user)
+    return verified_profile
 
 
 @api.get("/courses/my", auth=django_auth)

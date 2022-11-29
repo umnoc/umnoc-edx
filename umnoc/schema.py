@@ -69,7 +69,6 @@ UserProfileSchema = create_schema(
     ],
     custom_fields=[
         ('user', UserSchema, None),
-        ('verified_profile', UrFUProfileSchema, None),
         ('has_profile_image', bool, False),
         ('age', int, None),
         ('level_of_education_display', str, None),
