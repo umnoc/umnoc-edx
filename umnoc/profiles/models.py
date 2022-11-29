@@ -7,7 +7,7 @@ from django_countries.data import COUNTRIES
 from model_utils import Choices
 from model_utils.fields import StatusField, UUIDField
 from model_utils.models import TimeStampedModel
-
+from django.utils.translation import ugettext_lazy as _
 from umnoc.utils import generate_new_filename
 
 
@@ -108,6 +108,10 @@ class Profile(TimeStampedModel):
         return f'<Profile, ID: {self.uuid}>'
 
 
+class Role(models.Model):
+    title = models.CharField(_('Title'), max_length=32, unique=True)
+    def __str__(self):
+        return f'<Role, title: {self.title}>'
 class UrFUProfile(TimeStampedModel):
     """
     Main UrFU profile
@@ -116,11 +120,12 @@ class UrFUProfile(TimeStampedModel):
     COUNTRIES_LIST = tuple((x, COUNTRIES[x]) for x in COUNTRIES.keys())
 
     EDUCATION_LEVEL = (('M', 'Среднее профессиональное'), ('H', 'Высшее'))
-    USER_TYPES = (('u', 'user or not available'), ('s', 'student'), ('h', 'HR'), ('a', 'admin'))
+    # USER_TYPES = (('u', 'user or not available'), ('s', 'student'), ('h', 'HR'), ('a', 'admin'))
 
     user = models.OneToOneField(get_user_model(), unique=True, db_index=True, related_name='verified_profile',
                                 verbose_name="Пользователь", on_delete=models.CASCADE, null=True)
-    type = models.CharField('User type', max_length=1, choices=USER_TYPES, default='u')
+    roles = models.ManyToManyField(Role)
+    # type = models.CharField('User type', max_length=1, choices=USER_TYPES, default='u')
     last_name = models.CharField("Фамилия", max_length=255, null=False, blank=False)
     first_name = models.CharField("Имя", max_length=255, null=False, blank=False)
     second_name = models.CharField("Отчество", max_length=255, null=True, blank=True)
