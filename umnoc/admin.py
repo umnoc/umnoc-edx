@@ -138,7 +138,7 @@ class UrFUProfileAdmin(admin.ModelAdmin):
         'education_level', 'job',
         'position', 'birth_date'
     )
-    list_filter = ('user_type',)
+    list_filter = ('type',)
 
 
 @admin.register(LeadRequest, site=umnoc_admin_site)
