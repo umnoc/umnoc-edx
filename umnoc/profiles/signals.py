@@ -4,34 +4,19 @@ import logging
 from django.conf import settings
 from django.db.models.signals import post_save
 from fast_bitrix24 import Bitrix
-
+from django.contrib.auth.models import User
 from .models import UrFUProfile, LeadRequest
+from django.dispatch import receiver
 
 log = logging.getLogger(__name__)
 
-from django.dispatch import receiver
-
-
-#
-# from .models import User, Person
-#
-#
-# @receiver(user_signed_up, sender=User)
-# def create_profile(*args, **kwargs):
-#     Person.objects.create(user=kwargs['user'])
-#
-#
-# @receiver(user_signed_up, sender=User)
-# def save_profile(*args, **kwargs):
-#     person = kwargs["user"].get_person()
-#     person.save()
 
 @receiver(post_save, sender=UrFUProfile)
 def create_profile(sender, instance, created, **kwargs):
     if created:
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
-        webhook = f"{settings.BITRIX_URL}rest/{settings.BITRIX_USER_ID}/{settings.BITRIX_WEBHOOK}/"
+        webhook = f'{settings.BITRIX_URL}rest/{settings.BITRIX_USER_ID}/{settings.BITRIX_WEBHOOK}/'
         b = Bitrix(webhook)
         method = 'crm.lead.add'
         status_id = 'NEW',
@@ -58,7 +43,20 @@ def create_profile(sender, instance, created, **kwargs):
             b.call(method, params)
             request.set_status('sent')
         except:
-            log.error(f"Cannot send request to Bitrix24: {instance.user}")
-            request.set_status('error')
+            log.error(f'Cannot send request to Bitrix24: {instance.user}')
+            request.set_status("error")
 
-        log.warning(f"User profile created: {instance.user}")
+        log.warning(f'User profile created: {instance.user}')
+
+
+@receiver(post_save, sender=User)
+def create_profile(*args, **kwargs):
+    UrFUProfile.objects.create(user=kwargs['user'])
+
+
+@receiver(post_save, sender=User)
+def save_profile(*args, **kwargs):
+    profile = kwargs['user'].get_person()
+    if not profile:
+        profile = UrFUProfile.objects.create(user=kwargs['user'])
+    profile.save()
