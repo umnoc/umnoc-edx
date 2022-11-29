@@ -51,12 +51,12 @@ def create_profile(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=User)
 def create_profile(*args, **kwargs):
-    UrFUProfile.objects.create(user=kwargs['user'])
+    UrFUProfile.objects.create(user=kwargs['instance'])
 
 
 @receiver(post_save, sender=User)
 def save_profile(*args, **kwargs):
-    profile = kwargs['user'].get_person()
+    profile = kwargs['instance'].get_person()
     if not profile:
-        profile = UrFUProfile.objects.create(user=kwargs['user'])
+        profile = UrFUProfile.objects.create(user=kwargs['instance'])
     profile.save()
