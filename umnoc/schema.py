@@ -39,7 +39,8 @@ UrFUProfileSchema = create_schema(
     ],
     custom_fields=[
         ('roles', RoleSchema, None)
-    ]
+    ],
+    depth=1
 )
 
 
