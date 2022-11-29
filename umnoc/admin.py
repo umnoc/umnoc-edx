@@ -132,7 +132,13 @@ class ProgramEnrollmentAdmin(admin.ModelAdmin):
 
 @admin.register(UrFUProfile, site=umnoc_admin_site)
 class UrFUProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'SNILS', 'specialty', 'country', 'education_level', 'job', 'position', 'birth_date',)
+    list_display = (
+        'user', 'user_type',
+        'SNILS', 'specialty', 'country',
+        'education_level', 'job',
+        'position', 'birth_date'
+    )
+    list_filter = ('user_type',)
 
 
 @admin.register(LeadRequest, site=umnoc_admin_site)

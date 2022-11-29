@@ -110,19 +110,17 @@ class Profile(TimeStampedModel):
 
 class UrFUProfile(TimeStampedModel):
     """
-    TODO: replace with a brief description of the model.
-
-    TODO: Add either a negative or a positive PII annotation to the end of this docstring.  For more
-    information, see OEP-30:
-    https://open-edx-proposals.readthedocs.io/en/latest/oep-0030-arch-pii-markup-and-auditing.html
+    Main UrFU profile
     """
 
     COUNTRIES_LIST = tuple((x, COUNTRIES[x]) for x in COUNTRIES.keys())
 
     EDUCATION_LEVEL = (('M', 'Среднее профессиональное'), ('H', 'Высшее'))
+    USER_TYPES = (('u', 'user or not available'), ('s', 'student'), ('h', 'HR'), ('a', 'admin'))
 
     user = models.OneToOneField(get_user_model(), unique=True, db_index=True, related_name='verified_profile1',
                                 verbose_name="Пользователь", on_delete=models.CASCADE, null=True)
+    type = models.CharField('User type', max_length=1, choices=USER_TYPES, default='u')
     last_name = models.CharField("Фамилия", max_length=255, null=False, blank=False)
     first_name = models.CharField("Имя", max_length=255, null=False, blank=False)
     second_name = models.CharField("Отчество", max_length=255, null=True, blank=True)
