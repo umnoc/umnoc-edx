@@ -11,8 +11,37 @@ from openedx.core.djangoapps.models.course_details import CourseDetails
 
 from .core.models import Program, Project, Organization
 from .courses.models import Course, Author, Competence, Result, LikedCourse
+from .profiles.models import Role, UrFUProfile
 
 log = logging.getLogger(__name__)
+
+
+class RoleSchema(ModelSchema):
+    class Config:
+        model = Role
+        model_fields = ['title']
+
+
+UrFUProfileSchema = create_schema(
+    UrFUProfile,
+    fields=[
+        'last_name',
+        'first_name',
+        'second_name',
+        'phone',
+        'SNILS',
+        'specialty',
+        'country',
+        'education_level',
+        'job',
+        'position',
+        'birth_date'
+    ],
+    custom_fields=[
+        ('roles', RoleSchema, None)
+    ]
+)
+
 
 class LikedCourseSchema(ModelSchema):
     class Config:
@@ -40,6 +69,7 @@ UserProfileSchema = create_schema(
     ],
     custom_fields=[
         ('user', UserSchema, None),
+        ('verified_profile', UrFUProfileSchema, None),
         ('has_profile_image', bool, False),
         ('age', int, None),
         ('level_of_education_display', str, None),
@@ -238,4 +268,3 @@ class ProjectSchema(ModelSchema):
             'status',
             'published_at',
         ]
-
