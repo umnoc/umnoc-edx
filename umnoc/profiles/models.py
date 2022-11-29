@@ -78,7 +78,7 @@ class Profile(TimeStampedModel):
     terms = models.BooleanField("Я принимаю условия использования и соглашаюсь с политикой конфиденциальности",
                                 null=False, blank=False)
 
-    user = models.OneToOneField(get_user_model(), unique=True, db_index=True, related_name='verified_profile',
+    user = models.OneToOneField(get_user_model(), unique=True, db_index=True, related_name='verified_profile1',
                                 verbose_name="Пользователь", on_delete=models.CASCADE, null=True)
 
     prefered_org = models.CharField("Организация", max_length=255, blank=True, null=True)
@@ -118,7 +118,7 @@ class UrFUProfile(TimeStampedModel):
     EDUCATION_LEVEL = (('M', 'Среднее профессиональное'), ('H', 'Высшее'))
     USER_TYPES = (('u', 'user or not available'), ('s', 'student'), ('h', 'HR'), ('a', 'admin'))
 
-    user = models.OneToOneField(get_user_model(), unique=True, db_index=True, related_name='verified_profile1',
+    user = models.OneToOneField(get_user_model(), unique=True, db_index=True, related_name='verified_profile',
                                 verbose_name="Пользователь", on_delete=models.CASCADE, null=True)
     type = models.CharField('User type', max_length=1, choices=USER_TYPES, default='u')
     last_name = models.CharField("Фамилия", max_length=255, null=False, blank=False)

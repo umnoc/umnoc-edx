@@ -56,7 +56,9 @@ def create_profile(*args, **kwargs):
 
 @receiver(post_save, sender=User)
 def save_profile(*args, **kwargs):
-    profile = kwargs['instance'].get_profile()
-    if not profile:
-        profile = UrFUProfile.objects.create(user=kwargs['instance'])
-    profile.save()
+    user = kwargs['instance']
+    verified_profile = user.verified_profile
+
+    if not verified_profile:
+        verified_profile = UrFUProfile.objects.create(user=kwargs['instance'])
+    verified_profile.save()
