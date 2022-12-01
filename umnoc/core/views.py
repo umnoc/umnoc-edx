@@ -13,4 +13,4 @@ class GetExternalCourses(View):
         context = {}
         sources = ExternalPlatform.objects.all()
         context['sources'] = sources
-        return render(request, 'umnoc_edx/staff/external_courses.html', context=context)
+        return render(request, template_name='umnoc_edx/staff/external_courses.html', context=context)
