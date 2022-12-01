@@ -1,11 +1,15 @@
 """
 Database models for umnoc core.
 """
+import json
+
+import requests
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 from model_utils import Choices
 from model_utils.fields import StatusField, MonitorField, UUIDField
 from model_utils.models import TimeStampedModel, SoftDeletableModel
-from django.utils.translation import ugettext_lazy as _
+
 from umnoc.courses.models import Course
 
 
@@ -245,4 +249,7 @@ class ExternalPlatform(TimeStampedModel):
 
     def get_courses(self):
         # TODO: Implement method
-        pass
+        response = requests.get(self.sources_list_url)
+        courses = json.loads(response.json())
+        return courses
+        # for course_data in courses:
