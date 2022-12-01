@@ -3,13 +3,15 @@
 
 {% block body %}
     {% for source in sources %}
-        <h2>{{ source.title }}</h2>
+        <div class="container">
+            <h2>{{ source.title }}</h2>
 
-        {% for ext_course in source.get_courses %}
-            <div class="card card-body">
-                {{ ext_course }}
-            </div>
-        {% endfor %}
+            {% for ext_course in source.get_courses %}
+                <div class="card card-body">
+                    {{ ext_course.items.all }}
+                </div>
+            {% endfor %}
+        </div>
 
     {% empty %}
         <p>Нет внешних источников курсов</p>
