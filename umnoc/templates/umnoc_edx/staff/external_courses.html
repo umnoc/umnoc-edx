@@ -7,8 +7,17 @@
             <h2>{{ source.title }}</h2>
 
             {% for ext_course in source.get_courses %}
-                <div class="card card-body">
+                <div class="main">
                     {% for key,value in ext_course.items %}
+                        {% if key == 'authors' %}
+                            {% for author in authors %}
+                                <div>
+                                    <h3>{{ author.name }}</h3>
+                                    <p>{{ author.description }}</p>
+                                    <img src="{{ author.photo_url }}"/>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
                         <p><strong>{{ key }}:</strong> {{ value }}</p>
                     {% endfor %}
 
