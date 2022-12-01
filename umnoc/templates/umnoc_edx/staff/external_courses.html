@@ -5,7 +5,9 @@
     {% for source in sources %}
         <h2>{{ source.title }}</h2>
         <div class="card card-body">
-            {{ source.get_courses }}
+            {% for ext_course in source.get_courses %}
+                {{ ext_course }}
+            {% endfor %}
         </div>
     {% empty %}
         <p>Нет внешних источников курсов</p>
