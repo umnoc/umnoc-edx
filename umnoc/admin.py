@@ -102,6 +102,9 @@ class CourseAdmin(CloneModelAdmin):
     )
     inlines = [CompetenceInline, ResultInline, AuthorInline]
 
+    include_duplicate_action = True
+    include_duplicate_object_link = True
+
 
 @admin.register(Program, site=umnoc_admin_site)
 class ProgramAdmin(admin.ModelAdmin):
