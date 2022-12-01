@@ -10,7 +10,7 @@
                 <div class="main">
                     {% for key,value in ext_course.items %}
                         {% if key == 'authors' %}
-                            {% for author in ext_course.key %}
+                            {% for author in value %}
                                 <div>
                                     <h3>{{ author.name }}</h3>
                                     <p>{{ author.description }}</p>
