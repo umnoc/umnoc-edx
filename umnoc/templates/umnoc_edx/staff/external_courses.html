@@ -1,6 +1,7 @@
-{% extends "../base.html" %}
+{% extends "wiki/base.html" %}
 {% load static %}
-{% block content %}
+
+{% block body %}
     {% for source in sources %}
         {{ source.title }}
     {% empty %}
