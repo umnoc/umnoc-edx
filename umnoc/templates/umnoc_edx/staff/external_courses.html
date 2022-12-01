@@ -8,7 +8,10 @@
 
             {% for ext_course in source.get_courses %}
                 <div class="card card-body">
-                    {{ ext_course.items.all }}
+                    {% for key,value in ext_course.items %}
+                        <p><strong>{{ key }}:</strong> {{ value }}</p>
+                    {% endfor %}
+
                 </div>
             {% endfor %}
         </div>
