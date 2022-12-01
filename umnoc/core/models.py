@@ -5,8 +5,8 @@ from django.db import models
 from model_utils import Choices
 from model_utils.fields import StatusField, MonitorField, UUIDField
 from model_utils.models import TimeStampedModel, SoftDeletableModel
+from django.utils.translation import ugettext_lazy as _
 from umnoc.courses.models import Course
-
 
 
 class Organization(TimeStampedModel, SoftDeletableModel):
@@ -221,14 +221,6 @@ class OrganizationCourse(TimeStampedModel):
 
 
 class TextBlock(TimeStampedModel):
-    """
-    TODO: replace with a brief description of the model.
-
-    TODO: Add either a negative or a positive PII annotation to the end of this docstring.  For more
-    information, see OEP-30:
-    https://open-edx-proposals.readthedocs.io/en/latest/oep-0030-arch-pii-markup-and-auditing.html
-    """
-
     # TODO: add field definitions
 
     STATUS = Choices('draft', 'published')
@@ -241,3 +233,16 @@ class TextBlock(TimeStampedModel):
         """
         # TODO: return a string appropriate for the data fields
         return '<TextBlock, ID: {}>'.format(self.id)
+
+
+class ExternalPlatform(TimeStampedModel):
+    """
+    Платформа-источник курсов
+    """
+
+    title = models.CharField(_('Название'), blank=False, null=False, max_length=255)
+    sources_list_url = models.URLField(blank=True, null=True)
+
+    def get_courses(self):
+        # TODO: Implement method
+        pass

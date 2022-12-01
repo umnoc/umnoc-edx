@@ -4,14 +4,15 @@ from django.contrib import admin
 from django.contrib.admin.sites import NotRegistered
 from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _
-from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 from model_clone import CloneModelAdmin
+from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 
 from .core.models import (
     Organization,
     ProgramCourse,
     OrganizationCourse,
-    Program
+    Program,
+    ExternalPlatform
 )
 from .courses.models import (Course, Competence, Result, Author, LikedCourse)
 from .learners.models import (ProgramEnrollment)
@@ -185,3 +186,8 @@ class UserAdmin(BaseUserAdmin):
 @admin.register(LikedCourse, site=umnoc_admin_site)
 class LikedCourseAdmin(admin.ModelAdmin):
     list_display = ('__str__',)
+
+
+@admin.register(ExternalPlatform, site=umnoc_admin_site)
+class ExternalPlatformAdmin(admin.ModelAdmin):
+    list_display = ('title', 'sources_list_url')
