@@ -17,8 +17,10 @@
                                     <img src="{{ author.photo_url }}"/>
                                 </div>
                             {% endfor %}
+                        {% else %}
+                            <p><strong>{{ key }}:</strong> {{ value }}</p>
                         {% endif %}
-                        <p><strong>{{ key }}:</strong> {{ value }}</p>
+
                     {% endfor %}
 
                 </div>
