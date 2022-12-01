@@ -7,23 +7,24 @@
             <h2>{{ source.title }}</h2>
 
             {% for ext_course in source.get_courses %}
-                <div class="main">
+                <article class="external-course">
                     {% for key,value in ext_course.items %}
-                        {% if key == 'authors' %}
-                            {% for author in value %}
-                                <div>
-                                    <h3>{{ author.name }}</h3>
-                                    <p>{{ author.description }}</p>
-                                    <img src="{{ author.photo_url }}"/>
-                                </div>
-                            {% endfor %}
-                        {% else %}
-                            <p><strong>{{ key }}:</strong> {{ value }}</p>
-                        {% endif %}
-
+                        <section>
+                            {% if key == 'authors' %}
+                                {% for author in value %}
+                                    <div>
+                                        <h3>{{ author.name }}</h3>
+                                        <p>{{ author.description }}</p>
+                                        <img src="{{ author.photo_url }}" width="200"/>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <strong>{{ key }}:</strong> {{ value }}
+                            {% endif %}
+                        </section>
                     {% endfor %}
 
-                </div>
+                </article>
             {% endfor %}
         </div>
 
