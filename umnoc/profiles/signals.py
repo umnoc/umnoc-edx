@@ -49,10 +49,10 @@ def create_profile(sender, instance, created, **kwargs):
         log.warning(f'User profile created: {instance.user}')
 
 
-@receiver(post_save, sender=User)
-def create_profile(*args, **kwargs):
-    UrFUProfile.objects.create(user=kwargs['instance'])
-
+# @receiver(post_save, sender=User)
+# def create_profile(*args, **kwargs):
+#     UrFUProfile.objects.create(user=kwargs['instance'])
+#
 
 @receiver(post_save, sender=User)
 def save_profile(*args, **kwargs):
