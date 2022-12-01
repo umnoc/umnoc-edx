@@ -4,11 +4,13 @@
 {% block body %}
     {% for source in sources %}
         <h2>{{ source.title }}</h2>
-        <div class="card card-body">
-            {% for ext_course in source.get_courses %}
+
+        {% for ext_course in source.get_courses %}
+            <div class="card card-body">
                 {{ ext_course }}
-            {% endfor %}
-        </div>
+            </div>
+        {% endfor %}
+
     {% empty %}
         <p>Нет внешних источников курсов</p>
     {% endfor %}
