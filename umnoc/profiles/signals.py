@@ -59,6 +59,6 @@ def save_profile(*args, **kwargs):
     user = kwargs['instance']
     try:
         verified_profile = user.verified_profile
-    except User._meta.model.related_field.RelatedObjectDoesNotExist as e:
+    except:
         verified_profile = UrFUProfile.objects.create(user=kwargs['instance'])
         verified_profile.save()
