@@ -249,7 +249,7 @@ class ExternalPlatform(TimeStampedModel):
 
     def get_courses(self):
         # TODO: Implement method
-        response = requests.get(self.sources_list_url)
+        response = requests.get(self.sources_list_url, verify=False)
         courses = json.loads(response.json())
         return courses
         # for course_data in courses:
