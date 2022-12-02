@@ -21,5 +21,5 @@ class GetExternalCourses(View):
         external_platform = ExternalPlatform.objects.get(pk=external_platform_id)
         external_course = external_platform.get_course(external_course_id)
 
-        return HttpResponse(external_course)
+        return HttpResponse(external_platform.assimilate(external_course))
 

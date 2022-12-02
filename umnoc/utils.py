@@ -1,7 +1,7 @@
 import os
 import time
 import uuid
-
+from Levenshtein import distance
 
 def generate_new_filename(instance, filename):
     f, ext = os.path.splitext(filename)
@@ -11,3 +11,14 @@ def generate_new_filename(instance, filename):
         filename=filename
     )
     return fullpath
+
+
+def rough_search(dct, key):
+    res = [None, 9999]
+    for k in dct.keys():
+        l_dis = distance(str(key), str(k))
+        if l_dis < res[1]:
+            res[0] = k
+    return dct.get(res[0])
+
+

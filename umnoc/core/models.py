@@ -1,7 +1,6 @@
 """
 Database models for umnoc core.
 """
-import json
 
 import requests
 from django.db import models
@@ -10,7 +9,8 @@ from model_utils import Choices
 from model_utils.fields import StatusField, MonitorField, UUIDField
 from model_utils.models import TimeStampedModel, SoftDeletableModel
 from simple_history.models import HistoricalRecords
-from umnoc.courses.models import Course
+
+from umnoc.courses.models import (Course)
 
 
 class Organization(TimeStampedModel, SoftDeletableModel):
@@ -251,11 +251,14 @@ class ExternalPlatform(TimeStampedModel):
     def get_courses(self):
         # TODO: Implement method
         response = requests.get(self.sources_list_url, verify=False)
-        courses = response.json()
-        return courses
+        ext_courses = response.json()
+        return ext_courses
         # for course_data in courses:
 
     def get_course(self, id):
-        courses = self.get_courses()
-        course = [x for x in courses if str(x['id']) == str(id)][0]
-        return course
+        ext_courses = self.get_courses()
+        ext_course = [x for x in ext_courses if str(x['id']) == str(id)][0]
+        return ext_course
+
+    def assimilate(self, ext_course):
+        return Course.create_or_update_external(ext_course)
