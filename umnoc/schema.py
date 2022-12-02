@@ -21,10 +21,10 @@ class RoleSchema(Schema):
 
 
 class UrFUProfileSchema(ModelSchema):
-    roles: List[RoleSchema]
+    list_roles: Any
 
     @staticmethod
-    def resolve_roles(obj):
+    def resolve_list_roles(obj):
         return obj.list_roles
 
     # @staticmethod
