@@ -10,8 +10,8 @@
                 <article class="external-course">
                     <form method="post">
                         {% csrf_token %}
-                        <input type="hidden" id="external_course_id" name="postId" value="{{ ext_course.id }}" />
-                        <button class="button is-success" name="follow" value="assimilate" type="submit">Assimilate</button>
+                        <input type="hidden" id="external_course_id" name="external_course_id" value="{{ ext_course.id }}" />
+                        <button class="btn btn-primary" name="assimilate" value="assimilate" type="submit">Assimilate</button>
                     </form>
                     {% for key,value in ext_course.items %}
                         <section>
