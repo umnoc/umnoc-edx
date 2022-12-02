@@ -44,7 +44,7 @@ class UrFUProfileSchema(ModelSchema):
 
     @staticmethod
     def resolve_roles(obj):
-        return [role.title for role in obj.roles.all()]
+        return [str(role) for role in obj.roles.all()]
 
 
 class LikedCourseSchema(ModelSchema):
