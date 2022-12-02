@@ -73,6 +73,7 @@ class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
     start_date_f = models.DateTimeField(_('External course start date'), blank=True, null=True)
     end_date_f = models.DateTimeField(_('External course end date'), blank=True, null=True)
     lang = models.CharField(_('Language'), max_length=32, blank=True, null=True)
+    display_name_f = models.CharField(_('External display name'), max_length=255, blank=True, null=True)
 
     history = HistoricalRecords(excluded_fields=['status'])
     STATUS = Choices('draft', 'published')
@@ -114,7 +115,10 @@ class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
 
     @property
     def display_name(self) -> str:
-        return self.course_overview.display_name
+        if not self.external:
+            return self.course_overview.display_name
+        else:
+            return self.display_name_f
 
     @property
     def course_id(self) -> str:
@@ -206,11 +210,11 @@ class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
         start_date_f = ext_course.get('startdate', None)
         end_date_f = ext_course.get('enddate', None)
 
-        existing_course = cls.objects.filter(display_name=display_name)
+        existing_course = cls.objects.filter(display_name=display_name, external=True)
 
         if existing_course.exists():
             existing_course = existing_course.first()
-            existing_course.display_name = display_name
+            existing_course.display_name_f = display_name
             existing_course.target = target
             existing_course.description = description
             existing_course.course_program = course_program
@@ -227,7 +231,7 @@ class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
             existing_course.end_date_f = end_date_f
             existing_course.save()
         else:
-            existing_course = cls.objects.create(display_name=display_name,
+            existing_course = cls.objects.create(display_name_f=display_name,
                                                  target=target,
                                                  description=description,
                                                  course_program=course_program,
@@ -241,7 +245,9 @@ class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
                                                  course_image_url_f=course_image_url_f,
                                                  start_display_f=start_display_f,
                                                  start_date_f=start_date_f,
-                                                 end_date_f=end_date_f)
+                                                 end_date_f=end_date_f,
+                                                 external=True
+                                                 )
         return existing_course
 
         """
