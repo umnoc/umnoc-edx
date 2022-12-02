@@ -256,5 +256,6 @@ class ExternalPlatform(TimeStampedModel):
         # for course_data in courses:
 
     def get_course(self, id):
-        course = [x for x in self.get_courses() if x['id'] == id][0]
+        courses = self.get_courses()
+        course = [x for x in courses if str(x['id']) == str(id)][0]
         return course
