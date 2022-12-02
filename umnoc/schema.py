@@ -11,19 +11,21 @@ from openedx.core.djangoapps.models.course_details import CourseDetails
 
 from .core.models import Program, Project, Organization
 from .courses.models import Course, Author, Competence, Result, LikedCourse
-from .profiles.models import Role, UrFUProfile
+from .profiles.models import UrFUProfile
 
 log = logging.getLogger(__name__)
 
 
-class RoleSchema(ModelSchema):
-    class Config:
-        model = Role
-        model_fields = ['title']
+class RoleSchema(Schema):
+    title: str
 
 
 class UrFUProfileSchema(ModelSchema):
-    roles: List[Any] = []
+    roles: RoleSchema
+
+    # @staticmethod
+    # def resolve_roles(obj):
+    #     return [role.title for role in obj.roles.all()]
 
     class Config:
         model = UrFUProfile
@@ -39,11 +41,8 @@ class UrFUProfileSchema(ModelSchema):
             'job',
             'position',
             'birth_date',
+            'roles'
         ]
-
-    @staticmethod
-    def resolve_roles(obj):
-        return [role.title for role in obj.roles.all()]
 
 
 class LikedCourseSchema(ModelSchema):
