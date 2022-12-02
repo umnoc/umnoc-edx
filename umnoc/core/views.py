@@ -15,7 +15,7 @@ class GetExternalCourses(View):
         context['sources'] = sources
         return render(request, template_name='umnoc_edx/staff/external_courses.html', context=context)
 
-@staff_member_required
-def assimilate(request):
-    if request.method.upper() == "POST":
+# @staff_member_required
+# def assimilate(request):
+#     if request.method.upper() == "POST":
 
