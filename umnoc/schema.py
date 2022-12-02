@@ -222,6 +222,7 @@ CourseSchema = create_schema(
         ('authors', List[AuthorSchema], []),
         ('competences', List[str], []),
         ('results', List[str], []),
+        ('course_program_html', str, None),
         # ('course_overview', CourseOverviewSchema, None),
     ]
 

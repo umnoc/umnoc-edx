@@ -198,6 +198,11 @@ class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
     def competences(self) -> List[Optional[str]]:
         return self.competence_set.values_list('title', flat=True)
 
+    @property
+    def course_program_html(self) -> str:
+        lines = self.course_program.split('\n')
+        return f"<p>{'</p><p>'.join(lines)}</p>"
+
     @classmethod
     def create_or_update_external(cls, ext_course):
         display_name = rough_search(ext_course, 'display_name')
