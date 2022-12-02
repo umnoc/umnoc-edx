@@ -3,9 +3,9 @@ import logging
 from common.djangoapps.student.models import (
     CourseEnrollment
 )
-from .models import LikedCourse
-from openedx.core.djangoapps.enrollments.serializers import CourseEnrollmentSerializer
 from django.contrib.auth import get_user_model
+
+from .models import LikedCourse
 
 log = logging.getLogger(__name__)
 

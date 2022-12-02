@@ -27,10 +27,6 @@ class UrFUProfileSchema(ModelSchema):
     def resolve_list_roles(obj):
         return obj.list_roles
 
-    # @staticmethod
-    # def resolve_roles(obj):
-    #     return [role.title for role in obj.roles.all()]
-
     class Config:
         model = UrFUProfile
         model_fields = [

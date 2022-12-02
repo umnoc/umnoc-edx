@@ -1,6 +1,7 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import View
-from django.http import HttpResponse
+
 from .models import ExternalPlatform
 
 
@@ -22,4 +23,3 @@ class GetExternalCourses(View):
         external_course = external_platform.get_course(external_course_id)
 
         return HttpResponse(external_platform.assimilate(external_course))
-

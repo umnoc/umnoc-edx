@@ -3,10 +3,10 @@ import logging
 
 from django.conf import settings
 from django.db.models.signals import post_save
-from fast_bitrix24 import Bitrix
-from django.contrib.auth.models import User
-from .models import UrFUProfile, LeadRequest
 from django.dispatch import receiver
+from fast_bitrix24 import Bitrix
+
+from .models import UrFUProfile, LeadRequest
 
 log = logging.getLogger(__name__)
 
@@ -47,7 +47,6 @@ def create_profile(sender, instance, created, **kwargs):
             request.set_status("error")
 
         log.warning(f'User profile created: {instance.user}')
-
 
 # @receiver(post_save, sender=User)
 # def create_profile(*args, **kwargs):

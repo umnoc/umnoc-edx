@@ -11,5 +11,5 @@ urlpatterns = [
     url('^admin/', umnoc_admin_site.urls),
     url('^api/', api.urls),
     url('^summernote/', include('django_summernote.urls')),
-    url('^ext/',  GetExternalCourses.as_view())
+    url('^ext/', GetExternalCourses.as_view())
 ]

@@ -14,8 +14,8 @@ from openedx.core.djangoapps.enrollments import api as enrollments_api
 from .core.models import Program, Project, Organization
 from .courses.data_api import get_course_enrollments, get_liked_courses
 from .courses.models import Course, LikedCourse
-from .profiles.models import UrFUProfile
 from .learners.models import ProgramEnrollment
+from .profiles.models import UrFUProfile
 from .schema import (UserProfileSchema,
                      UrFUProfileSchema,
                      ProgramEnrollmentIn,
