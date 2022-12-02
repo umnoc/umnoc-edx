@@ -162,7 +162,7 @@ class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
 
     @classmethod
     def create_or_update_external(cls, ext_course):
-        display_name = ext_course.rough_search('display_name')
+        display_name = rough_search(ext_course, 'display_name')
         return display_name
 
         """
