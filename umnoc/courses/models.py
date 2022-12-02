@@ -210,7 +210,7 @@ class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
         start_date_f = ext_course.get('startdate', None)
         end_date_f = ext_course.get('enddate', None)
 
-        existing_course = cls.objects.filter(display_name=display_name, external=True)
+        existing_course = cls.objects.filter(display_name_f=display_name, external=True)
 
         if existing_course.exists():
             existing_course = existing_course.first()
