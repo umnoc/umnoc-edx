@@ -10,7 +10,30 @@ from model_utils.models import TimeStampedModel
 from simple_history.models import HistoricalRecords
 from user_util import user_util
 
-from ..constants import ProgramEnrollmentStatuses
+from ..constants import EnrollmentStatuses
+
+
+class LearningRequest(TimeStampedModel):
+    """Заявка на обучение"""
+
+    STATUS_CHOICES = EnrollmentStatuses.__MODEL_CHOICES__
+
+    user = models.ForeignKey(
+        get_user_model(), on_delete=models.CASCADE, related_name="learning_requests",
+    )
+    course_id = models.PositiveSmallIntegerField()
+
+    status = models.CharField(max_length=9, default='pending', choices=STATUS_CHOICES)
+    historical_records = HistoricalRecords()
+
+    class Meta:
+        app_label = "umnoc"
+        unique_together = (
+            ('user', 'course_id'),
+        )
+
+    def __str__(self):
+        return f'<LearningRequest, ID: {self.id}>'
 
 
 class ProgramEnrollment(TimeStampedModel):
@@ -20,7 +43,7 @@ class ProgramEnrollment(TimeStampedModel):
     .. pii_types: other
     .. pii_retirement: local_api
     """
-    STATUS_CHOICES = ProgramEnrollmentStatuses.__MODEL_CHOICES__
+    STATUS_CHOICES = EnrollmentStatuses.__MODEL_CHOICES__
 
     class Meta:
         app_label = "umnoc"

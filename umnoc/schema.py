@@ -53,7 +53,7 @@ class LikedCourseSchema(ModelSchema):
 class UserSchema(ModelSchema):
     class Config:
         model = User
-        model_fields = ['username', 'email', 'is_staff', 'is_active']
+        model_fields = ['username', 'email', 'is_staff', 'is_superuser', 'is_active']
 
 
 UserProfileSchema = create_schema(
@@ -94,6 +94,18 @@ class ProgramEnrollmentIn(Schema):
 class LikedCourseIn(Schema):
     username: str = None
     course_id: str = None
+
+class UrFUProfileIn(Schema):
+    last_name: str
+    first_name: str
+    second_name: str = None
+    phone: str
+    SNILS: str
+    country: str
+    education_level: str
+    job: str
+    position: str
+    birth_date: date
 
 
 class ChapterSchema(Schema):

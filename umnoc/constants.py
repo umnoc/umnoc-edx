@@ -1,7 +1,7 @@
 from common.djangoapps.student.roles import CourseStaffRole
 
 
-class ProgramEnrollmentStatuses:
+class EnrollmentStatuses:
     """
     Status that a user may have enrolled in a program.
     TODO: Define the semantics of each of these (EDUCATOR-4958)
@@ -77,15 +77,15 @@ class _EnrollmentErrorStatuses:
     )
 
 
-class ProgramOperationStatuses(
-    ProgramEnrollmentStatuses,
+class OperationStatuses(
+    EnrollmentStatuses,
     _EnrollmentErrorStatuses,
 ):
     """
     Valid program enrollment operation statuses.
     Combines error statuses and OK statuses.
     """
-    __OK__ = ProgramEnrollmentStatuses.__ALL__
+    __OK__ = EnrollmentStatuses.__ALL__
     __ERRORS__ = _EnrollmentErrorStatuses.__ALL__
     __ALL__ = __OK__ + __ERRORS__
 

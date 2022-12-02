@@ -14,10 +14,11 @@ from openedx.core.djangoapps.enrollments import api as enrollments_api
 from .core.models import Program, Project, Organization
 from .courses.data_api import get_course_enrollments, get_liked_courses
 from .courses.models import Course, LikedCourse
-from .learners.models import ProgramEnrollment
+from .learners.models import ProgramEnrollment, LearningRequest
 from .profiles.models import UrFUProfile
 from .schema import (UserProfileSchema,
                      UrFUProfileSchema,
+                     UrFUProfileIn,
                      ProgramEnrollmentIn,
                      LikedCourseIn,
                      CourseSchema,
@@ -55,6 +56,21 @@ def profile(request):
     user = User.objects.get(username=request.auth)
     verified_profile = UrFUProfile.objects.get(user=user)
     return verified_profile
+
+
+@api.post('me/learning_request', auth=django_auth, description="Создание, наполнение профиля пользователя и заявки на обучение")
+def fill_profile(request, payload: UrFUProfileIn):
+    user = User.objects.get(username=request.auth)
+    data = payload.dict()
+    learning_request_data = {'course_id': data.get('course'), 'user': user}
+    del data['course']
+    verified_profile = UrFUProfile(**data)
+    verified_profile.user = user
+    verified_profile.save()
+    # TODO send lead to bitrix24
+
+    learning_request = LearningRequest.objects.create(learning_request_data)
+    return verified_profile, learning_request
 
 
 @api.get("/courses/my", auth=django_auth)
