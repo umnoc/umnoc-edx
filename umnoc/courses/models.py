@@ -84,7 +84,10 @@ class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
     # TODO: Написать методы
 
     def __str__(self) -> str:
-        return f'<UMNOC course, ID: {self.course_overview}, title: {self.course_overview.display_name}>'
+        if not self.external:
+            return f'<UMNOC course, ID: {self.course_overview}, title: {self.course_overview.display_name}>'
+        else:
+            return f'<External UMNOC course, title: {self.display_name_f}>'
 
     @property
     def duration(self) -> str:
