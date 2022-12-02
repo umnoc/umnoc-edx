@@ -2,7 +2,9 @@ import os
 import time
 import uuid
 from Levenshtein import distance
+import logging
 
+log = logging.getLogger(__name__)
 def generate_new_filename(instance, filename):
     f, ext = os.path.splitext(filename)
     filename = '%s_%s%s' % (uuid.uuid4().hex, instance.user.email, ext)
@@ -17,8 +19,10 @@ def rough_search(dct, key):
     res = [None, 9999]
     for k in dct.keys():
         l_dis = distance(str(key), str(k))
+        log.warning(f"--------- {k} , {key}, {l_dis}")
         if l_dis < res[1]:
             res[0] = k
+        log.warning(f"{res}")
     return dct.get(res[0])
 
 
