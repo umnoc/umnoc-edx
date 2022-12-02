@@ -23,7 +23,7 @@ class RoleSchema(ModelSchema):
 
 
 class UrFUProfileSchema(ModelSchema):
-    roles: List[RoleSchema]
+    roles: List[Any]
 
     class Config:
         model = UrFUProfile
