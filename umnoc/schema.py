@@ -23,10 +23,10 @@ class RoleSchema(ModelSchema):
 
 
 class UrFUProfileSchema(ModelSchema):
-    roles: List[Any]
+    roles: List[RoleSchema]
+
     class Config:
         model = UrFUProfile
-
         model_fields = [
             'last_name',
             'first_name',
@@ -42,9 +42,9 @@ class UrFUProfileSchema(ModelSchema):
             'roles'
         ]
 
-    @staticmethod
-    def resolve_roles(obj):
-        return [str(role.id) for role in obj.roles.all()]
+    # @staticmethod
+    # def resolve_roles(obj):
+    #     return [str(role.id) for role in obj.roles.all()]
 
 
 class LikedCourseSchema(ModelSchema):
