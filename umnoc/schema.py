@@ -27,20 +27,20 @@ class UrFUProfileSchema(ModelSchema):
     class Config:
         model = UrFUProfile
 
-    model_fields = [
-        'last_name',
-        'first_name',
-        'second_name',
-        'phone',
-        'SNILS',
-        'specialty',
-        'country',
-        'education_level',
-        'job',
-        'position',
-        'birth_date',
-        'roles'
-    ]
+        model_fields = [
+            'last_name',
+            'first_name',
+            'second_name',
+            'phone',
+            'SNILS',
+            'specialty',
+            'country',
+            'education_level',
+            'job',
+            'position',
+            'birth_date',
+            'roles'
+        ]
 
     @staticmethod
     def resolve_roles(obj):
