@@ -3,11 +3,12 @@ Database models for umnoc profiles.
 """
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 from django_countries.data import COUNTRIES
 from model_utils import Choices
 from model_utils.fields import StatusField, UUIDField
 from model_utils.models import TimeStampedModel
-from django.utils.translation import ugettext_lazy as _
+
 from umnoc.utils import generate_new_filename
 
 
@@ -110,8 +111,11 @@ class Profile(TimeStampedModel):
 
 class Role(models.Model):
     title = models.CharField(_('Title'), max_length=32, unique=True)
+
     def __str__(self):
         return f'<Role, title: {self.title}>'
+
+
 class UrFUProfile(TimeStampedModel):
     """
     Main UrFU profile

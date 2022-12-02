@@ -22,9 +22,12 @@ class RoleSchema(ModelSchema):
         model_fields = ['title']
 
 
-UrFUProfileSchema = create_schema(
-    UrFUProfile,
-    fields=[
+class UrFUProfileSchema(ModelSchema):
+    roles: List[str]
+    class Config:
+        model = UrFUProfile
+
+    model_fields = [
         'last_name',
         'first_name',
         'second_name',
@@ -35,9 +38,13 @@ UrFUProfileSchema = create_schema(
         'education_level',
         'job',
         'position',
-        'birth_date'
+        'birth_date',
+        'roles'
     ]
-)
+
+    @staticmethod
+    def resolve_roles(obj):
+        return [role.title for role in obj.roles.all()]
 
 
 class LikedCourseSchema(ModelSchema):
