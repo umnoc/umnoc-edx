@@ -16,7 +16,7 @@ from .core.models import (
     ExternalPlatform
 )
 from .courses.models import (Course, Competence, Result, Author, LikedCourse)
-from .learners.models import (ProgramEnrollment)
+from .learners.models import (ProgramEnrollment, LearningRequest)
 from .profiles.models import (Role, UrFUProfile, LeadRequest)
 
 
@@ -130,6 +130,14 @@ class OrganizationAdmin(admin.ModelAdmin):
 @admin.register(ProgramEnrollment, site=umnoc_admin_site)
 class ProgramEnrollmentAdmin(admin.ModelAdmin):
     list_display = ('user', 'external_user_key', 'program_uuid', 'project_uuid', 'status')
+    list_filter = ('status',)
+    search_fields = ('user',)
+    raw_id_fields = ('user',)
+
+
+@admin.register(LearningRequest, site=umnoc_admin_site)
+class LearningRequestAdmin(admin.ModelAdmin):
+    list_display = ('user', 'course_id', 'status')
     list_filter = ('status',)
     search_fields = ('user',)
     raw_id_fields = ('user',)
