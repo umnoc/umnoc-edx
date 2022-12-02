@@ -112,6 +112,8 @@ class Profile(TimeStampedModel):
 class Role(models.Model):
     title = models.CharField(_('Title'), max_length=32, unique=True)
 
+
+
     def __str__(self):
         return f'<Role, title: {self.title}>'
 
@@ -143,6 +145,9 @@ class UrFUProfile(TimeStampedModel):
     position = models.CharField("Должность", max_length=2048)
     birth_date = models.CharField("Дата рождения", max_length=16)
 
+    @property
+    def list_roles(self):
+        return [role.title for role in self.roles.all()]
     @classmethod
     def get_profile(cls, user):
         if cls.objects.select_related().filter(user=user).exists():
