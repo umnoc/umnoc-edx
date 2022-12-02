@@ -200,7 +200,7 @@ class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
 
     @property
     def course_program_html(self) -> str:
-        lines = self.course_program.split('\n')
+        lines = self.course_program.split('\r\n')
         return f"<p>{'</p><p>'.join(lines)}</p>"
 
     @classmethod
