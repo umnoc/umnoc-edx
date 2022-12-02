@@ -85,7 +85,7 @@ class CourseOverviewAdmin(admin.ModelAdmin):
 
 
 @admin.register(Course, site=umnoc_admin_site)
-class CourseAdmin(CloneModelAdmin):
+class CourseAdmin(CloneModelAdmin, SimpleHistoryAdmin):
     autocomplete_fields = ['course_overview']
     search_fields = ['course_overview__display_name', 'course_overview__id']
     list_display = ('display_name', 'course_id', 'start_date', 'end_date', 'course_program', 'status')
