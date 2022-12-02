@@ -16,6 +16,6 @@ class GetExternalCourses(View):
         return render(request, template_name='umnoc_edx/staff/external_courses.html', context=context)
 
     def post(self, request, *args, **kwargs):
-        external_course_id = request.POST("external_course_id")
+        external_course_id = request.POST.get("external_course_id", None)
         return HttpResponse(external_course_id)
 
