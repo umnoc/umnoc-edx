@@ -21,7 +21,11 @@ class RoleSchema(Schema):
 
 
 class UrFUProfileSchema(ModelSchema):
-    # roles: List[RoleSchema]
+    roles: List[RoleSchema]
+
+    @staticmethod
+    def resolve_roles(obj):
+        return obj.list_roles
 
     # @staticmethod
     # def resolve_roles(obj):
@@ -41,7 +45,6 @@ class UrFUProfileSchema(ModelSchema):
             'job',
             'position',
             'birth_date',
-            'list_roles'
         ]
 
 
