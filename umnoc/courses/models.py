@@ -74,7 +74,7 @@ class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
     end_date_f = models.DateTimeField(_('External course end date'), blank=True, null=True)
     lang = models.CharField(_('Language'), max_length=32, blank=True, null=True)
 
-    history = HistoricalRecords()
+    history = HistoricalRecords(excluded_fields=['status'])
     STATUS = Choices('draft', 'published')
     status = StatusField(choices_name='STATUS')
     published_at = MonitorField(monitor='status', when=['published'])
