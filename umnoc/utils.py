@@ -19,10 +19,9 @@ def rough_search(dct, key):
     res = [None, 9999]
     for k in dct.keys():
         l_dis = distance(str(key), str(k))
-        log.warning(f"--------- {k} , {key}, {l_dis}")
         if l_dis < res[1]:
+            log.warning(f"--------- {k} , {key}, {l_dis}")
             res[0] = k
-        log.warning(f"{res}")
     return dct.get(res[0])
 
 
