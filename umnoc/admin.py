@@ -87,11 +87,11 @@ class CourseOverviewAdmin(admin.ModelAdmin):
 @admin.register(Course, site=umnoc_admin_site)
 class CourseAdmin(CloneModelAdmin, SimpleHistoryAdmin):
     autocomplete_fields = ['course_overview']
-    search_fields = ['course_overview__display_name', 'course_overview__id']
-    list_display = ('display_name', 'course_id', 'start_date', 'end_date', 'course_program', 'status')
+    search_fields = ['course_overview__display_name',  'display_name_f', 'course_overview__id']
+    list_display = ('display_name', 'course_id', 'start_date', 'end_date', 'course_program', 'status', 'external')
     fieldsets = (
         (None, {
-            'fields': (('course_overview', 'status', 'is_removed'), 'published_at')
+            'fields': (('course_overview', 'external', 'status', 'is_removed'), 'published_at')
         }),
         ('Численная информация', {
             'classes': ('wide',),
