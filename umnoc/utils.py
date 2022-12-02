@@ -24,5 +24,4 @@ def rough_search(dct, key):
         l_dis = distance(str(key), str(k))
         if l_dis < res[1]:
             res = [k, l_dis]
-
     return dct.get(res[0])

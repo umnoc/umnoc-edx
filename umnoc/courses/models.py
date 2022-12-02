@@ -7,7 +7,10 @@ from typing import List
 from typing import Optional
 
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
+from model_clone.models import CloneModel
 from model_utils import Choices
 from model_utils.models import (
     TimeStampedModel,
@@ -15,9 +18,8 @@ from model_utils.models import (
     StatusField,
     MonitorField)
 
-from model_clone.models import CloneModel
-from django.contrib.auth import get_user_model
 from umnoc.utils import rough_search
+
 
 class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
     """
@@ -45,6 +47,8 @@ class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
         verbose_name = 'курс'
         verbose_name_plural = 'курсы'
 
+    external = models.BooleanField(_('External course'), default=False)
+
     course_overview = models.ForeignKey('course_overviews.CourseOverview', db_index=True, related_name='umnoc_course',
                                         on_delete=models.CASCADE)
 
@@ -61,6 +65,13 @@ class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
     lectures_count = models.PositiveSmallIntegerField('Количество лекций', default=0)
     prerequisites = models.TextField('Пререквизиты', blank=True, null=True)
     format = models.TextField('Формат обучения', blank=True, null=True)
+
+    # external course addition fields
+    course_image_url_f = models.URLField(_('External course image url'), blank=True, null=True)
+    start_display_f = models.CharField(_('Start date for display'), max_length=32, blank=True, null=True)
+    start_date_f = models.DateTimeField(_('External course start date'), blank=True, null=True)
+    end_date_f = models.DateTimeField(_('External course end date'), blank=True, null=True)
+    lang = models.CharField(_('Language'), max_length=32, blank=True, null=True)
 
     STATUS = Choices('draft', 'published')
     status = StatusField(choices_name='STATUS')
@@ -90,7 +101,10 @@ class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
 
     @property
     def start_display(self) -> str:
-        return self.course_overview.start_display
+        if not self.external:
+            return self.course_overview.start_display
+        else:
+            return self.start_display_f
 
     @property
     def organization(self) -> str:
@@ -106,7 +120,10 @@ class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
 
     @property
     def course_image_url(self) -> str:
-        return f'{settings.LMS_ROOT_URL}{self.course_overview.course_image_url}'
+        if not self.external:
+            return f'{settings.LMS_ROOT_URL}{self.course_overview.course_image_url}'
+        else:
+            return self.course_image_url_f
 
     @property
     def banner_image_url(self) -> str:
@@ -114,11 +131,17 @@ class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
 
     @property
     def start_date(self) -> Optional[datetime]:
-        return self.course_overview.start_date
+        if not self.external:
+            return self.course_overview.start_date
+        else:
+            return self.start_date_f
 
     @property
     def end_date(self) -> Optional[datetime]:
-        return self.course_overview.end_date
+        if not self.external:
+            return self.course_overview.end_date
+        else:
+            return self.end_date_f
 
     @property
     def enrollment_start(self) -> Optional[datetime]:
@@ -146,7 +169,10 @@ class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
 
     @property
     def language(self) -> str:
-        return self.course_overview.language
+        if not self.external:
+            return self.course_overview.language
+        else:
+            return self.lang
 
     @property
     def pre_requisite_courses(self):
@@ -163,18 +189,62 @@ class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
     @classmethod
     def create_or_update_external(cls, ext_course):
         display_name = rough_search(ext_course, 'display_name')
-        return display_name
+        target = ext_course.get('target', None)
+        description = ext_course.get('description', None)
+        course_program = ext_course.get('course_program', None)
+        min_duration = ext_course.get('min_duration', 0)
+        max_duration = ext_course.get('max_duration', None)
+        labor = ext_course.get('labor', 0)
+        lectures_count = ext_course.get('lectures_count', 0)
+        prerequisites = ext_course.get('prerequisites', None)
+        _format = ext_course.get('format', None)
+        lang = ext_course.get('lang', None)
+        course_image_url_f = ext_course.get('course_image_url', None)
+        start_display_f = ext_course.get('startdate', None)
+        start_date_f = ext_course.get('startdate', None)
+        end_date_f = ext_course.get('enddate', None)
+
+        existing_course = cls.objects.filter(display_name=display_name)
+
+        if existing_course.exists():
+            existing_course = existing_course.first()
+            existing_course.display_name = display_name
+            existing_course.target = target
+            existing_course.description = description
+            existing_course.course_program = course_program
+            existing_course.min_duration = min_duration
+            existing_course.max_duration = max_duration
+            existing_course.labor = labor
+            existing_course.lectures_count = lectures_count
+            existing_course.prerequisites = prerequisites
+            existing_course.format = _format
+            existing_course.lang = lang
+            existing_course.course_image_url_f = course_image_url_f
+            existing_course.start_display_f = start_display_f
+            existing_course.start_date_f = start_date_f
+            existing_course.end_date_f = end_date_f
+            existing_course.save()
+        else:
+            existing_course = cls.objects.create(display_name=display_name,
+                                                 target=target,
+                                                 description=description,
+                                                 course_program=course_program,
+                                                 min_duration=min_duration,
+                                                 max_duration=max_duration,
+                                                 labor=labor,
+                                                 lectures_count=lectures_count,
+                                                 prerequisites=prerequisites,
+                                                 format=_format,
+                                                 lang=lang,
+                                                 course_image_url_f=course_image_url_f,
+                                                 start_display_f=start_display_f,
+                                                 start_date_f=start_date_f,
+                                                 end_date_f=end_date_f)
+        return existing_course
 
         """
-        Find existing course by display name
-        If not exists:
-          create course with json data;
           create authors; competences; results objects, bind with course
-        if exists:
-
-
         """
-
 
 
 class Competence(models.Model):
