@@ -125,7 +125,10 @@ class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
 
     @property
     def course_id(self) -> str:
-        return self.course_overview.id
+        if not self.external:
+            return self.course_overview.id
+        else:
+            return f"{self.id}"
 
     @property
     def course_image_url(self) -> str:
