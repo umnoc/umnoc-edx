@@ -50,7 +50,7 @@ class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
 
     external = models.BooleanField(_('External course'), default=False)
 
-    course_overview = models.ForeignKey('course_overviews.CourseOverview', db_index=True, related_name='umnoc_course',
+    course_overview = models.ForeignKey('course_overviews.CourseOverview', related_name='umnoc_course',
                                         on_delete=models.CASCADE)
 
     target = models.TextField('Описание направленности и целевого назначения курса', blank=True, null=True)
