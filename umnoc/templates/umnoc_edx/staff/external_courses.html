@@ -8,6 +8,10 @@
 
             {% for ext_course in source.get_courses %}
                 <article class="external-course">
+                    <form method="post">
+                        {% csrf_token %}
+                        <button class="button is-success" name="follow" value="assimilate">Assimilate</button>
+                    </form>
                     {% for key,value in ext_course.items %}
                         <section>
                             {% if key == 'authors' %}

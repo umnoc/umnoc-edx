@@ -9,7 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 from model_utils import Choices
 from model_utils.fields import StatusField, MonitorField, UUIDField
 from model_utils.models import TimeStampedModel, SoftDeletableModel
-
+from simple_history.models import HistoricalRecords
 from umnoc.courses.models import Course
 
 
@@ -246,6 +246,7 @@ class ExternalPlatform(TimeStampedModel):
 
     title = models.CharField(_('Название'), blank=False, null=False, max_length=255)
     sources_list_url = models.URLField(blank=True, null=True)
+    history = HistoricalRecords()
 
     def get_courses(self):
         # TODO: Implement method

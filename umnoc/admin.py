@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _
 from model_clone import CloneModelAdmin
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
+from simple_history.admin import SimpleHistoryAdmin
 
 from .core.models import (
     Organization,
@@ -189,5 +190,5 @@ class LikedCourseAdmin(admin.ModelAdmin):
 
 
 @admin.register(ExternalPlatform, site=umnoc_admin_site)
-class ExternalPlatformAdmin(admin.ModelAdmin):
+class ExternalPlatformAdmin(SimpleHistoryAdmin):
     list_display = ('title', 'sources_list_url')
