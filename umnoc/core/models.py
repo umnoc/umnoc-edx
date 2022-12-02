@@ -254,3 +254,7 @@ class ExternalPlatform(TimeStampedModel):
         courses = response.json()
         return courses
         # for course_data in courses:
+
+    def get_course(self, id):
+        course = [x for x in self.get_courses() if x['id'] == id][0]
+        return course

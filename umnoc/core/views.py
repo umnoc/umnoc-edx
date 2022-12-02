@@ -17,5 +17,9 @@ class GetExternalCourses(View):
 
     def post(self, request, *args, **kwargs):
         external_course_id = request.POST.get("external_course_id", None)
-        return HttpResponse(external_course_id)
+        external_platform_id = request.POST.get("external_platform_id", None)
+        external_platform = ExternalPlatform.objects.get(pk=external_platform_id)
+        external_course = external_platform.get_course(external_course_id)
+
+        return HttpResponse(external_course)
 

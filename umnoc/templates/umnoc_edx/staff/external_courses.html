@@ -11,6 +11,7 @@
                     <form method="post">
                         {% csrf_token %}
                         <input type="hidden" id="external_course_id" name="external_course_id" value="{{ ext_course.id }}" />
+                        <input type="hidden" id="external_platform_id" name="external_platform_id" value="{{ source.id }}" />
                         <button class="btn btn-primary" name="assimilate" value="assimilate" type="submit">Assimilate</button>
                     </form>
                     {% for key,value in ext_course.items %}
