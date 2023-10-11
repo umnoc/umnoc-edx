@@ -79,6 +79,8 @@ class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
     STATUS = Choices('draft', 'published')
     status = StatusField(choices_name='STATUS')
     published_at = MonitorField(monitor='status', when=['published'])
+    
+    enrollment_allowed = models.BooleanField("Доступна запись", default=False)
 
     # TODO: Добавить поля паспорта
     # TODO: Написать методы
