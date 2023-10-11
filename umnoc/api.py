@@ -74,7 +74,7 @@ def fill_profile(request, payload: UrFUProfileIn):
 
 
 @api.get("/courses/my", auth=django_auth)
-def me(request):
+def my(request):
     enrollments = get_course_enrollments(request.auth, include_inactive=True)
     return enrollments
 
