@@ -10,7 +10,8 @@ from ninja.renderers import BaseRenderer
 from ninja.security import django_auth
 from opaque_keys.edx.keys import CourseKey
 from openedx.core.djangoapps.enrollments import api as enrollments_api
-
+from ninja import FilterSchema, Field
+from typing import Optional
 from .core.models import Program, Project, Organization
 from .courses.data_api import get_course_enrollments, get_liked_courses
 from .courses.models import Course, LikedCourse
@@ -42,6 +43,11 @@ class ORJSONRenderer(BaseRenderer):
 
 
 api = NinjaAPI(renderer=ORJSONRenderer(), csrf=True)
+
+
+class CourseFilterSchema(FilterSchema):
+    search: Optional[str] = Field(q=['display_name__icontains',
+                                     'organization__icontains'])
 
 
 @api.get("/me", auth=django_auth, response=UserProfileSchema)
