@@ -5,12 +5,14 @@ import orjson
 from common.djangoapps.student.models import UserProfile
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
-from ninja import NinjaAPI
+from ninja import NinjaAPI, FilterSchema, Field, Query
 from ninja.renderers import BaseRenderer
 from ninja.security import django_auth
+from ninja_extra.searching import searching, Searching
+from ninja_extra import api_controller, route, NinjaExtraAPI
 from opaque_keys.edx.keys import CourseKey
 from openedx.core.djangoapps.enrollments import api as enrollments_api
-from ninja import FilterSchema, Field
+
 from typing import Optional
 from .core.models import Program, Project, Organization
 from .courses.data_api import get_course_enrollments, get_liked_courses
@@ -92,6 +94,7 @@ def add_course_enrollment(request, course_id: int):
     return enrollment
 
 
+
 @api.get("/me/enroll/{int:course_id}", auth=django_auth)
 def add_course_enrollment(request, course_id: int):
     course = get_object_or_404(Course, id=course_id)
@@ -118,7 +121,7 @@ def programs(request, limit: int = 10, offset: int = 0):
 
 
 @api.get("/courses", response=List[CourseSchema])
-def courses(request, limit: int = 30, offset: int = 0):
+def courses(request, limit: int = 10, offset: int = 0, filters: CourseFilterSchema = Query(default=FilterSchema())):
     qs = Course.objects.filter(status='published').order_by('id')
     return qs[offset: offset + limit]
 

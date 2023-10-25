@@ -3,8 +3,7 @@
 
 Django>=2.2              # Web application framework
 django-model-utils==4.0.0        # Provides TimeStampedModel abstract base class
-django-ninja
-django-ninja-extra
+django-ninja==0.16.1
 orjson
 django-admin-ordering
 django-jazzmin
