@@ -49,7 +49,7 @@ api = NinjaAPI(renderer=ORJSONRenderer(), csrf=True)
 
 
 class CourseFilterSchema(FilterSchema):
-    search: Optional[str] = Field(q=['display_name__icontains'])
+    search: Optional[str] = Field(q=['display_name_f__icontains'])
 
 
 @api.get("/me", auth=django_auth, response=UserProfileSchema)
