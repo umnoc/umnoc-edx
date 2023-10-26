@@ -145,3 +145,5 @@ BITRIX_URL = 'https://fgaouvo.bitrix24.ru/'
 BITRIX_USER_ID = '1'
 BITRIX_WEBHOOK = 'zg1n9k7pmo0m7lwc'
 BITRIX_LEAD_TITLE_DEFAULT = 'УМНОЦ лид'
+
+NINJA_PAGINATION_PER_PAGE = 9
