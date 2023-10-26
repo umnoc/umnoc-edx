@@ -49,8 +49,7 @@ api = NinjaAPI(renderer=ORJSONRenderer(), csrf=True)
 
 
 class CourseFilterSchema(FilterSchema):
-    search: Optional[str] = Field(q=['display_name__icontains',
-                                     'organization__icontains'])
+    search: Optional[str] = Field(q=['display_name__icontains'])
 
 
 @api.get("/me", auth=django_auth, response=UserProfileSchema)
@@ -125,6 +124,7 @@ def programs(request, limit: int = 10, offset: int = 0):
 @paginate
 def courses(request, filters: CourseFilterSchema = Query(default=FilterSchema())):
     qs = Course.objects.filter(status='published').order_by('id')
+    qs = filters.filter(qs)
     return qs
 
 
