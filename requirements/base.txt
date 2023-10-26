@@ -42,7 +42,8 @@ django-js-asset==2.0.0
     # via django-admin-ordering
 django-model-utils==4.0.0
     # via -r requirements/base.in
-django-ninja==0.16.1
+django-ninja==0.22.2
+django-ninja-extra==0.19.8
     # via -r requirements/base.in
 django-simple-history==3.4.0
     # via -r requirements/base.in

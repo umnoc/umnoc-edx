@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404
 from ninja import NinjaAPI, FilterSchema, Field, Query
 from ninja.renderers import BaseRenderer
 from ninja.security import django_auth
+from ninja.pagination import paginate
 from ninja_extra.searching import searching, Searching
 from ninja_extra import api_controller, route, NinjaExtraAPI
 from opaque_keys.edx.keys import CourseKey
@@ -121,9 +122,10 @@ def programs(request, limit: int = 10, offset: int = 0):
 
 
 @api.get("/courses", response=List[CourseSchema])
-def courses(request, limit: int = 10, offset: int = 0, filters: CourseFilterSchema = Query(default=FilterSchema())):
+@paginate
+def courses(request, filters: CourseFilterSchema = Query(default=FilterSchema())):
     qs = Course.objects.filter(status='published').order_by('id')
-    return qs[offset: offset + limit]
+    return qs
 
 
 @api.get("/courses/{int:course_id}", response=CourseSchema)
