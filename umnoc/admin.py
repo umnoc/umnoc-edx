@@ -88,7 +88,8 @@ class CourseOverviewAdmin(admin.ModelAdmin):
 class CourseAdmin(CloneModelAdmin, SimpleHistoryAdmin):
     autocomplete_fields = ['course_overview']
     search_fields = ['course_overview__display_name', 'display_name_f', 'course_overview__id']
-    list_display = ('display_name', 'course_id', 'start_date', 'end_date', 'course_program', 'status', 'external', 'enrollment_allowed')
+    list_display = ('display_name', 'course_id', 'start_date', 'end_date',
+                    'course_program', 'status', 'external', 'enrollment_allowed')
     fieldsets = (
         (None, {
             'fields': (('course_overview', 'external', 'status', 'is_removed'), 'published_at', 'enrollment_allowed')
@@ -100,6 +101,10 @@ class CourseAdmin(CloneModelAdmin, SimpleHistoryAdmin):
         ('Текстовая информация', {
             'classes': ('wide',),
             'fields': ('target', 'description', 'course_program', 'prerequisites', 'format'),
+        }),
+        ('Внешний курс', {
+            'classes': ('wide',),
+            'fields': ('display_name_f', 'organization_f', 'course_image_url_f', 'start_display_f', 'start_date_f', 'end_date_f', 'lang'),
         }),
     )
     inlines = [CompetenceInline, ResultInline, AuthorInline]

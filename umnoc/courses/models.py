@@ -74,6 +74,7 @@ class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
     end_date_f = models.DateTimeField(_('External course end date'), blank=True, null=True)
     lang = models.CharField(_('Language'), max_length=32, blank=True, null=True)
     display_name_f = models.CharField(_('External display name'), max_length=255, blank=True, null=True)
+    organization_f = models.CharField(_('External organization name'), max_length=255, blank=True, null=True)
 
     history = HistoricalRecords(excluded_fields=['status', 'published_at'])
     STATUS = Choices('draft', 'published')
@@ -116,7 +117,10 @@ class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
 
     @property
     def organization(self) -> str:
-        return self.course_overview.display_org_with_default
+        if not self.external:
+            return self.course_overview.display_org_with_default
+        else:
+            return self.organization_f
 
     @property
     def display_name(self) -> str:
