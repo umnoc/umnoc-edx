@@ -182,11 +182,17 @@ class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
 
     @property
     def short_description(self) -> str:
-        return self.course_overview.short_description
+        if not self.external:
+            return self.course_overview.short_description
+        else:
+            return ''
 
     @property
     def course_video_url(self) -> str:
-        return self.course_overview.course_video_url
+        if not self.external:
+            return self.course_overview.course_video_url
+        else:
+            return ''
 
     @property
     def language(self) -> str:
