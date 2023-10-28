@@ -215,7 +215,10 @@ class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
 
     @property
     def pre_requisite_courses(self):
-        return self.course_overview.pre_requisite_courses
+        if not self.external:
+            return self.course_overview.pre_requisite_courses
+        else:
+            return None
 
     @property
     def results(self) -> List[Optional[str]]:
