@@ -145,7 +145,10 @@ class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
 
     @property
     def banner_image_url(self) -> str:
-        return f'{settings.LMS_ROOT_URL}{self.course_overview.banner_image_url}'
+        if not self.external:
+            return f'{settings.LMS_ROOT_URL}{self.course_overview.banner_image_url}'
+        else:
+            return self.course_image_url_f
 
     @property
     def start_date(self) -> Optional[datetime]:
