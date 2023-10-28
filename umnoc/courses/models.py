@@ -166,19 +166,31 @@ class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
 
     @property
     def enrollment_start(self) -> Optional[datetime]:
-        return self.course_overview.enrollment_start
+        if not self.external:
+            return self.course_overview.enrollment_start
+        else:
+            return None
 
     @property
     def enrollment_end(self) -> Optional[datetime]:
-        return self.course_overview.enrollment_end
+        if not self.external:
+            return self.course_overview.enrollment_end
+        else:
+            return None
 
     @property
-    def invitation_only(self) -> Optional[datetime]:
-        return self.course_overview.invitation_only
+    def invitation_only(self) -> bool:
+        if not self.external:
+            return self.course_overview.invitation_only
+        else:
+            return None
 
     @property
-    def max_student_enrollments_allowed(self) -> bool:
-        return self.course_overview.max_student_enrollments_allowed
+    def max_student_enrollments_allowed(self) -> int:
+        if not self.external:
+            return self.course_overview.max_student_enrollments_allowed
+        else:
+            return None
 
     @property
     def short_description(self) -> str:
