@@ -232,6 +232,13 @@ class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
     def course_program_html(self) -> str:
         lines = self.course_program.split('\r\n')
         return f"<p>{'</p><p>'.join(lines)}</p>"
+    
+    @property
+    def catalog_visibility(self) -> str:
+        if not self.external:
+            return self.course_overview.catalog_visibility
+        else:
+            return ''
 
     @classmethod
     def create_or_update_external(cls, ext_course):

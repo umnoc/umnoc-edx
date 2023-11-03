@@ -240,6 +240,7 @@ CourseSchema = create_schema(
         ('competences', List[str], []),
         ('results', List[str], []),
         ('course_program_html', str, None),
+        ('catalog_visibility', str, None),
         # ('course_overview', CourseOverviewSchema, None),
     ]
 
