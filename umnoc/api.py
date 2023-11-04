@@ -139,7 +139,7 @@ def get_course(request, id: str):
     if id.isnumeric():
         course = get_object_or_404(Course, id=id)
     else:
-        course = get_object_or_404(Course, slug=id)
+        course = Course.objects.get(slug=id)
     return course
 
 
