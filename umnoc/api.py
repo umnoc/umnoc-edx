@@ -134,15 +134,12 @@ def courses(request, filters: CourseFilterSchema = Query(default=FilterSchema())
     return qs
 
 
-@api.get("/courses/{int:course_id}", response=CourseSchema)
-def get_course(request, course_id: int):
-    course = get_object_or_404(Course, id=course_id)
-    return course
-
-
-@api.get("/courses/{str:slug}", response=CourseSchema)
-def get_course_by_slug(request, slug: str):
-    course = get_object_or_404(Course, slug=slug)
+@api.get("/courses/{str:id}", response=CourseSchema)
+def get_course(request, id: str):
+    if id.isnumeric():
+        course = get_object_or_404(Course, id=id)
+    else:
+        course = get_object_or_404(Course, slug=id)
     return course
 
 
