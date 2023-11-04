@@ -30,52 +30,52 @@ class UrFUProfileSchema(ModelSchema):
     class Config:
         model = UrFUProfile
         model_fields = [
-            'last_name',
-            'first_name',
-            'second_name',
-            'phone',
-            'SNILS',
-            'specialty',
-            'country',
-            'education_level',
-            'job',
-            'position',
-            'birth_date',
+            "last_name",
+            "first_name",
+            "second_name",
+            "phone",
+            "SNILS",
+            "specialty",
+            "country",
+            "education_level",
+            "job",
+            "position",
+            "birth_date",
         ]
 
 
 class LikedCourseSchema(ModelSchema):
     class Config:
         model = LikedCourse
-        model_fields = ['course', 'user']
+        model_fields = ["course", "user"]
 
 
 class UserSchema(ModelSchema):
     class Config:
         model = User
-        model_fields = ['username', 'email', 'is_staff', 'is_superuser', 'is_active']
+        model_fields = ["username", "email", "is_staff", "is_superuser", "is_active"]
 
 
 UserProfileSchema = create_schema(
     UserProfile,
     fields=[
-        'name',
-        'year_of_birth',
-        'mailing_address',
-        'city',
-        'goals',
-        'allow_certificate',
-        'bio',
-        'phone_number',
+        "name",
+        "year_of_birth",
+        "mailing_address",
+        "city",
+        "goals",
+        "allow_certificate",
+        "bio",
+        "phone_number",
     ],
     custom_fields=[
-        ('user', UserSchema, None),
-        ('has_profile_image', bool, False),
-        ('age', int, None),
-        ('level_of_education_display', str, None),
-        ('gender_display', str, None),
-        ('country', Any, None)
-    ]
+        ("user", UserSchema, None),
+        ("has_profile_image", bool, False),
+        ("age", int, None),
+        ("level_of_education_display", str, None),
+        ("gender_display", str, None),
+        ("country", Any, None),
+    ],
 )
 
 
@@ -94,6 +94,7 @@ class ProgramEnrollmentIn(Schema):
 class LikedCourseIn(Schema):
     username: str = None
     course_id: str = None
+
 
 class UrFUProfileIn(Schema):
     last_name: str
@@ -127,14 +128,7 @@ class TextbookSchema(Schema):
 
 
 AuthorSchema = create_schema(
-    Author,
-    fields=[
-        'name',
-        'description'
-    ],
-    custom_fields=[
-        ('photo_url', str, None)
-    ]
+    Author, fields=["name", "description"], custom_fields=[("photo_url", str, None)]
 )
 
 
@@ -153,47 +147,47 @@ class ResultSchema(ModelSchema):
 class CourseOverviewProxy(CourseOverview):
     @property
     def description(self):
-        return CourseDetails.fetch_about_attribute(self.id, 'description')
+        return CourseDetails.fetch_about_attribute(self.id, "description")
 
 
 BaseCourseOverviewSchema = create_schema(
     CourseOverviewProxy,
     fields=[
-        'id',
-        'display_name',
-        'start_date',
-        'end_date',
-        'banner_image_url',
-        'course_image_url',
-        'lowest_passing_grade',
-        'enrollment_start',
-        'enrollment_end',
-        'invitation_only',
-        'max_student_enrollments_allowed',
-        'catalog_visibility',
-        'short_description',
-        'course_video_url',
-        'effort',
-        'language',
+        "id",
+        "display_name",
+        "start_date",
+        "end_date",
+        "banner_image_url",
+        "course_image_url",
+        "lowest_passing_grade",
+        "enrollment_start",
+        "enrollment_end",
+        "invitation_only",
+        "max_student_enrollments_allowed",
+        "catalog_visibility",
+        "short_description",
+        "course_video_url",
+        "effort",
+        "language",
     ],
     custom_fields=[
         # ('id', CourseKeySchema, None),
-        ('number', str, None),
-        ('description', str, 'Not implemented'),
-        ('url_name', str, None),
-        ('display_name_with_default', str, None),
-        ('dashboard_start_display', date, None),
-        ('start_type', str, 'empty'),
-        ('start_display', str, None),
-        ('pre_requisite_courses', List[CourseKeySchema], []),
-        ('tabs', List[CourseTabSchema], []),
-        ('image_urls', dict, None),
-        ('pacing', str, None),
-        ('textbooks', List[TextbookSchema], []),
-        ('pdf_textbooks', List[TextbookSchema], []),
-        ('html_textbooks', List[TextbookSchema], []),
-        ('course_visibility', str, None),
-    ]
+        ("number", str, None),
+        ("description", str, "Not implemented"),
+        ("url_name", str, None),
+        ("display_name_with_default", str, None),
+        ("dashboard_start_display", date, None),
+        ("start_type", str, "empty"),
+        ("start_display", str, None),
+        ("pre_requisite_courses", List[CourseKeySchema], []),
+        ("tabs", List[CourseTabSchema], []),
+        ("image_urls", dict, None),
+        ("pacing", str, None),
+        ("textbooks", List[TextbookSchema], []),
+        ("pdf_textbooks", List[TextbookSchema], []),
+        ("html_textbooks", List[TextbookSchema], []),
+        ("course_visibility", str, None),
+    ],
 )
 
 
@@ -208,49 +202,58 @@ CourseSchema = create_schema(
     Course,
     depth=2,
     fields=[
-        'id',
-        'target',
-        'description',
-        'course_program',
-        'lectures_count',
-        'prerequisites',
-        'format',
-        'enrollment_allowed',
+        "id",
+        "slug",
+        "target",
+        "description",
+        "course_program",
+        "lectures_count",
+        "prerequisites",
+        "format",
+        "enrollment_allowed",
     ],
     custom_fields=[
-        ('course_id', Any, None),
-        ('display_name', str, None),
-        ('organization', str, None),
-        ('course_image_url', str, None),
-        ('banner_image_url', str, None),
-        ('course_video_url', str, None),
-        ('short_description', str, None),
-        ('duration', str, None),
-        ('credits', str, None),
-        ('start_display', str, None),
-        ('start_date', Any, None),
-        ('end_date', Any, None),
-        ('enrollment_start', Any, None),
-        ('enrollment_end', Any, None),
-        ('invitation_only', bool, None),
-        ('max_student_enrollments_allowed', str, None),
-        ('language', str, None),
-        ('pre_requisite_courses', List[Any], []),
-        ('authors', List[AuthorSchema], []),
-        ('competences', List[str], []),
-        ('results', List[str], []),
-        ('course_program_html', str, None),
-        ('catalog_visibility', str, None),
+        ("course_id", Any, None),
+        ("display_name", str, None),
+        ("organization", str, None),
+        ("course_image_url", str, None),
+        ("banner_image_url", str, None),
+        ("course_video_url", str, None),
+        ("short_description", str, None),
+        ("duration", str, None),
+        ("credits", str, None),
+        ("start_display", str, None),
+        ("start_date", Any, None),
+        ("end_date", Any, None),
+        ("enrollment_start", Any, None),
+        ("enrollment_end", Any, None),
+        ("invitation_only", bool, None),
+        ("max_student_enrollments_allowed", str, None),
+        ("language", str, None),
+        ("pre_requisite_courses", List[Any], []),
+        ("authors", List[AuthorSchema], []),
+        ("competences", List[str], []),
+        ("results", List[str], []),
+        ("course_program_html", str, None),
+        ("catalog_visibility", str, None),
         # ('course_overview', CourseOverviewSchema, None),
-    ]
-
+    ],
 )
 
 
 class OrganizationSchema(ModelSchema):
     class Config:
         model = Organization
-        model_fields = ['uuid', 'title', 'short_name', 'slug', 'description', 'logo', 'image_background', 'status']
+        model_fields = [
+            "uuid",
+            "title",
+            "short_name",
+            "slug",
+            "description",
+            "logo",
+            "image_background",
+            "status",
+        ]
 
 
 class ProgramSchema(ModelSchema):
@@ -259,10 +262,22 @@ class ProgramSchema(ModelSchema):
 
     class Config:
         model = Program
-        model_fields = ['uuid', 'title', 'short_name', 'slug', 'description', 'number_of_hours', 'logo',
-                        'image_background',
-                        'edu_start_date', 'edu_end_date', 'issued_document_name', 'enrollment_allowed', 'owner',
-                        'courses']
+        model_fields = [
+            "uuid",
+            "title",
+            "short_name",
+            "slug",
+            "description",
+            "number_of_hours",
+            "logo",
+            "image_background",
+            "edu_start_date",
+            "edu_end_date",
+            "issued_document_name",
+            "enrollment_allowed",
+            "owner",
+            "courses",
+        ]
 
 
 class ProjectSchema(ModelSchema):
@@ -272,14 +287,14 @@ class ProjectSchema(ModelSchema):
     class Config:
         model = Project
         model_fields = [
-            'title',
-            'short_name',
-            'slug',
-            'owner',
-            'description',
-            'logo',
-            'image_background',
-            'active',
-            'status',
-            'published_at',
+            "title",
+            "short_name",
+            "slug",
+            "owner",
+            "description",
+            "logo",
+            "image_background",
+            "active",
+            "status",
+            "published_at",
         ]

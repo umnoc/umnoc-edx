@@ -13,37 +13,37 @@ from .core.models import (
     ProgramCourse,
     OrganizationCourse,
     Program,
-    ExternalPlatform
+    ExternalPlatform,
 )
-from .courses.models import (Course, Competence, Result, Author, LikedCourse)
-from .learners.models import (ProgramEnrollment, LearningRequest)
-from .profiles.models import (Role, UrFUProfile, LeadRequest)
+from .courses.models import Course, Competence, Result, Author, LikedCourse
+from .learners.models import ProgramEnrollment, LearningRequest
+from .profiles.models import Role, UrFUProfile, LeadRequest
 
 
 class UMNOCAdminSite(admin.AdminSite):
-    site_header = _('UMNOC administration')
+    site_header = _("UMNOC administration")
 
 
-umnoc_admin_site = UMNOCAdminSite(name='umnoc_admin')
+umnoc_admin_site = UMNOCAdminSite(name="umnoc_admin")
 
 
 # inlines
 class OrganizationCourseInline(admin.TabularInline):
     model = OrganizationCourse
     extra = 1
-    autocomplete_fields = ['course']
+    autocomplete_fields = ["course"]
 
 
 class ProgramCourseInline(admin.TabularInline):
     model = ProgramCourse
     extra = 1
-    autocomplete_fields = ['course']
+    autocomplete_fields = ["course"]
 
 
 class CompetenceInline(OrderableAdmin, admin.TabularInline):
     model = Competence
     # extra = 1
-    autocomplete_fields = ['course']
+    autocomplete_fields = ["course"]
     ordering_field = "order"
     ordering_field_hide_input = True
 
@@ -51,7 +51,7 @@ class CompetenceInline(OrderableAdmin, admin.TabularInline):
 class ResultInline(OrderableAdmin, admin.TabularInline):
     model = Result
     # extra = 1
-    autocomplete_fields = ['course']
+    autocomplete_fields = ["course"]
     ordering_field = "order"
     ordering_field_hide_input = True
 
@@ -59,53 +59,99 @@ class ResultInline(OrderableAdmin, admin.TabularInline):
 class AuthorInline(OrderableAdmin, admin.TabularInline):
     model = Author
     # extra = 1
-    autocomplete_fields = ['course']
+    autocomplete_fields = ["course"]
     ordering_field = "order"
     ordering_field_hide_input = True
 
 
 # modeladmins
 
+
 @admin.register(CourseOverview, site=umnoc_admin_site)
 class CourseOverviewAdmin(admin.ModelAdmin):
     """
     Simple, read-only list/search view of Course Overviews.
     """
+
     list_display = [
-        'id',
-        'display_name',
-        'version',
-        'enrollment_start',
-        'enrollment_end',
-        'created',
-        'modified',
+        "id",
+        "display_name",
+        "version",
+        "enrollment_start",
+        "enrollment_end",
+        "created",
+        "modified",
     ]
 
-    search_fields = ['id', 'display_name']
+    search_fields = ["id", "display_name"]
 
 
 @admin.register(Course, site=umnoc_admin_site)
 class CourseAdmin(CloneModelAdmin, SimpleHistoryAdmin):
-    autocomplete_fields = ['course_overview']
-    search_fields = ['course_overview__display_name', 'display_name_f', 'course_overview__id']
-    list_display = ('display_name', 'course_id', 'start_date', 'end_date',
-                    'course_program', 'status', 'external', 'enrollment_allowed')
+    autocomplete_fields = ["course_overview"]
+    search_fields = [
+        "course_overview__display_name",
+        "display_name_f",
+        "course_overview__id",
+    ]
+    list_display = (
+        "slug",
+        "display_name",
+        "course_id",
+        "start_date",
+        "end_date",
+        "course_program",
+        "status",
+        "external",
+        "enrollment_allowed",
+    )
     fieldsets = (
-        (None, {
-            'fields': (('course_overview', 'external', 'status', 'is_removed'), 'published_at', 'enrollment_allowed')
-        }),
-        ('Численная информация', {
-            'classes': ('wide',),
-            'fields': (('min_duration', 'max_duration'), 'labor', 'lectures_count')
-        }),
-        ('Текстовая информация', {
-            'classes': ('wide',),
-            'fields': ('target', 'description', 'course_program', 'prerequisites', 'format'),
-        }),
-        ('Внешний курс', {
-            'classes': ('wide',),
-            'fields': ('display_name_f', 'organization_f', 'course_image_url_f', 'start_display_f', 'start_date_f', 'end_date_f', 'lang'),
-        }),
+        (
+            None,
+            {
+                "fields": (
+                    ("slug",),
+                    ("course_overview", "external", "status", "is_removed"),
+                    "published_at",
+                    "enrollment_allowed",
+                )
+            },
+        ),
+        (
+            "Численная информация",
+            {
+                "classes": ("wide",),
+                "fields": (("min_duration", "max_duration"), "labor", "lectures_count"),
+            },
+        ),
+        (
+            "Текстовая информация",
+            {
+                "classes": ("wide",),
+                "fields": (
+                    "target",
+                    "description",
+                    "course_program",
+                    "prerequisites",
+                    "format",
+                ),
+            },
+        ),
+        (
+            "Внешний курс",
+            {
+                "classes": ("wide",),
+                "fields": (
+                    "display_name_f",
+                    "organization_f",
+                    "course_image_url_f",
+                    "start_display_f",
+                    "start_date_f",
+                    "end_date_f",
+                    "lang",
+                ),
+            },
+        ),
     )
     inlines = [CompetenceInline, ResultInline, AuthorInline]
 
@@ -115,67 +161,102 @@ class CourseAdmin(CloneModelAdmin, SimpleHistoryAdmin):
 
 @admin.register(Program, site=umnoc_admin_site)
 class ProgramAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug', 'logo', 'active', 'owner')
-    list_filter = ('active', 'owner')
-    ordering = ('title',)
-    filter_horizontal = ['courses']
-    search_fields = ('title', 'short_name', 'slug')
+    list_display = ("title", "slug", "logo", "active", "owner")
+    list_filter = ("active", "owner")
+    ordering = ("title",)
+    filter_horizontal = ["courses"]
+    search_fields = ("title", "short_name", "slug")
     inlines = [ProgramCourseInline]
 
 
 @admin.register(Organization, site=umnoc_admin_site)
 class OrganizationAdmin(admin.ModelAdmin):
-    list_display = ('title', 'short_name', 'logo', 'active')
-    list_filter = ('active',)
-    ordering = ('title', 'short_name',)
-    search_fields = ('title', 'short_name', 'slug')
+    list_display = ("title", "short_name", "logo", "active")
+    list_filter = ("active",)
+    ordering = (
+        "title",
+        "short_name",
+    )
+    search_fields = ("title", "short_name", "slug")
     inlines = [OrganizationCourseInline]
 
 
 @admin.register(ProgramEnrollment, site=umnoc_admin_site)
 class ProgramEnrollmentAdmin(admin.ModelAdmin):
-    list_display = ('user', 'external_user_key', 'program_uuid', 'project_uuid', 'status')
-    list_filter = ('status',)
-    search_fields = ('user',)
-    raw_id_fields = ('user',)
+    list_display = (
+        "user",
+        "external_user_key",
+        "program_uuid",
+        "project_uuid",
+        "status",
+    )
+    list_filter = ("status",)
+    search_fields = ("user",)
+    raw_id_fields = ("user",)
 
 
 @admin.register(LearningRequest, site=umnoc_admin_site)
 class LearningRequestAdmin(admin.ModelAdmin):
-    list_display = ('user', 'course_id', 'status')
-    list_filter = ('status',)
-    search_fields = ('user',)
-    raw_id_fields = ('user',)
+    list_display = ("user", "course_id", "status")
+    list_filter = ("status",)
+    search_fields = ("user",)
+    raw_id_fields = ("user",)
 
 
 @admin.register(Role, site=umnoc_admin_site)
 class RoleAdmin(admin.ModelAdmin):
-    list_display = ('title',)
+    list_display = ("title",)
 
 
 @admin.register(UrFUProfile, site=umnoc_admin_site)
 class UrFUProfileAdmin(admin.ModelAdmin):
     list_display = (
-        'user', 'SNILS', 'specialty', 'country',
-        'education_level', 'job',
-        'position', 'birth_date'
+        "user",
+        "SNILS",
+        "specialty",
+        "country",
+        "education_level",
+        "job",
+        "position",
+        "birth_date",
     )
-    filter_horizontal = ('roles',)
+    filter_horizontal = ("roles",)
     # list_filter = ('type',)
 
 
 @admin.register(LeadRequest, site=umnoc_admin_site)
 class LeadRequestAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'method', 'title', 'name', 'last_name', 'status_id', 'email', 'phone', 'status', 'created')
-    readonly_fields = ('method', 'title', 'name', 'second_name', 'last_name', 'status_id', 'email', 'phone', 'status')
-    list_filter = ('status',)
+    list_display = (
+        "pk",
+        "method",
+        "title",
+        "name",
+        "last_name",
+        "status_id",
+        "email",
+        "phone",
+        "status",
+        "created",
+    )
+    readonly_fields = (
+        "method",
+        "title",
+        "name",
+        "second_name",
+        "last_name",
+        "status_id",
+        "email",
+        "phone",
+        "status",
+    )
+    list_filter = ("status",)
 
 
 def make_active(modeladmin, request, queryset):
     queryset.update(is_active=True)
 
 
-make_active.short_description = 'Активировать учетки'
+make_active.short_description = "Активировать учетки"
 
 User = get_user_model()
 
@@ -188,20 +269,20 @@ except NotRegistered:
 @admin.register(User, site=umnoc_admin_site)
 class UserAdmin(BaseUserAdmin):
     actions = (make_active,)
-    list_display = BaseUserAdmin.list_display + ('is_active', 'date_joined')
+    list_display = BaseUserAdmin.list_display + ("is_active", "date_joined")
     save_on_top = True
 
     # search_fields = BaseUserAdmin.search_fields
 
     def get_ordering(self, request):
-        return ['-date_joined']
+        return ["-date_joined"]
 
 
 @admin.register(LikedCourse, site=umnoc_admin_site)
 class LikedCourseAdmin(admin.ModelAdmin):
-    list_display = ('__str__',)
+    list_display = ("__str__",)
 
 
 @admin.register(ExternalPlatform, site=umnoc_admin_site)
 class ExternalPlatformAdmin(SimpleHistoryAdmin):
-    list_display = ('title', 'sources_list_url')
+    list_display = ("title", "sources_list_url")

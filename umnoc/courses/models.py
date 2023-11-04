@@ -47,6 +47,8 @@ class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
         app_label = 'umnoc'
         verbose_name = 'курс'
         verbose_name_plural = 'курсы'
+        
+    slug = models.CharField(_("ИД курса"),  max_length=50, blank=True, null=True)  # unique=True, 
 
     external = models.BooleanField(_('External course'), default=False)
 
