@@ -145,7 +145,7 @@ def courses(request, filters: CourseFilterSchema = Query(default=FilterSchema())
     log.warning(f'!!!!!!!!!!!!!!!!!!! {request.auth}')
     if request.auth:
         user = User.objects.get(username=request.auth)
-        if user.is_staff:
+        if user.is_superuser:  # Суперюзерам показываем все курсы
             qs = Course.objects.all().order_by("id")
             qs = filters.filter(qs)
             return qs
