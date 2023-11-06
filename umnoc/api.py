@@ -34,7 +34,7 @@ from .schema import (
     ProjectSchema,
 )
 
-log = logging.getLogger('UMNOC.' + __name__)
+log = logging.getLogger(__name__)
 
 
 class ORJSONRenderer(BaseRenderer):

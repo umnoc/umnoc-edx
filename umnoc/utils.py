@@ -5,7 +5,7 @@ import uuid
 
 from Levenshtein import distance
 
-log = logging.getLogger('UMNOC.' + __name__)
+log = logging.getLogger(__name__)
 
 
 def generate_new_filename(instance, filename):
