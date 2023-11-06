@@ -34,7 +34,7 @@ from .schema import (
     ProjectSchema,
 )
 
-log = logging.getLogger(__name__)
+log = logging.getLogger('UMNOC.' + __name__)
 
 
 class ORJSONRenderer(BaseRenderer):
@@ -53,6 +53,7 @@ api = NinjaAPI(renderer=ORJSONRenderer(), csrf=True)
 
 @api.exception_handler(AuthenticationError)
 def authentication_error(request: HttpRequest, exc: AuthenticationError):
+    log.warning(f'AuthenticationError exception: url_name {request.resolver_match.url_name}')
     if request.resolver_match and request.resolver_match.url_name in ["courses"]:
         request.auth = None  # type: ignore
         return None

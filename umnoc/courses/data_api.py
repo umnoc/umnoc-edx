@@ -7,7 +7,7 @@ from django.contrib.auth import get_user_model
 
 from .models import LikedCourse
 
-log = logging.getLogger(__name__)
+log = logging.getLogger('UMNOC.' + __name__)
 
 
 def get_course_enrollments(username, include_inactive=False):

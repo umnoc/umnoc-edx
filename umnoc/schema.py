@@ -13,7 +13,7 @@ from .core.models import Program, Project, Organization
 from .courses.models import Course, Author, Competence, Result, LikedCourse
 from .profiles.models import UrFUProfile
 
-log = logging.getLogger(__name__)
+log = logging.getLogger('UMNOC.' + __name__)
 
 
 class RoleSchema(Schema):

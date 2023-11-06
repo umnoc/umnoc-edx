@@ -8,7 +8,7 @@ from fast_bitrix24 import Bitrix
 
 from .models import UrFUProfile, LeadRequest
 
-log = logging.getLogger(__name__)
+log = logging.getLogger('UMNOC.' + __name__)
 
 
 @receiver(post_save, sender=UrFUProfile)
