@@ -54,7 +54,7 @@ api = NinjaAPI(renderer=ORJSONRenderer(), csrf=True)
 @api.exception_handler(AuthenticationError)
 def authentication_error(request: HttpRequest, exc: AuthenticationError):
     log.warning(f'AuthenticationError exception: url_name {request.resolver_match.url_name}')
-    if request.resolver_match and request.resolver_match.url_name in ["courses"]:
+    if request.resolver_match and request.resolver_match.url_name in ["courses_nonauth"]:
         log.warning(f'request: {request}')
         request.auth = None  # type: ignore
         return None
