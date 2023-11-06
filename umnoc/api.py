@@ -141,14 +141,14 @@ def programs(request, limit: int = 10, offset: int = 0):
 
 @api.get("/courses", response=List[CourseSchema])
 @paginate
-def courses(request, filters: CourseFilterSchema = Query(default=FilterSchema())):
-    # log.warning(f'!!!!!!!!!!!!!!!!!!! {request.auth}')
-    # if request.auth:
-    #     user = User.objects.get(username=request.auth)
-    #     if user.is_staff:
-    #         qs = Course.objects.all().order_by("id")
-    #         qs = filters.filter(qs)
-    #         return qs
+def courses(request, auth=django_auth, filters: CourseFilterSchema = Query(default=FilterSchema())):
+    log.warning(f'!!!!!!!!!!!!!!!!!!! {request.auth}')
+    if request.auth:
+        user = User.objects.get(username=request.auth)
+        if user.is_staff:
+            qs = Course.objects.all().order_by("id")
+            qs = filters.filter(qs)
+            return qs
 
     qs = Course.objects.filter(status="published").order_by("id")
     qs = filters.filter(qs)
@@ -156,9 +156,8 @@ def courses(request, filters: CourseFilterSchema = Query(default=FilterSchema())
     return qs
 
 
-@api.get("/courses/{str:id}", auth=django_auth, response=CourseSchema)
+@api.get("/courses/{str:id}", response=CourseSchema)
 def get_course(request, id: str):
-    log.warning(f'!!!!!!!!!!!!!!!!!!! {request.auth}')
     if id.isnumeric():
         course = get_object_or_404(Course, id=id)
     else:
