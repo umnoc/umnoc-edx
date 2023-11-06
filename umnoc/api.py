@@ -140,6 +140,7 @@ def programs(request, limit: int = 10, offset: int = 0):
 @api.get("/courses", response=List[CourseSchema], auth=django_auth)
 @paginate
 def courses(request, filters: CourseFilterSchema = Query(default=FilterSchema())):
+    log.warning(f'!!!!!!!!!!!!!!!!!!! {request.auth}')
     if request.auth:
         user = User.objects.get(username=request.auth)
         if user.is_staff():
