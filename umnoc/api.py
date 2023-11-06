@@ -139,9 +139,9 @@ def programs(request, limit: int = 10, offset: int = 0):
     return qs[offset : offset + limit]
 
 
-@api.get("/courses", response=List[CourseSchema])
+@api.get("/courses", auth=django_auth, response=List[CourseSchema])
 @paginate
-def courses(request, auth=django_auth, filters: CourseFilterSchema = Query(default=FilterSchema())):
+def courses(request, filters: CourseFilterSchema = Query(default=FilterSchema())):
     log.warning(f'!!!!!!!!!!!!!!!!!!! {request.auth}')
     if request.auth:
         user = User.objects.get(username=request.auth)
