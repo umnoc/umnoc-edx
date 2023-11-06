@@ -131,7 +131,7 @@ def programs(request, limit: int = 10, offset: int = 0):
 def courses(request, filters: CourseFilterSchema = Query(default=FilterSchema())):
     qs = Course.objects.filter(status="published").order_by("id")
     qs = filters.filter(qs)
-    qs = (c for c in qs if c.catalog_visibility()=='both')
+    qs = [c for c in qs if c.catalog_visibility()=='both']
     return qs
 
 
