@@ -3,12 +3,14 @@ from typing import List
 
 import orjson
 from common.djangoapps.student.models import UserProfile
+from django.http import HttpRequest
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from ninja import NinjaAPI, FilterSchema, Field, Query
 from ninja.renderers import BaseRenderer
 from ninja.security import django_auth
 from ninja.pagination import paginate
+from ninja.errors import AuthenticationError
 from ninja_extra.searching import searching, Searching
 from ninja_extra import api_controller, route, NinjaExtraAPI
 from opaque_keys.edx.keys import CourseKey
@@ -47,6 +49,15 @@ class ORJSONRenderer(BaseRenderer):
 
 
 api = NinjaAPI(renderer=ORJSONRenderer(), csrf=True)
+
+
+@api.exception_handler(AuthenticationError)
+def authentication_error(request: HttpRequest, exc: AuthenticationError):
+    if request.resolver_match and request.resolver_match.url_name in ["courses"]:
+        request.auth = None  # type: ignore
+        return None
+
+    return api.create_response(request, {"detail": "Unauthorized"}, status=401)
 
 
 class CourseFilterSchema(FilterSchema):
@@ -126,12 +137,19 @@ def programs(request, limit: int = 10, offset: int = 0):
     return qs[offset : offset + limit]
 
 
-@api.get("/courses", response=List[CourseSchema])
+@api.get("/courses", response=List[CourseSchema], auth=django_auth)
 @paginate
 def courses(request, filters: CourseFilterSchema = Query(default=FilterSchema())):
+    if request.auth:
+        user = User.objects.get(username=request.auth)
+        if user.is_staff():
+            qs = Course.objects.all().order_by("id")
+            qs = filters.filter(qs)
+            return qs
+
     qs = Course.objects.filter(status="published").order_by("id")
     qs = filters.filter(qs)
-    qs = [c for c in qs if c.catalog_visibility=='both']
+    qs = [c for c in qs if c.catalog_visibility == "both"]
     return qs
 
 
