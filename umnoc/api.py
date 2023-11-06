@@ -53,9 +53,10 @@ api = NinjaAPI(renderer=ORJSONRenderer(), csrf=True)
 
 @api.exception_handler(AuthenticationError)
 def authentication_error(request: HttpRequest, exc: AuthenticationError):
-    log.warning(f'AuthenticationError exception: url_name {request.resolver_match.url_name}')
+    log.info(
+        f"AuthenticationError exception: url_name {request.resolver_match.url_name}"
+    )
     if request.resolver_match and request.resolver_match.url_name in ["courses"]:
-        log.warning(f'request: {request}')
         request.auth = None  # type: ignore
         return None
 
@@ -142,7 +143,6 @@ def programs(request, limit: int = 10, offset: int = 0):
 @api.get("/courses", auth=django_auth, response=List[CourseSchema])
 @paginate
 def courses(request, filters: CourseFilterSchema = Query(default=FilterSchema())):
-    log.warning(f'!!!!!!!!!!!!!!!!!!! {request.auth}')
     if request.auth:
         user = User.objects.get(username=request.auth)
         if user.is_superuser:  # Суперюзерам показываем все курсы

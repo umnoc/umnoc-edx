@@ -211,6 +211,7 @@ CourseSchema = create_schema(
         "prerequisites",
         "format",
         "enrollment_allowed",
+        "published",
     ],
     custom_fields=[
         ("course_id", Any, None),
