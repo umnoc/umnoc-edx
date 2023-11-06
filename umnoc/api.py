@@ -139,7 +139,7 @@ def programs(request, limit: int = 10, offset: int = 0):
     return qs[offset : offset + limit]
 
 
-@api.get("/courses", response=List[CourseSchema], auth=django_auth)
+@api.get("/courses", auth=django_auth, response=List[CourseSchema])
 @paginate
 def courses(request, filters: CourseFilterSchema = Query(default=FilterSchema())):
     log.warning(f'!!!!!!!!!!!!!!!!!!! {request.auth}')
