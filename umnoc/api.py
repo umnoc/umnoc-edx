@@ -144,7 +144,9 @@ def programs(request):
 
 @api.get("/programs/{str: slug}", response=ProgramSchema)
 def get_program(request, slug: str):
-    program = get_object_or_404(Program, slug=slug)  # TODO: Отдавать только активные и опубликованные. Это же с курсами (если не суперюзер)
+    programs = Program.objects.filter(active=True, status="published")
+    program = get_object_or_404(programs, slug=slug)  # TODO: Отдавать только активные и опубликованные. Это же с курсами (если не суперюзер)
+    log.warning(f"PROGRAM: {program}; SLUG: {slug}")
     return program
 
 
