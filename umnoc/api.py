@@ -142,11 +142,11 @@ def programs(request):
     qs = Program.objects.filter(active=True, status="published")
     return qs
 
-@api.get("/programs/{str: slug}", response=ProgramSchema)
-def get_program(request, slug: str):
+@api.get("/programs/{str:id}", response=ProgramSchema)
+def get_program(request, id: str):
     programs = Program.objects.filter(active=True, status="published")
-    program = get_object_or_404(programs, slug=slug)  # TODO: Отдавать только активные и опубликованные. Это же с курсами (если не суперюзер)
-    log.warning(f"PROGRAM: {program}; SLUG: {slug}")
+    program = get_object_or_404(programs, slug=id)  # TODO: Отдавать только активные и опубликованные. Это же с курсами (если не суперюзер)
+    log.warning(f"PROGRAM: {program}; SLUG: {id}")
     return program
 
 
