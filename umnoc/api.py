@@ -142,7 +142,7 @@ def programs(request):
     qs = Program.objects.filter(active=True, status="published")
     return qs
 
-@api.get("/programs/{str:id}", response=ProgramSchema)
+@api.get("/programs/{str:id}", response=ProgramSchema)  # TODO: В списке курсов отдавать только опубликованные
 def get_program(request, id: str):
     programs = Program.objects.filter(active=True, status="published")
     program = get_object_or_404(programs, slug=id)  # TODO: Отдавать только активные и опубликованные. Это же с курсами (если не суперюзер)
