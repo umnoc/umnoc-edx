@@ -121,23 +121,26 @@ def add_course_enrollment(request, course_id: int):
 
 
 @api.get("/orgs", response=List[OrganizationSchema])
-def orgs(request, limit: int = 10, offset: int = 0):
+@paginate
+def orgs(request):
     qs = Organization.objects.filter(active=True, status="published")
-    return qs[offset : offset + limit]
+    return qs
 
 
 @api.get(
     "/projects", response=List[ProjectSchema]
 )  # description="Creates an order and updates stock"
-def projects(request, limit: int = 10, offset: int = 0):
-    qs = Project.available_objects.filter(active=True, status="published")
-    return qs[offset : offset + limit]
+@paginate
+def projects(request):
+    qs = Project.objects.filter(active=True, status="published")
+    return qs
 
 
 @api.get("/programs", response=List[ProgramSchema])
-def programs(request, limit: int = 10, offset: int = 0):
-    qs = Program.available_objects.filter(active=True, status="published")
-    return qs[offset : offset + limit]
+@paginate
+def programs(request):
+    qs = Program.objects.filter(active=True, status="published")
+    return qs
 
 
 @api.get("/courses", auth=django_auth, response=List[CourseSchema])
