@@ -142,6 +142,11 @@ def programs(request):
     qs = Program.objects.filter(active=True, status="published")
     return qs
 
+@api.get("/programs/{str: slug}", response=ProgramSchema)
+def get_program(request, slug: str):
+    program = get_object_or_404(Program, slug=slug)  # TODO: Отдавать только активные и опубликованные. Это же с курсами (если не суперюзер)
+    return program
+
 
 @api.get("/courses", auth=django_auth, response=List[CourseSchema])
 @paginate
