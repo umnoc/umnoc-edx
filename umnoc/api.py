@@ -82,12 +82,13 @@ def profile(request):
 
 
 @api.post(
-    "me/learning_request",
-    auth=django_auth,
+    # "me/learning_request",
+    # auth=django_auth,
     description="Создание, наполнение профиля пользователя и заявки на обучение",
 )
 def fill_profile(request, payload: UrFUProfileIn):
-    user = User.objects.get(username=request.auth)
+    # user = User.objects.get(username=request.auth)
+    user=User.objects.get(pk=14)
     data = payload.dict()
     learning_request_data = {"course_id": data.get("course"), "user": user}
     del data["course"]
