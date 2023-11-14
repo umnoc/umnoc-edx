@@ -48,7 +48,7 @@ class ORJSONRenderer(BaseRenderer):
         return orjson.dumps(data, default=self.default)
 
 
-api = NinjaAPI(renderer=ORJSONRenderer())
+api = NinjaAPI(renderer=ORJSONRenderer(), urls_namespace='umnoc-api')
 
 
 @api.exception_handler(AuthenticationError)
