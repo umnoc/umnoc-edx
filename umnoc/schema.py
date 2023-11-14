@@ -212,6 +212,7 @@ CourseSchema = create_schema(
         "format",
         "enrollment_allowed",
         "status",
+        "external_link",
     ],
     custom_fields=[
         ("course_id", Any, None),

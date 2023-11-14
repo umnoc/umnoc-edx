@@ -142,6 +142,7 @@ class CourseAdmin(CloneModelAdmin, SimpleHistoryAdmin):
             {
                 "classes": ("wide",),
                 "fields": (
+                    "external_link",
                     "display_name_f",
                     "organization_f",
                     "course_image_url_f",

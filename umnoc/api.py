@@ -64,7 +64,7 @@ def authentication_error(request: HttpRequest, exc: AuthenticationError):
 
 
 class CourseFilterSchema(FilterSchema):
-    search: Optional[str] = Field(q=["course_overview__display_name__icontains"])
+    search: Optional[str] = Field(q=["course_overview__display_name__icontains", "display_name_f__icontains"])
 
 
 @api.get("/me", auth=django_auth, response=UserProfileSchema)

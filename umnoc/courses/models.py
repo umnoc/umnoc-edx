@@ -77,6 +77,7 @@ class Course(CloneModel, TimeStampedModel, SoftDeletableModel):
     lang = models.CharField(_('Language'), max_length=32, blank=True, null=True)
     display_name_f = models.CharField(_('External display name'), max_length=255, blank=True, null=True)
     organization_f = models.CharField(_('External organization name'), max_length=255, blank=True, null=True)
+    external_link = models.URLField(_('External link'), blank=True, null=True)
 
     history = HistoricalRecords(excluded_fields=['status', 'published_at'])
     STATUS = Choices('draft', 'published')
