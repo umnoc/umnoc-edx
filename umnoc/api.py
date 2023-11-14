@@ -48,7 +48,7 @@ class ORJSONRenderer(BaseRenderer):
         return orjson.dumps(data, default=self.default)
 
 
-api = NinjaAPI(renderer=ORJSONRenderer(), csrf=False)
+api = NinjaAPI(renderer=ORJSONRenderer())
 
 
 @api.exception_handler(AuthenticationError)
