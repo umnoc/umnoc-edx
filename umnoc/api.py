@@ -82,7 +82,7 @@ def profile(request):
 
 
 @api.post(
-    # "me/learning_request",
+    "me/learning_request",
     # auth=django_auth,
     description="Создание, наполнение профиля пользователя и заявки на обучение",
 )
