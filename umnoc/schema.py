@@ -106,7 +106,9 @@ class UrFUProfileIn(Schema):
     education_level: str
     job: str
     position: str
-    birth_date: date
+    birth_date: str
+    course: str
+    specialty: str
 
 
 class ChapterSchema(Schema):
