@@ -98,7 +98,7 @@ def fill_profile(request, payload: UrFUProfileIn):
     # verified_profile.save()
     # TODO send lead to bitrix24 
 
-    learning_request = LearningRequest.objects.create({"course_id": data.get("course"), "user": user})
+    learning_request = LearningRequest.objects.create(course_id=data.get("course"), user=user)
     return learning_request
 
 
