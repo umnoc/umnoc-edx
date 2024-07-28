@@ -64,7 +64,9 @@ def authentication_error(request: HttpRequest, exc: AuthenticationError):
 
 
 class CourseFilterSchema(FilterSchema):
-    search: Optional[str] = Field(q=["course_overview__display_name__icontains", "display_name_f__icontains"])
+    search: Optional[str] = Field(
+        q=["course_overview__display_name__icontains", "display_name_f__icontains"]
+    )
 
 
 @api.get("/me", auth=django_auth, response=UserProfileSchema)
@@ -98,7 +100,9 @@ def fill_profile(request, payload: UrFUProfileIn):
     # verified_profile.save()
     # TODO send lead to bitrix24
 
-    learning_request = LearningRequest.objects.create(course_id=data.get("course"), user=user)
+    learning_request = LearningRequest.objects.create(
+        course_id=data.get("course"), user=user
+    )
     return learning_request
 
 
@@ -144,10 +148,15 @@ def programs(request):
     qs = Program.objects.filter(active=True, status="published")
     return qs
 
-@api.get("/programs/{str:id}", response=ProgramSchema)  # TODO: В списке курсов отдавать только опубликованные
+
+@api.get(
+    "/programs/{str:id}", response=ProgramSchema
+)  # TODO: В списке курсов отдавать только опубликованные
 def get_program(request, id: str):
     programs = Program.objects.filter(active=True, status="published")
-    program = get_object_or_404(programs, slug=id)  # TODO: Отдавать только активные и опубликованные. Это же с курсами (если не суперюзер)
+    program = get_object_or_404(
+        programs, slug=id
+    )  # TODO: Отдавать только активные и опубликованные. Это же с курсами (если не суперюзер)
     log.warning(f"PROGRAM: {program}; SLUG: {id}")
     return program
 
