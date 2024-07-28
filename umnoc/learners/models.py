@@ -28,9 +28,9 @@ class LearningRequest(TimeStampedModel):
 
     class Meta:
         app_label = "umnoc"
-        unique_together = (
-            ('user', 'course_id'),
-        )
+        # unique_together = (
+        #     ('user', 'course_id'),
+        # )
 
     def __str__(self):
         return f'<LearningRequest, ID: {self.id}>'

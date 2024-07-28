@@ -11,7 +11,7 @@ class UmnocEdxConfig(AppConfig):
     Configuration for the umnoc Django application.
     """
 
-    name = 'umnoc'
+    name = "umnoc"
 
     def ready(self):
         pass
@@ -19,5 +19,5 @@ class UmnocEdxConfig(AppConfig):
 
 class UMNOCAdminConfig(AdminConfig):
     # default_site = 'umnoc.admin.UMNOCAdminSite'
-    name = 'umnoc.admin.UMNOCAdminSite'
-    label = 'umnoc_admin'
+    name = "umnoc.admin.UMNOCAdminSite"
+    label = "umnoc_admin"

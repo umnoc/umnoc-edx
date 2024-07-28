@@ -90,13 +90,13 @@ def fill_profile(request, payload: UrFUProfileIn):
     user = User.objects.get(username=request.auth)
     # user=User.objects.get(pk=14)
     data = payload.dict()
-    # learning_request_data = 
+    # learning_request_data =
     # del data["course"]
-    
+
     # verified_profile = UrFUProfile(**data)
     # verified_profile.user = user
     # verified_profile.save()
-    # TODO send lead to bitrix24 
+    # TODO send lead to bitrix24
 
     learning_request = LearningRequest.objects.create(course_id=data.get("course"), user=user)
     return learning_request
