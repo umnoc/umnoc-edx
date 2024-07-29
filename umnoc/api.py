@@ -26,6 +26,7 @@ from .schema import (
     UserProfileSchema,
     UrFUProfileSchema,
     UrFUProfileIn,
+    LearningRequestIn,
     ProgramEnrollmentIn,
     LikedCourseIn,
     CourseSchema,
@@ -86,9 +87,9 @@ def profile(request):
 @api.post(
     "me/learning_request",
     auth=django_auth,
-    description="Создание, наполнение профиля пользователя и заявки на обучение",
+    description="Создание, наполнение профиля пользователя и заявки на обучение. Сейчас все данные в Заявке",
 )
-def fill_profile(request, payload: UrFUProfileIn):
+def fill_profile(request, payload: LearningRequestIn):
     user = User.objects.get(username=request.auth)
     # user=User.objects.get(pk=14)
     data = payload.dict()
@@ -101,7 +102,19 @@ def fill_profile(request, payload: UrFUProfileIn):
     # TODO send lead to bitrix24
 
     learning_request = LearningRequest.objects.create(
-        course_id=data.get("course"), user=user
+        course_id=data.get("course"),
+        user=user,
+        last_name=data.get("last_name"),
+        first_name=data.get("first_name"),
+        second_name=data.get("second_name"),
+        phone=data.get("phone"),
+        SNILS=data.get("SNILS"),
+        specialty=data.get("specialty"),
+        country=data.get("country"),
+        education_level=data.get("education_level"),
+        job=data.get("job"),
+        position=data.get("position"),
+        birth_date=data.get("birth_date"),
     )
     return learning_request
 

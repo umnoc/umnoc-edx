@@ -12,5 +12,5 @@ from .core.models import (
     TextBlock,
 )
 from .courses.models import Course, Competence, Result, Author
-from .learners.models import ProgramEnrollment
+from .learners.models import ProgramEnrollment, LearningRequest
 from .profiles.models import Profile, Reflection, Question, Answer

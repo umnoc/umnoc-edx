@@ -198,7 +198,13 @@ class ProgramEnrollmentAdmin(admin.ModelAdmin):
 
 @admin.register(LearningRequest, site=umnoc_admin_site)
 class LearningRequestAdmin(admin.ModelAdmin):
-    list_display = ("user", "course_id", "status")
+    list_display = (
+        "user",
+        "course_id",
+        "status",
+        "created",
+        "modified",
+    )
     list_filter = ("status",)
     search_fields = ("user",)
     raw_id_fields = ("user",)

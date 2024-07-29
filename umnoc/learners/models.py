@@ -1,6 +1,7 @@
 """
 Database models for umnoc.
 """
+
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
@@ -19,11 +20,28 @@ class LearningRequest(TimeStampedModel):
     STATUS_CHOICES = EnrollmentStatuses.__MODEL_CHOICES__
 
     user = models.ForeignKey(
-        get_user_model(), on_delete=models.CASCADE, related_name="learning_requests",
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name="learning_requests",
     )
     course_id = models.PositiveSmallIntegerField()
 
-    status = models.CharField(max_length=9, default='pending', choices=STATUS_CHOICES)
+    last_name = models.CharField("Фамилия", max_length=255, null=False, blank=False)
+    first_name = models.CharField("Имя", max_length=255, null=False, blank=False)
+    second_name = models.CharField("Отчество", max_length=255, null=True, blank=True)
+    phone = models.CharField("Телефон", max_length=255, null=False, blank=False)
+
+    SNILS = models.CharField("Номер СНИЛС", max_length=255, null=True, blank=True)
+    specialty = models.CharField(
+        "Специальность (направление подготовки)", max_length=355, null=True, blank=True
+    )
+    country = models.CharField("Гражданство", max_length=255, null=True, blank=True)
+    education_level = models.CharField("Уровень базового образования", max_length=255)
+    job = models.CharField("Место работы", max_length=2048, null=True, blank=True)
+    position = models.CharField("Должность", max_length=2048, null=True, blank=True)
+    birth_date = models.CharField("Дата рождения", max_length=16, null=True, blank=True)
+
+    status = models.CharField(max_length=9, default="pending", choices=STATUS_CHOICES)
     historical_records = HistoricalRecords()
 
     class Meta:
@@ -33,7 +51,7 @@ class LearningRequest(TimeStampedModel):
         # )
 
     def __str__(self):
-        return f'<LearningRequest, ID: {self.id}>'
+        return f"<LearningRequest, ID: {self.id}>"
 
 
 class ProgramEnrollment(TimeStampedModel):
@@ -43,6 +61,7 @@ class ProgramEnrollment(TimeStampedModel):
     .. pii_types: other
     .. pii_retirement: local_api
     """
+
     STATUS_CHOICES = EnrollmentStatuses.__MODEL_CHOICES__
 
     class Meta:
@@ -51,29 +70,28 @@ class ProgramEnrollment(TimeStampedModel):
         # A student enrolled in a given (program, project) should always
         # have a non-null ``user`` or ``external_user_key`` field (or both).
         unique_together = (
-            ('user', 'program_uuid', 'project_uuid'),
-            ('external_user_key', 'program_uuid', 'project_uuid'),
+            ("user", "program_uuid", "project_uuid"),
+            ("external_user_key", "program_uuid", "project_uuid"),
         )
 
     user = models.ForeignKey(
         get_user_model(),
         null=True,
-        blank=True, on_delete=models.CASCADE,
+        blank=True,
+        on_delete=models.CASCADE,
         related_name="umnoc_programs",
     )
-    external_user_key = models.CharField(
-        db_index=True,
-        max_length=255,
-        null=True
-    )
+    external_user_key = models.CharField(db_index=True, max_length=255, null=True)
     program_uuid = models.UUIDField(db_index=True, null=False)
     project_uuid = models.UUIDField(db_index=True, null=False)
-    status = models.CharField(max_length=9, default='pending', choices=STATUS_CHOICES)
+    status = models.CharField(max_length=9, default="pending", choices=STATUS_CHOICES)
     historical_records = HistoricalRecords()
 
     def clean(self):
         if not (self.user or self.external_user_key):
-            raise ValidationError(_('One of user or external_user_key must not be null.'))
+            raise ValidationError(
+                _("One of user or external_user_key must not be null.")
+            )
 
     @classmethod
     def retire_user(cls, user_id):
@@ -99,7 +117,7 @@ class ProgramEnrollment(TimeStampedModel):
         return True
 
     def __str__(self):
-        return f'<ProgrammEnrollment, ID: {self.id}>'
+        return f"<ProgrammEnrollment, ID: {self.id}>"
 
     def __repr__(self):
         return (  # lint-amnesty, pylint: disable=missing-format-attribute
