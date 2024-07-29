@@ -36,7 +36,7 @@ class LearningRequest(TimeStampedModel):
         "Специальность (направление подготовки)", max_length=355, null=True, blank=True
     )
     country = models.CharField("Гражданство", max_length=255, null=True, blank=True)
-    education_level = models.CharField("Уровень базового образования", max_length=255)
+    education_level = models.CharField("Уровень базового образования", max_length=255, null=True, blank=True)
     job = models.CharField("Место работы", max_length=2048, null=True, blank=True)
     position = models.CharField("Должность", max_length=2048, null=True, blank=True)
     birth_date = models.CharField("Дата рождения", max_length=16, null=True, blank=True)
