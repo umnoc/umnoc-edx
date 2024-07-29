@@ -12,6 +12,7 @@ from openedx.core.djangoapps.models.course_details import CourseDetails
 from .core.models import Program, Project, Organization
 from .courses.models import Course, Author, Competence, Result, LikedCourse
 from .profiles.models import LeadRequest, UrFUProfile
+from .learners.models import LearningRequest
 
 log = logging.getLogger(__name__)
 
@@ -46,7 +47,7 @@ class UrFUProfileSchema(ModelSchema):
 class LearningRequestSchema(ModelSchema):
 
     class Config:
-        model = LeadRequest
+        model = LearningRequest
         model_fields = [
             "last_name",
             "first_name",
