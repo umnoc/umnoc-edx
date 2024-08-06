@@ -7,7 +7,7 @@ django-ninja==0.22.2
 django-ninja-extra==0.19.8
 orjson
 django-admin-ordering
-django-jazzmin
+django-jazzmin>=2.6.0,<3.0.0
 django-summernote
 fast-bitrix24
 django-clone
